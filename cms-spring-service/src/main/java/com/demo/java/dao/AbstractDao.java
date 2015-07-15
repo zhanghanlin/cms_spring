@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.demo.java.entity.Module;
 import com.demo.java.utils.reflect.ReflectUtils;
 
 /**
@@ -27,12 +26,6 @@ public abstract class AbstractDao<T> {
         String sql = ReflectUtils.getInsertSQL(t);
         Object[] objs = ReflectUtils.getBeanValue(t).toArray();
         return jdbcTemplate.update(sql, objs);
-    }
-
-    public static void main(String[] args) {
-        Module t = new Module();
-        String sql = ReflectUtils.getInsertSQL(t);
-        System.out.println(sql);
     }
 
     public int update(T t) {

@@ -30,6 +30,7 @@ $(function() {
 				Base.log.error('input submit is error!');
 			}
 		});
+		window.location.href = "/template/module/list";
 	});
 
 	$('#cancel').click(function() {
