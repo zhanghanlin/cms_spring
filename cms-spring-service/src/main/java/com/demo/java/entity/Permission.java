@@ -5,25 +5,55 @@ import com.demo.java.annotation.Table;
 @Table(name = "CMS_PERMISSION")
 public class Permission extends AbstractEntity {
 
-    private static final long serialVersionUID = 1056036494403461663L;
+    private static final long serialVersionUID = -5659904969381960163L;
 
-    private Long permissionId;
+    private String name;
 
-    private Long roleId;
+    private String code;
 
-    public Long getPermissionId() {
-        return permissionId;
+    private String parentCode;
+
+    private String note;
+
+    private int status;
+
+    public String getName() {
+        return name;
     }
 
-    public void setPermissionId(Long permissionId) {
-        this.permissionId = permissionId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public String getCode() {
+        return code;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getParentCode() {
+        return parentCode;
+    }
+
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

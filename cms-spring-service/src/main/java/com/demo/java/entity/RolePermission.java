@@ -5,11 +5,11 @@ import com.demo.java.annotation.Table;
 @Table(name = "CMS_ROLE_PERMISSION")
 public class RolePermission extends AbstractEntity {
 
-    private static final long serialVersionUID = -2954704403355189076L;
+    private static final long serialVersionUID = -4651214360519871142L;
 
     private int roleId;
 
-    private int permissionId;
+    private int permissionCode;
 
     public int getRoleId() {
         return roleId;
@@ -19,11 +19,11 @@ public class RolePermission extends AbstractEntity {
         this.roleId = roleId;
     }
 
-    public int getPermissionId() {
-        return permissionId;
+    public int getPermissionCode() {
+        return permissionCode;
     }
 
-    public void setPermissionId(int permissionId) {
-        this.permissionId = permissionId;
+    public void setPermissionCode(int permissionCode) {
+        this.permissionCode = permissionCode;
     }
 }

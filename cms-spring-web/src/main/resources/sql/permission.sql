@@ -4,8 +4,10 @@
 DROP TABLE IF EXISTS `cms_permission`;
 CREATE TABLE `cms_permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `permission_name` varchar(100) NOT NULL COMMENT '权限名',
-  `permission_note` varchar(200) COMMENT '权限说明',
+  `name` varchar(100) NOT NULL COMMENT '权限名',
+  `note` varchar(200) COMMENT '权限说明',
+  `code` varchar(200) COMMENT '权限结构码',
+  `parent_code` varchar(200) COMMENT '上一级权限',
   `status` int(3) NOT NULL DEFAULT '0' COMMENT '状态,默认正常',
   `created_at` date NOT NULL COMMENT '创建时间',
   `created_by` varchar(100) NOT NULL COMMENT '创建人',
@@ -14,5 +16,5 @@ CREATE TABLE `cms_permission` (
   `version` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNI_ID` (`id`) USING BTREE,
-  UNIQUE KEY `UNI_PNAME` (`permission_name`) USING BTREE
+  UNIQUE KEY `UNI_PNAME` (`code`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;

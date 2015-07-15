@@ -7,26 +7,26 @@ public class Role extends AbstractEntity {
 
     private static final long serialVersionUID = 376155477413085670L;
 
-    private String roleName;
+    private String name;
 
-    private String roleNote;
+    private String note;
 
     private int status;
 
-    public String getRoleName() {
-        return roleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRoleNote() {
-        return roleNote;
+    public String getNote() {
+        return note;
     }
 
-    public void setRoleNote(String roleNote) {
-        this.roleNote = roleNote;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public int getStatus() {
