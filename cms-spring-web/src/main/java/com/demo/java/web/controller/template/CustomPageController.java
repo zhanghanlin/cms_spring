@@ -95,7 +95,7 @@ public class CustomPageController extends AbstractController {
         return model;
     }
 
-    @RequestMapping(value = "/update/{id}")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<CustomPage> update(@PathVariable Long id, @RequestParam String name, @RequestParam String data, @RequestParam String path) {
         CustomPage t = customPageService.get(id);
@@ -134,7 +134,7 @@ public class CustomPageController extends AbstractController {
         return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
     }
 
-    @RequestMapping(value = "/delete/{id}")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<CustomPage> delete(@PathVariable Long id) {
         try {
