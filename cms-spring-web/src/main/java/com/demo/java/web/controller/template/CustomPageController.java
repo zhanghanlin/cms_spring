@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.demo.java.dict.Status;
 import com.demo.java.entity.CustomPage;
 import com.demo.java.service.CustomPageService;
@@ -29,6 +28,8 @@ import com.demo.java.utils.file.FileConstants;
 import com.demo.java.utils.file.FileUtils;
 import com.demo.java.utils.string.StringUtils;
 import com.demo.java.web.controller.AbstractController;
+import com.demo.java.web.response.ResponseContent;
+import com.demo.java.web.response.ResponseEnum;
 
 @Controller
 @RequestMapping("/template/page")
@@ -56,13 +57,15 @@ public class CustomPageController extends AbstractController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(HttpServletRequest request, String name, String data, String path) {
+    @ResponseBody
+    public ResponseContent<CustomPage> add(HttpServletRequest request, String name, String data, String path) {
         String fileName = FileConstants.PAGE_VM_PREFIX + String.valueOf(((new Date()).getTime() / 1000));
         if (StringUtils.isNotBlank(data)) {
             try {
                 data = URLDecoder.decode(data, Constants.ENCODING);
             } catch (UnsupportedEncodingException e) {
                 LOG.error("UnsupportedEncodingException error :{}", e.getMessage(), e);
+                return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
             }
             data = StringUtils.unicode2String(data);
         }
@@ -75,8 +78,13 @@ public class CustomPageController extends AbstractController {
         t.setIsRefresh(0);
         t.setPath(path);
         t.setStatus(Status.NORMAL);
-        customPageService.save(t);
-        return "/template/page/list";
+        try {
+            customPageService.save(t);
+            return new ResponseContent<CustomPage>(ResponseEnum.SUCCESS, t);
+        } catch (Exception e) {
+            LOG.error("add custompage error:{}", e.getMessage(), e);
+        }
+        return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/edit/{id}")
@@ -88,42 +96,53 @@ public class CustomPageController extends AbstractController {
     }
 
     @RequestMapping(value = "/update/{id}")
-    public ModelAndView update(@PathVariable Long id, @RequestParam String name, @RequestParam String data, @RequestParam String path) {
-        ModelAndView model = new ModelAndView();
+    @ResponseBody
+    public ResponseContent<CustomPage> update(@PathVariable Long id, @RequestParam String name, @RequestParam String data, @RequestParam String path) {
         CustomPage t = customPageService.get(id);
         t.setName(name);
         t.setPath(path);
-        int res = customPageService.update(t);
-        if (res > 0) {
-            String vm = FileConstants.PAGE_VM_PATH + "/" + t.getFileName() + ".vm";
-            try {
-                FileUtils.writeStringToFile(new File(vm), data);
-            } catch (IOException e) {
-                LOG.error("IOException error :{}", e.getMessage(), e);
+        try {
+            int res = customPageService.update(t);
+            if (res > 0) {
+                String vm = FileConstants.PAGE_VM_PATH + "/" + t.getFileName() + ".vm";
+                try {
+                    FileUtils.writeStringToFile(new File(vm), data);
+                    t.setData(data);
+                    return new ResponseContent<CustomPage>(ResponseEnum.SUCCESS, t);
+                } catch (IOException e) {
+                    LOG.error("IOException error :{}", e.getMessage(), e);
+                }
             }
+        } catch (Exception e) {
+            LOG.error("update custompage error:{}", e.getMessage(), e);
         }
-        model.setViewName("template/page/list");
-        return model;
+        return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/get/{id}")
     @ResponseBody
-    public JSONObject get(@PathVariable Long id) {
-        CustomPage t = customPageService.get(id);
-        JSONObject o = JSONObject.parseObject(t.toJSON());
-        String vm = FileConstants.PAGE_VM_PATH + "/" + t.getFileName() + ".vm";
+    public ResponseContent<CustomPage> get(@PathVariable Long id) {
         try {
+            CustomPage t = customPageService.get(id);
+            String vm = FileConstants.PAGE_VM_PATH + "/" + t.getFileName() + ".vm";
             String data = FileUtils.readFileToString(new File(vm), Constants.ENCODING);
-            o.put("data", data);
+            t.setData(data);
+            return new ResponseContent<CustomPage>(ResponseEnum.SUCCESS, t);
         } catch (IOException e) {
-            LOG.error("getData error : {}", e.getMessage(), e);
+            LOG.error("get error : {}", e.getMessage(), e);
         }
-        return o;
+        return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/delete/{id}")
     @ResponseBody
-    public int delete(@PathVariable Long id) {
-        return customPageService.delete(id);
+    public ResponseContent<CustomPage> delete(@PathVariable Long id) {
+        try {
+            customPageService.delete(id);
+            return new ResponseContent<CustomPage>(ResponseEnum.SUCCESS);
+        } catch (Exception e) {
+            LOG.error("delete error : {}", e.getMessage(), e);
+        }
+        return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
     }
 }

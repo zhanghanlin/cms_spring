@@ -63,7 +63,7 @@ $(function() {
 			type : 'GET',
 			dataType : 'JSON',
 			success : function(obj) {
-				var data = Base.string.deUnicode(obj.data);
+				var data = Base.string.deUnicode(obj.data.data);
 				setText(data);
 			}
 		});

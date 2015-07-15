@@ -92,7 +92,7 @@ public class ReflectUtils {
                     values.append("?,");
                 }
             } catch (Exception e) {
-                LOG.error("getSQLValues error:{}", e.getMessage(), e);
+                LOG.error("getInsertSQL error:{}", e.getMessage(), e);
             }
         }
         if ((cols.length() > 1) && (values.length() > 1)) {
@@ -137,7 +137,7 @@ public class ReflectUtils {
                     cols.append(field2Column(field) + " = ?,");
                 }
             } catch (Exception e) {
-                LOG.error("getSQLValues error:{}", e.getMessage(), e);
+                LOG.error("getUpdateSQL error:{}", e.getMessage(), e);
             }
         }
         if (cols.length() > 1) {

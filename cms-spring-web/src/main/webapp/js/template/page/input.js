@@ -25,7 +25,7 @@ $(function() {
 				Base.log.error('input submit is error!');
 			}
 		});
-		window.location.href = "/template/module/list";
+		window.location.href = "/template/page/list";
 	});
 
 	$('#cancel').click(function() {
@@ -40,7 +40,7 @@ $(function() {
 			type : 'GET',
 			dataType : 'JSON',
 			success : function(obj) {
-				var data = Base.string.deUnicode(obj.data);
+				var data = Base.string.deUnicode(obj.data.data);
 				editor.Editor('setText', data);
 			}
 		});

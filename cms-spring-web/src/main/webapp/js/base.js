@@ -334,12 +334,12 @@ Base.log = {
 	}
 }
 
-//Init
+// Init
 Base.include.css("/css/ace.css");
 Base.include.css("/css/bootstrap.min.css");
 Base.include.css("/css/dashboard/dashboard.css");
 Base.include.js("/js/jquery.form.js");
-Base.include.js("/js/bootstrap.min.js",function(){
+Base.include.js("/js/bootstrap.min.js", function() {
 	var _type = $('#_type').val();
 	if (_type) {
 		$('#' + _type).addClass('active');

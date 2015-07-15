@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.demo.java.dict.Status;
 import com.demo.java.entity.Module;
 import com.demo.java.service.ModuleService;
@@ -29,6 +28,8 @@ import com.demo.java.utils.file.FileConstants;
 import com.demo.java.utils.file.FileUtils;
 import com.demo.java.utils.string.StringUtils;
 import com.demo.java.web.controller.AbstractController;
+import com.demo.java.web.response.ResponseContent;
+import com.demo.java.web.response.ResponseEnum;
 
 @Controller
 @RequestMapping("/template/module")
@@ -56,13 +57,15 @@ public class ModuleController extends AbstractController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(HttpServletRequest request, String name, int moduleType, String data) {
+    @ResponseBody
+    public ResponseContent<Module> add(HttpServletRequest request, String name, int moduleType, String data) {
         String fileName = FileConstants.MODULE_VM_PREFIX + String.valueOf(((new Date()).getTime() / 1000));
         if (StringUtils.isNotBlank(data)) {
             try {
                 data = URLDecoder.decode(data, Constants.ENCODING);
             } catch (UnsupportedEncodingException e) {
                 LOG.error("UnsupportedEncodingException error :{}", e.getMessage(), e);
+                return new ResponseContent<Module>(ResponseEnum.ERROR);
             }
             data = StringUtils.unicode2String(data);
         }
@@ -75,8 +78,13 @@ public class ModuleController extends AbstractController {
         t.setStatus(Status.NORMAL);
         t.setIsRefresh(0);
         t.setType(moduleType);
-        moduleService.save(t);
-        return "/template/module/list";
+        try {
+            moduleService.save(t);
+            return new ResponseContent<Module>(ResponseEnum.SUCCESS, t);
+        } catch (Exception e) {
+            LOG.error("add module error:{}", e.getMessage(), e);
+            return new ResponseContent<Module>(ResponseEnum.ERROR);
+        }
     }
 
     @RequestMapping(value = "/edit/{id}")
@@ -88,41 +96,51 @@ public class ModuleController extends AbstractController {
     }
 
     @RequestMapping(value = "/update/{id}")
-    public ModelAndView update(@PathVariable Long id, @RequestParam String name, @RequestParam String data, @RequestParam String moduleType) {
-        ModelAndView model = new ModelAndView();
+    @ResponseBody
+    public ResponseContent<Module> update(@PathVariable Long id, @RequestParam String name, @RequestParam String data, @RequestParam String moduleType) {
         Module t = moduleService.get(id);
         t.setName(name);
-        int res = moduleService.update(t);
-        if (res > 0) {
-            String vm = FileConstants.MODULE_VM_PATH + "/" + t.getFileName() + ".vm";
-            try {
-                FileUtils.writeStringToFile(new File(vm), data);
-            } catch (IOException e) {
-                LOG.error("IOException error :{}", e.getMessage(), e);
+        try {
+            int res = moduleService.update(t);
+            if (res > 0) {
+                String vm = FileConstants.MODULE_VM_PATH + "/" + t.getFileName() + ".vm";
+                try {
+                    FileUtils.writeStringToFile(new File(vm), data);
+                    return new ResponseContent<Module>(ResponseEnum.SUCCESS, t);
+                } catch (IOException e) {
+                    LOG.error("IOException error :{}", e.getMessage(), e);
+                }
             }
+        } catch (Exception e) {
+            LOG.error("update module error:{}", e.getMessage(), e);
         }
-        model.setViewName("template/module/list");
-        return model;
+        return new ResponseContent<Module>(ResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/get/{id}")
     @ResponseBody
-    public JSONObject get(@PathVariable Long id) {
-        Module t = moduleService.get(id);
-        JSONObject o = JSONObject.parseObject(t.toJSON());
-        String vm = FileConstants.MODULE_VM_PATH + "/" + t.getFileName() + ".vm";
+    public ResponseContent<Module> get(@PathVariable Long id) {
         try {
+            Module t = moduleService.get(id);
+            String vm = FileConstants.MODULE_VM_PATH + "/" + t.getFileName() + ".vm";
             String data = FileUtils.readFileToString(new File(vm), Constants.ENCODING);
-            o.put("data", data);
+            t.setData(data);
+            return new ResponseContent<Module>(ResponseEnum.SUCCESS, t);
         } catch (IOException e) {
             LOG.error("getData error : {}", e.getMessage(), e);
         }
-        return o;
+        return new ResponseContent<Module>(ResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/delete/{id}")
     @ResponseBody
-    public int delete(@PathVariable Long id) {
-        return moduleService.delete(id);
+    public ResponseContent<Module> delete(@PathVariable Long id) {
+        try {
+            moduleService.delete(id);
+            return new ResponseContent<Module>(ResponseEnum.SUCCESS);
+        } catch (Exception e) {
+            LOG.error("delete error : {}", e.getMessage(), e);
+        }
+        return new ResponseContent<Module>(ResponseEnum.ERROR);
     }
 }
