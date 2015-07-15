@@ -4,9 +4,9 @@ $(function() {
 		$.ajax({
 			url : '/template/module/delete/' + _this.attr('tid'),
 			type : 'POST',
-			dataType : 'text',
+			dataType : 'JSON',
 			success : function(obj) {
-				if (obj * 1 > 0) {
+				if (obj.code * 1 == 200) {
 					_this.parents('tr').remove();
 				}
 			}

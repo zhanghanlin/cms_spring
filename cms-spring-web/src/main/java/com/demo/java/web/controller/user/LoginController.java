@@ -16,7 +16,8 @@ import com.demo.java.web.controller.AbstractController;
 import com.demo.java.web.response.ResponseContent;
 import com.demo.java.web.response.ResponseEnum;
 
-@Controller("/login")
+@Controller
+@RequestMapping("/login")
 public class LoginController extends AbstractController {
 
     static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
@@ -29,7 +30,9 @@ public class LoginController extends AbstractController {
     public ResponseContent<User> valid(@RequestParam String userName, @RequestParam String password) {
         try {
             User t = userService.valid(userName, password);
-            return new ResponseContent<User>(ResponseEnum.SUCCESS, t);
+            if (t != null) {
+                return new ResponseContent<User>(ResponseEnum.SUCCESS, t);
+            }
         } catch (Exception e) {
             LOG.error("valid user : {}, error : {}", userName, e.getMessage(), e);
         }

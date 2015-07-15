@@ -23,6 +23,7 @@ $(function() {
 		$('#inputPage').ajaxSubmit({
 			url : url,
 			type : 'POST',
+			dataType : 'JSON',
 			success : function(obj) {
 				Base.log.info('input submit is OK!');
 			},
