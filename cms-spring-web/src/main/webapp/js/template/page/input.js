@@ -8,9 +8,9 @@ $(function() {
 	});
 	var id = $('#id').val();
 	$('#submit').click(function() {
-		var url = '/template/page/add';
+		var url = '/template/page/api/add';
 		if (id) {
-			url = '/template/page/update/' + id;
+			url = '/template/page/api/update/' + id;
 		}
 		var data = editor.Editor('getText');
 		data = Base.string.enUnicode(data) || '';
@@ -37,7 +37,7 @@ $(function() {
 		if (!id)
 			return false;
 		$.ajax({
-			url : '/template/page/get/' + id,
+			url : '/template/page/api/get/' + id,
 			type : 'GET',
 			dataType : 'JSON',
 			success : function(obj) {

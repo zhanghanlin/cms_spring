@@ -2,7 +2,7 @@ $(function() {
 	$('a.delete').click(function(){
 		var _this = $(this);
 		$.ajax({
-			url : '/template/page/delete/' + _this.attr('tid'),
+			url : '/template/page/api/delete/' + _this.attr('tid'),
 			type : 'POST',
 			dataType : 'JSON',
 			success : function(obj) {

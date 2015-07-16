@@ -13,9 +13,9 @@ $(function() {
 	var type = $('#moduleType').val();
 
 	$('#submit').click(function() {
-		var url = '/template/module/add';
+		var url = '/template/module/api/add';
 		if (id) {
-			url = '/template/module/update/' + id;
+			url = '/template/module/api/update/' + id;
 		}
 		var data = getText();
 		data = Base.string.enUnicode(data) || '';
@@ -60,7 +60,7 @@ $(function() {
 		if (!id)
 			return false;
 		$.ajax({
-			url : '/template/module/get/' + id,
+			url : '/template/module/api/get/' + id,
 			type : 'GET',
 			dataType : 'JSON',
 			success : function(obj) {

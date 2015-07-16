@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.demo.java.entity.User;
-import com.demo.java.service.UserService;
+import com.demo.java.user.entity.User;
+import com.demo.java.user.service.UserService;
 import com.demo.java.web.controller.AbstractController;
 import com.demo.java.web.response.ResponseContent;
 import com.demo.java.web.response.ResponseEnum;
