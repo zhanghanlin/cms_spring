@@ -21,13 +21,11 @@ public abstract class AbstractEntity implements Serializable {
 
     private Long id;
 
-    @JSONField(serialize = false)
     private Date createdAt;
 
     @JSONField(serialize = false)
     private String createdBy;
 
-    @JSONField(serialize = false)
     private Date changedAt;
 
     @JSONField(serialize = false)

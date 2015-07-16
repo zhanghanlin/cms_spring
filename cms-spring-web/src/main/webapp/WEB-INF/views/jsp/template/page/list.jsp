@@ -35,21 +35,7 @@
 								<th>操作</th>
 							</tr>
 						</thead>
-						<tbody>
-                        <c:forEach items="${list}" var="t">
-							<tr>
-								<th scope="row">${t.id }</th>
-								<td>${t.name }</td>
-								<td>${t.fileName }</td>
-								<td>${t.path }</td>
-								<td>${t.createdAt }</td>
-								<td>
-									<a class="btn btn-default btn-xs" href="edit/${t.id }" role="button">修改</a>
-									<a class="btn btn-default btn-xs delete" href="###" tid="${t.id }" role="button">删除</a>
-								</td>
-							</tr>
-                        </c:forEach>
-						</tbody>
+						<tbody></tbody>
 					</table>
 				</div>
 			</div>
