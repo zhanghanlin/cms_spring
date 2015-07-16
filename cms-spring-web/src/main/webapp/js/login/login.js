@@ -2,7 +2,7 @@ var passport = {
 	login : function() {
 		$('#navbar').delegate('button#login-btn','click',function() {
 			$('#loginForm').ajaxSubmit({
-				url : '/login/valid',
+				url : '/login/api/valid',
 				type : 'POST',
 				dataType:'JSON',
 				success : function(obj) {

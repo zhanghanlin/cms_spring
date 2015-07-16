@@ -40,6 +40,7 @@ public class ModuleApiController extends AbstractController {
     ModuleService moduleService;
 
     @RequestMapping(value = "/list")
+    @ResponseBody
     public ResponseContent<List<Module>> list() {
         try {
             List<Module> list = moduleService.getList();

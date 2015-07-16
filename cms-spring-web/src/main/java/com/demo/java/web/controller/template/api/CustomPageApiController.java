@@ -40,6 +40,7 @@ public class CustomPageApiController extends AbstractController {
     CustomPageService customPageService;
 
     @RequestMapping(value = "/list")
+    @ResponseBody
     public ResponseContent<List<CustomPage>> list() {
         try {
             List<CustomPage> list = customPageService.getList();

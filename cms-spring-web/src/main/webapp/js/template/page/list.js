@@ -12,4 +12,8 @@ $(function() {
 			}
 		});
 	});
+	
+	function init(){
+		
+	}
 })
