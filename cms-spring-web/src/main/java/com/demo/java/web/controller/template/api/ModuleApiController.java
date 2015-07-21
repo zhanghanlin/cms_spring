@@ -28,7 +28,7 @@ import com.demo.java.utils.file.FileUtils;
 import com.demo.java.utils.string.StringUtils;
 import com.demo.java.web.controller.AbstractController;
 import com.demo.java.web.response.ResponseContent;
-import com.demo.java.web.response.ResponseEnum;
+import com.demo.java.web.response.DefaultResponseEnum;
 
 @Controller
 @RequestMapping("/template/module/api")
@@ -44,11 +44,11 @@ public class ModuleApiController extends AbstractController {
     public ResponseContent<List<Module>> list() {
         try {
             List<Module> list = moduleService.getList();
-            return new ResponseContent<List<Module>>(ResponseEnum.SUCCESS, list);
+            return new ResponseContent<List<Module>>(DefaultResponseEnum.SUCCESS, list);
         } catch (Exception e) {
             LOG.error("list error :{}", e.getMessage(), e);
         }
-        return new ResponseContent<List<Module>>(ResponseEnum.ERROR);
+        return new ResponseContent<List<Module>>(DefaultResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -60,7 +60,7 @@ public class ModuleApiController extends AbstractController {
                 data = URLDecoder.decode(data, Constants.ENCODING);
             } catch (UnsupportedEncodingException e) {
                 LOG.error("UnsupportedEncodingException error :{}", e.getMessage(), e);
-                return new ResponseContent<Module>(ResponseEnum.ERROR);
+                return new ResponseContent<Module>(DefaultResponseEnum.ERROR);
             }
             data = StringUtils.unicode2String(data);
         }
@@ -75,10 +75,10 @@ public class ModuleApiController extends AbstractController {
         t.setType(moduleType);
         try {
             moduleService.save(t);
-            return new ResponseContent<Module>(ResponseEnum.SUCCESS, t);
+            return new ResponseContent<Module>(DefaultResponseEnum.SUCCESS, t);
         } catch (Exception e) {
             LOG.error("add module error:{}", e.getMessage(), e);
-            return new ResponseContent<Module>(ResponseEnum.ERROR);
+            return new ResponseContent<Module>(DefaultResponseEnum.ERROR);
         }
     }
 
@@ -93,7 +93,7 @@ public class ModuleApiController extends AbstractController {
                 String vm = FileConstants.MODULE_VM_PATH + "/" + t.getFileName() + ".vm";
                 try {
                     FileUtils.writeStringToFile(new File(vm), data);
-                    return new ResponseContent<Module>(ResponseEnum.SUCCESS, t);
+                    return new ResponseContent<Module>(DefaultResponseEnum.SUCCESS, t);
                 } catch (IOException e) {
                     LOG.error("IOException error :{}", e.getMessage(), e);
                 }
@@ -101,7 +101,7 @@ public class ModuleApiController extends AbstractController {
         } catch (Exception e) {
             LOG.error("update module error:{}", e.getMessage(), e);
         }
-        return new ResponseContent<Module>(ResponseEnum.ERROR);
+        return new ResponseContent<Module>(DefaultResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/get/{id}")
@@ -112,11 +112,11 @@ public class ModuleApiController extends AbstractController {
             String vm = FileConstants.MODULE_VM_PATH + "/" + t.getFileName() + ".vm";
             String data = FileUtils.readFileToString(new File(vm), Constants.ENCODING);
             t.setData(data);
-            return new ResponseContent<Module>(ResponseEnum.SUCCESS, t);
+            return new ResponseContent<Module>(DefaultResponseEnum.SUCCESS, t);
         } catch (IOException e) {
             LOG.error("getData error : {}", e.getMessage(), e);
         }
-        return new ResponseContent<Module>(ResponseEnum.ERROR);
+        return new ResponseContent<Module>(DefaultResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -124,10 +124,10 @@ public class ModuleApiController extends AbstractController {
     public ResponseContent<Module> delete(@PathVariable Long id) {
         try {
             moduleService.delete(id);
-            return new ResponseContent<Module>(ResponseEnum.SUCCESS);
+            return new ResponseContent<Module>(DefaultResponseEnum.SUCCESS);
         } catch (Exception e) {
             LOG.error("delete error : {}", e.getMessage(), e);
         }
-        return new ResponseContent<Module>(ResponseEnum.ERROR);
+        return new ResponseContent<Module>(DefaultResponseEnum.ERROR);
     }
 }

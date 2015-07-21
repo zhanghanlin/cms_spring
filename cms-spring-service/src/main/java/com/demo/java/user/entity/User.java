@@ -1,5 +1,6 @@
 package com.demo.java.user.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.demo.java.annotation.Table;
 import com.demo.java.common.entity.AbstractEntity;
 
@@ -10,6 +11,7 @@ public class User extends AbstractEntity {
 
     private String userName;
 
+    @JSONField(serialize = false)
     private String password;
 
     private int status;

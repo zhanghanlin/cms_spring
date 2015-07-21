@@ -28,7 +28,7 @@ import com.demo.java.utils.file.FileUtils;
 import com.demo.java.utils.string.StringUtils;
 import com.demo.java.web.controller.AbstractController;
 import com.demo.java.web.response.ResponseContent;
-import com.demo.java.web.response.ResponseEnum;
+import com.demo.java.web.response.DefaultResponseEnum;
 
 @Controller
 @RequestMapping("/template/page/api")
@@ -44,11 +44,11 @@ public class CustomPageApiController extends AbstractController {
     public ResponseContent<List<CustomPage>> list() {
         try {
             List<CustomPage> list = customPageService.getList();
-            return new ResponseContent<List<CustomPage>>(ResponseEnum.SUCCESS, list);
+            return new ResponseContent<List<CustomPage>>(DefaultResponseEnum.SUCCESS, list);
         } catch (Exception e) {
             LOG.error("list error :{}", e.getMessage(), e);
         }
-        return new ResponseContent<List<CustomPage>>(ResponseEnum.ERROR);
+        return new ResponseContent<List<CustomPage>>(DefaultResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -60,7 +60,7 @@ public class CustomPageApiController extends AbstractController {
                 data = URLDecoder.decode(data, Constants.ENCODING);
             } catch (UnsupportedEncodingException e) {
                 LOG.error("UnsupportedEncodingException error :{}", e.getMessage(), e);
-                return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
+                return new ResponseContent<CustomPage>(DefaultResponseEnum.ERROR);
             }
             data = StringUtils.unicode2String(data);
         }
@@ -75,11 +75,11 @@ public class CustomPageApiController extends AbstractController {
         t.setStatus(Status.NORMAL);
         try {
             customPageService.save(t);
-            return new ResponseContent<CustomPage>(ResponseEnum.SUCCESS, t);
+            return new ResponseContent<CustomPage>(DefaultResponseEnum.SUCCESS, t);
         } catch (Exception e) {
             LOG.error("add custompage error:{}", e.getMessage(), e);
         }
-        return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
+        return new ResponseContent<CustomPage>(DefaultResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
@@ -95,7 +95,7 @@ public class CustomPageApiController extends AbstractController {
                 try {
                     FileUtils.writeStringToFile(new File(vm), data);
                     t.setData(data);
-                    return new ResponseContent<CustomPage>(ResponseEnum.SUCCESS, t);
+                    return new ResponseContent<CustomPage>(DefaultResponseEnum.SUCCESS, t);
                 } catch (IOException e) {
                     LOG.error("IOException error :{}", e.getMessage(), e);
                 }
@@ -103,7 +103,7 @@ public class CustomPageApiController extends AbstractController {
         } catch (Exception e) {
             LOG.error("update custompage error:{}", e.getMessage(), e);
         }
-        return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
+        return new ResponseContent<CustomPage>(DefaultResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/get/{id}")
@@ -114,11 +114,11 @@ public class CustomPageApiController extends AbstractController {
             String vm = FileConstants.PAGE_VM_PATH + "/" + t.getFileName() + ".vm";
             String data = FileUtils.readFileToString(new File(vm), Constants.ENCODING);
             t.setData(data);
-            return new ResponseContent<CustomPage>(ResponseEnum.SUCCESS, t);
+            return new ResponseContent<CustomPage>(DefaultResponseEnum.SUCCESS, t);
         } catch (IOException e) {
             LOG.error("get error : {}", e.getMessage(), e);
         }
-        return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
+        return new ResponseContent<CustomPage>(DefaultResponseEnum.ERROR);
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -126,10 +126,10 @@ public class CustomPageApiController extends AbstractController {
     public ResponseContent<CustomPage> delete(@PathVariable Long id) {
         try {
             customPageService.delete(id);
-            return new ResponseContent<CustomPage>(ResponseEnum.SUCCESS);
+            return new ResponseContent<CustomPage>(DefaultResponseEnum.SUCCESS);
         } catch (Exception e) {
             LOG.error("delete error : {}", e.getMessage(), e);
         }
-        return new ResponseContent<CustomPage>(ResponseEnum.ERROR);
+        return new ResponseContent<CustomPage>(DefaultResponseEnum.ERROR);
     }
 }
