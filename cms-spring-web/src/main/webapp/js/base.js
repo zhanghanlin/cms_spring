@@ -333,16 +333,18 @@ Base.log = {
 		console.error(error);
 	}
 }
-
-// Init
-Base.include.css("/css/ace.css");
 Base.include.css("/css/bootstrap.min.css");
-Base.include.css("/css/dashboard/dashboard.css");
-Base.include.js("/js/bootstrap.min.js", function() {
-	var _type = $('#_type').val();
-	if (_type) {
-		$('#' + _type).addClass('active');
-		var id = $('#' + _type).parent().attr('id');
-		$('#' + id).collapse('show');
-	}
-});
+Base.include.css("/css/admin/font-awesome.min.css");
+Base.include.css("/css/admin/ionicons.min.css");
+Base.include.css("/css/admin/morris.css");
+Base.include.css("/css/admin/admin.min.css");
+Base.include.css("/css/admin/_all-skins.min.css");
+
+Base.include.js("/js/admin/fastclick.min.js");
+Base.include.js("/js/admin/app.min.js");
+Base.include.js("/js/jquery/jquery.sparkline.min.js");
+Base.include.js("/js/jquery/jquery-jvectormap.min.js");
+Base.include.js("/js/jquery/jquery-jvectormap-world-mill-en.js");
+Base.include.js("/js/jquery/jquery.slimscroll.min.js");
+Base.include.js("/js/admin/Chart.min.js");
+Base.include.js("/js/admin/admin.js");

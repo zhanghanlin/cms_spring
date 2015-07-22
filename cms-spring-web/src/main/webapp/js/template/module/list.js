@@ -29,8 +29,12 @@ $(function() {
 							<td>'+o.type+'</td>\
 							<td>'+o.createdAt+'</td>\
 							<td>\
-								<a class="btn btn-default btn-xs" href="edit/'+o.id+'" role="button">修改</a>\
-								<a class="btn btn-default btn-xs delete" href="###" tid="'+o.id+'" role="button">删除</a>\
+								<a class="btn btn-default btn-xs" href="edit/'+o.id+'" role="button">\
+									<i class="glyphicon glyphicon-cog"></i>\
+								</a>\
+								<a class="btn btn-default btn-xs delete" href="###" tid="'+o.id+'" role="button">\
+									<i class="glyphicon glyphicon-trash"></i>\
+								</a>\
 							</td>\
 						</tr>'
 					});
