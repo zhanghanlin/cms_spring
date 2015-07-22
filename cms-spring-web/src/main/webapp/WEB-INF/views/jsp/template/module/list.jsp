@@ -67,17 +67,25 @@
 		<script type="text/javascript" src="/js/bootstrap/dataTables.bootstrap.min.js"></script>
 		<script type="text/javascript">
 		$(function () {
-	        $('#list').DataTable({
-	          "paging": true,
-	          "lengthChange": false,
-	          "searching": false,
-	          "ordering": true,
-	          "info": true,
-	          "autoWidth": false,
-	          'bServerSide' : true,
-	          "ajaxSource" : '/template/module/api/list'
-	        });
-	      });
+			Base.include.css("/css/bootstrap/dataTables.bootstrap.css");
+			$('#list').DataTable({
+				"ajaxSource" : '/template/module/api/list',
+				"columns" : [ {
+					data : "id"
+				}, {
+					data : "name"
+				}, {
+					data : "fileName"
+				}, {
+					data : "type"
+				}, {
+					data : "createdAt"
+				}, {
+					data : "status"
+				} ],
+				"autoWidth" : false,
+			});
+		});
 		</script>
 	</body>
 </html>

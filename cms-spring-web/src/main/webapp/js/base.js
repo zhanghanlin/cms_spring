@@ -333,7 +333,7 @@ Base.log = {
 		console.error(error);
 	}
 }
-Base.include.css("/css/bootstrap.min.css");
+Base.include.css("/css/bootstrap/bootstrap.min.css");
 Base.include.css("/css/admin/font-awesome.min.css");
 Base.include.css("/css/admin/ionicons.min.css");
 Base.include.css("/css/admin/morris.css");
