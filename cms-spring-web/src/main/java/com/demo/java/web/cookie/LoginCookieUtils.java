@@ -14,13 +14,45 @@ public class LoginCookieUtils extends CookieUtils {
 
     static final Logger LOG = LoggerFactory.getLogger(LoginCookieUtils.class);
 
-    public static void loginSuccess(User user, HttpServletRequest request, HttpServletResponse response) {
+    /**
+     * 登陆成功写Cookie.<br/>
+     * 
+     * @author zhanghanlin
+     * @param user
+     * @param request
+     * @param response
+     * @since JDK 1.7
+     */
+    public static void setLoginCookie(User user, HttpServletRequest request, HttpServletResponse response) {
         String baseCode = Base64Utils.encode(user.getUserName() + "&" + user.getId().toString());
         addCookie(request, response, CookieConstants.CMS_LOGIN, baseCode, CookieConstants.MAX_AGE);
         addCookie(request, response, CookieConstants.CMS_USER_ID, user.getId().toString(), CookieConstants.MAX_AGE);
     }
 
-    public static boolean validLogin(HttpServletRequest request, HttpServletResponse response) {
+    /**
+     * 
+     * 清理登陆Cookie.<br/>
+     * 
+     * @author zhanghanlin
+     * @param request
+     * @param response
+     * @since JDK 1.7
+     */
+    public static void clearLoginCookie(HttpServletRequest request, HttpServletResponse response) {
+        deleteCookie(request, response, CookieConstants.CMS_LOGIN);
+        deleteCookie(request, response, CookieConstants.CMS_USER_ID);
+    }
+
+    /**
+     * 验证登陆Cookie.<br/>
+     * 
+     * @author zhanghanlin
+     * @param request
+     * @param response
+     * @return
+     * @since JDK 1.7
+     */
+    public static boolean validLoginCookie(HttpServletRequest request, HttpServletResponse response) {
         String cookie = getCookie(request, CookieConstants.CMS_LOGIN);
         String userId = getCookie(request, CookieConstants.CMS_USER_ID);
         if (StringUtils.isNotBlank(cookie) && StringUtils.isNotBlank(userId)) {

@@ -44,7 +44,7 @@ public class AuthenticationFiter implements Filter {
                 return;
             }
         }
-        if (!LoginCookieUtils.validLogin(request, response)) {
+        if (!LoginCookieUtils.validLoginCookie(request, response)) {
             request.getRequestDispatcher("/login").forward(request, response);
             chain.doFilter(request, response);
             return;

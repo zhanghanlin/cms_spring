@@ -8,7 +8,7 @@ public class ResponseContent<T> implements Serializable {
 
     private static final long serialVersionUID = 7596178009380808680L;
 
-    private String code;
+    private int code;
 
     private String msg;
 
@@ -21,27 +21,27 @@ public class ResponseContent<T> implements Serializable {
         super();
     }
 
-    public ResponseContent(String code, String msg) {
+    public ResponseContent(int code, String msg) {
         super();
         this.code = code;
         this.msg = msg;
     }
 
-    public ResponseContent(String code, String msg, T data) {
+    public ResponseContent(int code, String msg, T data) {
         super();
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    public ResponseContent(String code, String msg, String callback) {
+    public ResponseContent(int code, String msg, String callback) {
         super();
         this.code = code;
         this.msg = msg;
         this.callback = callback;
     }
 
-    public ResponseContent(String code, String msg, T data, String callback) {
+    public ResponseContent(int code, String msg, T data, String callback) {
         super();
         this.code = code;
         this.msg = msg;
@@ -49,20 +49,20 @@ public class ResponseContent<T> implements Serializable {
         this.callback = callback;
     }
 
-    public ResponseContent(ResponseEnum responseEnum) {
+    public ResponseContent(Enum responseEnum) {
         super();
         this.code = responseEnum.getCode();
         this.msg = responseEnum.getMsg();
     }
 
-    public ResponseContent(ResponseEnum responseEnum, T data) {
+    public ResponseContent(Enum responseEnum, T data) {
         super();
         this.code = responseEnum.getCode();
         this.msg = responseEnum.getMsg();
         this.data = data;
     }
 
-    public ResponseContent(ResponseEnum responseEnum, T data, String callback) {
+    public ResponseContent(Enum responseEnum, T data, String callback) {
         super();
         this.code = responseEnum.getCode();
         this.msg = responseEnum.getMsg();
@@ -70,11 +70,11 @@ public class ResponseContent<T> implements Serializable {
         this.callback = callback;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

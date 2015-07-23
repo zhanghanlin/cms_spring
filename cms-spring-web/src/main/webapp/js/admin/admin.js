@@ -24,11 +24,11 @@
 	var tab_button = $("<li />", {
 		"class" : "active"
 	}).html(
-			"<a href='#control-sidebar-theme-demo-options-tab' data-toggle='tab'>"
-					+ "<i class='fa fa-wrench'></i>" + "</a>");
+			"<a href='#control-sidebar-settings-tab' data-toggle='tab'>"
+					+ "<i class='fa fa-gears'></i>" + "</a>");
 
 	// Add the tab button to the right sidebar tabs
-	$("[href='#control-sidebar-home-tab']").parent().before(tab_button);
+	$("#right-sidebar ul").html(tab_button);
 
 	// Create the menu
 	var demo_settings = $("<div />");
@@ -216,7 +216,7 @@
 	demo_settings.append(skins_list);
 
 	tab_pane.append(demo_settings);
-	$("#control-sidebar-home-tab").after(tab_pane);
+	$("#right-sidebar .tab-content").html(tab_pane);
 
 	setup();
 

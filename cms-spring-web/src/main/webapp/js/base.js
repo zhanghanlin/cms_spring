@@ -322,29 +322,16 @@ Base.json = {
 		return '{' + arr.join(',') + '}';
 	}
 };
-/**
- * LOG
- */
-Base.log = {
-	info : function(info, func) {
-		console.info(info);
-	},
-	error : function(error, func) {
-		console.error(error);
-	}
-}
+
 Base.include.css("/css/bootstrap/bootstrap.min.css");
 Base.include.css("/css/admin/font-awesome.min.css");
 Base.include.css("/css/admin/ionicons.min.css");
 Base.include.css("/css/admin/morris.css");
-Base.include.css("/css/admin/admin.min.css");
 Base.include.css("/css/admin/_all-skins.min.css");
 
-Base.include.js("/js/admin/fastclick.min.js");
 Base.include.js("/js/admin/app.min.js");
+Base.include.js("/js/admin/fastclick.min.js");
 Base.include.js("/js/jquery/jquery.sparkline.min.js");
 Base.include.js("/js/jquery/jquery-jvectormap.min.js");
 Base.include.js("/js/jquery/jquery-jvectormap-world-mill-en.js");
 Base.include.js("/js/jquery/jquery.slimscroll.min.js");
-Base.include.js("/js/admin/Chart.min.js");
-Base.include.js("/js/admin/admin.js");
