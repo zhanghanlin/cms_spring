@@ -1,7 +1,4 @@
-var Base = Base || {
-	domain : "http://127.0.0.1",
-	js_domain : "http://127.0.0.1"
-};
+var Base = Base || {};
 Base.include = {
 	css : function(file, func) {
 		var h = document.getElementsByTagName('head')[0];
@@ -323,16 +320,15 @@ Base.json = {
 	}
 };
 
-Base.include.css("/css/bootstrap/bootstrap.min.css");
-Base.include.css("/css/admin/font-awesome.min.css");
-Base.include.css("/css/admin/ionicons.min.css");
-Base.include.css("/css/admin/morris.css");
-Base.include.css("/css/admin/_all-skins.min.css");
-
+//Base.include.css("/css/bootstrap/bootstrap.min.css");
+//Base.include.css("/css/admin/font-awesome.min.css");
+//Base.include.css("/css/admin/ionicons.min.css");
+//Base.include.css("/css/admin/morris.css");
+//Base.include.css("/css/admin/_all-skins.min.css");
 //Base.include.js("/js/admin/app.min.js");
 //Base.include.js("/js/admin/admin.js");
-Base.include.js("/js/admin/fastclick.min.js");
-Base.include.js("/js/jquery/jquery.sparkline.min.js");
-Base.include.js("/js/jquery/jquery-jvectormap.min.js");
-Base.include.js("/js/jquery/jquery-jvectormap-world-mill-en.js");
-Base.include.js("/js/jquery/jquery.slimscroll.min.js");
+//Base.include.js("/js/admin/fastclick.min.js");
+//Base.include.js("/js/jquery/jquery.sparkline.min.js");
+//Base.include.js("/js/jquery/jquery-jvectormap.min.js");
+//Base.include.js("/js/jquery/jquery-jvectormap-world-mill-en.js");
+//Base.include.js("/js/jquery/jquery.slimscroll.min.js");

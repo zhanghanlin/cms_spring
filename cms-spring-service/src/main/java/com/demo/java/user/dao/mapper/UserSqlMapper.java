@@ -6,4 +6,8 @@ public final class UserSqlMapper {
 
     public static final String GET_BY_UNAME = "select * from " + TABLE_NAME + " where user_name = ?";
 
+    public static final String GET_BY_EMAIL = "select * from " + TABLE_NAME + " where email = ?";
+
+    public static final String GET_BY_PHONE = "select * from " + TABLE_NAME + " where phone = ?";
+
 }

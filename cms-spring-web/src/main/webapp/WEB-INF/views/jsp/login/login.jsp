@@ -2,32 +2,50 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/login/login.css">
-	<title>登陆CMS</title>
+	<jsp:directive.include file="/common/common.html" />
+	<link href="/css/admin/blue.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-	<div class="container">
-		<form id="loginForm" class="form-signin" action="/doLogin" method="post">
-			<h4 class="form-signin-heading">&nbsp;</h4>
-			<label for="userName" class="sr-only">用户名</label>
-				<input type="text" id="userName" name="userName" class="form-control" placeholder="UserName" required autofocus />
-				<label for="password" class="sr-only">密码</label>
-				<input type="password" id="password" name="password" class="form-control" placeholder="Password" required />
-			<div class="checkbox">
-				<label>
-					<input type="checkbox" value="remember-me" />记住我
-				</label>
-			</div>
-			<button class="btn btn-lg btn-primary btn-block" id="submit" type="submit">登陆</button>
-		</form>
+<body class="login-page">
+	<div class="login-box">
+		<div class="login-logo">
+			<a href="###"><b>Admin&nbsp;&nbsp;</b>CMS</a>
+		</div>
+		<div class="login-box-body">
+			<p class="login-box-msg">登陆你的帐号</p>
+			<form action="/doLogin" method="POST">
+				<input type="hidden" value="${UUID }" name="UUID"/>
+				<div class="form-group has-feedback">
+					<input type="email" class="form-control" name="userName" placeholder="Email" />
+					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+				</div>
+				<div class="form-group has-feedback">
+					<input type="password" class="form-control" name="password" placeholder="Password" />
+					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+				</div>
+				<div class="row">
+					<div class="col-xs-8">
+						<div class="checkbox icheck">
+							<label><input type="checkbox" />&nbsp;&nbsp;记住我</label>
+						</div>
+					</div>
+					<div class="col-xs-4"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div>
+				</div>
+			</form>
+			<div class="social-auth-links text-center"></div>
+			<a href="/register" class="text-center">没有帐号?</a>
+		</div>
 	</div>
 	<script src="/js/jquery/jquery.min.js"></script>
 	<script src="/js/bootstrap/bootstrap.min.js"></script>
-	<script src="/js/jquery/jquery.form.js"></script>
-	<script src="/js/login/login.js"></script>
+	<script src="/js/admin/icheck.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('input').iCheck({
+				checkboxClass:'icheckbox_square-blue',
+				radioClass: 'iradio_square-blue',
+				increaseArea: '20%' // optional
+			});
+		});
+	</script>
 </body>
 </html>

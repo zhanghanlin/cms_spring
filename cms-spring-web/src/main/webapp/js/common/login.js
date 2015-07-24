@@ -4,10 +4,11 @@ $(function() {
 		resetForm : false,
 		dataType : 'json'
 	};
-	$('#loginForm').ajaxForm(options);	
+	$('#loginForm').ajaxForm(options);
 	function loginSuccess(data) {
-		if (data.code) {
-			
+		console.info(data);
+		if (data.code == 200) {
+			window.location.href = '/index.jsp';
 		}
 	}
 });

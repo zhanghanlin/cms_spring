@@ -1,4 +1,4 @@
-package com.demo.java.web.controller.user;
+package com.demo.java.web.controller.common;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,16 +18,28 @@ import com.demo.java.user.service.UserService;
 import com.demo.java.utils.string.StringUtils;
 import com.demo.java.web.controller.AbstractController;
 import com.demo.java.web.cookie.LoginCookieUtils;
-import com.demo.java.web.response.ResponseContent;
-import com.demo.java.web.response.UserEnum;
 
 @Controller
-public class LoginController extends AbstractController {
+public class CommonController extends AbstractController {
 
-    static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
+    static final Logger LOG = LoggerFactory.getLogger(CommonController.class);
 
     @Resource
     UserService userService;
+
+    /**
+     * 进入首页.<br/>
+     * 
+     * @author zhanghanlin
+     * @param request
+     * @return
+     * @since JDK 1.7
+     */
+    @RequestMapping(value = "/main")
+    public ModelAndView main(HttpServletRequest request) {
+        randomUUID(request);
+        return new ModelAndView("main");
+    }
 
     /**
      * 进入登陆页面.<br/>
@@ -39,6 +51,7 @@ public class LoginController extends AbstractController {
      */
     @RequestMapping(value = "/login")
     public ModelAndView list(HttpServletRequest request) {
+        randomUUID(request);
         return new ModelAndView("login/login");
     }
 
@@ -55,22 +68,27 @@ public class LoginController extends AbstractController {
      */
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseContent<User> doLogin(@RequestParam String userName, @RequestParam String password, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView doLogin(@RequestParam String userName, @RequestParam String password, @RequestParam String UUID, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        String sessionUUID = randomUUID(request);
+        if (StringUtils.isBlank(UUID) || !UUID.equals(sessionUUID)) {
+            return new ModelAndView("redirect:/login");
+        }
         try {
             if (StringUtils.isBlank(userName) || StringUtils.isBlank(password)) {
-                return new ResponseContent<User>(UserEnum.ERROR_PARAM_NULL);
+                model.addObject("msg", "请输入帐号密码");
             }
             User t = userService.valid(userName, password);
             if (t != null) {
                 LoginCookieUtils.setLoginCookie(t, request, response);
-                return new ResponseContent<User>(UserEnum.SUCCESS, t);
+                return new ModelAndView("redirect:/main");
             } else {
-                return new ResponseContent<User>(UserEnum.ERROR_USERNAME_PWD);
+                model.addObject("msg", "帐号或密码错误");
             }
         } catch (Exception e) {
             LOG.error("login > userName : {}, error : {}", userName, e.getMessage(), e);
         }
-        return new ResponseContent<User>(UserEnum.ERROR);
+        return new ModelAndView("redirect:/login");
     }
 
     /**
@@ -85,6 +103,6 @@ public class LoginController extends AbstractController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         LoginCookieUtils.clearLoginCookie(request, response);
-        return new ModelAndView("login/login");
+        return new ModelAndView("redirect:/login");
     }
 }

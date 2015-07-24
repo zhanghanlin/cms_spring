@@ -6,7 +6,7 @@ import com.demo.java.common.entity.AbstractEntity;
 @Table(name = "CMS_USER_ROLE")
 public class UserRole extends AbstractEntity {
 
-    private static final long serialVersionUID = -7986696483438264667L;
+    private static final long serialVersionUID = 5504955904258222801L;
 
     private Long userId;
 

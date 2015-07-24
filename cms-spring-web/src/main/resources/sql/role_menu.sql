@@ -1,11 +1,11 @@
 -- ----------------------------
 -- Table structure for `template`
 -- ----------------------------
-DROP TABLE IF EXISTS `cms_role_permission`;
-CREATE TABLE `cms_role_permission` (
+DROP TABLE IF EXISTS `cms_role_menu`;
+CREATE TABLE `cms_role_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL COMMENT '角色id',
-  `permission_code` varchar(200) NOT NULL COMMENT '权限结构码',
+  `menu_code` varchar(200) NOT NULL COMMENT '权限结构码',
   `created_at` date NOT NULL COMMENT '创建时间',
   `created_by` varchar(100) NOT NULL COMMENT '创建人',
   `changed_at` date DEFAULT NULL COMMENT '修改时间',

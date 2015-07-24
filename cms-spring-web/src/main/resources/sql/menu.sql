@@ -1,8 +1,8 @@
 -- ----------------------------
 -- Table structure for `template`
 -- ----------------------------
-DROP TABLE IF EXISTS `cms_permission`;
-CREATE TABLE `cms_permission` (
+DROP TABLE IF EXISTS `cms_menu`;
+CREATE TABLE `cms_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL COMMENT '权限名',
   `note` varchar(200) COMMENT '权限说明',

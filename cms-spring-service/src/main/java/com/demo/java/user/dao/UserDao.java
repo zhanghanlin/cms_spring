@@ -19,4 +19,20 @@ public class UserDao extends AbstractDao<User> {
         }
         return null;
     }
+
+    public User getByEmail(String email) {
+        List<User> list = jdbcTemplate.query(UserSqlMapper.GET_BY_EMAIL, new Object[] { email }, ParameterizedBeanPropertyRowMapper.newInstance(User.class));
+        if ((list != null) && !list.isEmpty()) {
+            return list.get(0);
+        }
+        return null;
+    }
+
+    public User getByPhone(String phone) {
+        List<User> list = jdbcTemplate.query(UserSqlMapper.GET_BY_PHONE, new Object[] { phone }, ParameterizedBeanPropertyRowMapper.newInstance(User.class));
+        if ((list != null) && !list.isEmpty()) {
+            return list.get(0);
+        }
+        return null;
+    }
 }

@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.demo.java.utils.Constants;
+import com.demo.java.utils.string.StringUtils;
 
 public class CookieUtils {
 
@@ -23,7 +24,9 @@ public class CookieUtils {
 
     public static void addCookie(HttpServletRequest request, HttpServletResponse response, String name, String value, int expiry) {
         try {
-            value = URLEncoder.encode(value, Constants.ENCODING);
+            if (StringUtils.isNotBlank(value)) {
+                value = URLEncoder.encode(value, Constants.ENCODING);
+            }
         } catch (UnsupportedEncodingException e) {
             LOG.error("setCookie URLEncoder Error : {}", e.getMessage(), e);
         }

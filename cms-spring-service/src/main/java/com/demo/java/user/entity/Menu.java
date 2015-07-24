@@ -3,10 +3,10 @@ package com.demo.java.user.entity;
 import com.demo.java.annotation.Table;
 import com.demo.java.common.entity.AbstractEntity;
 
-@Table(name = "CMS_PERMISSION")
-public class Permission extends AbstractEntity {
+@Table(name = "CMS_MENU")
+public class Menu extends AbstractEntity {
 
-    private static final long serialVersionUID = -5659904969381960163L;
+    private static final long serialVersionUID = 8120213280811663663L;
 
     private String name;
 

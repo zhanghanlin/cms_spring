@@ -8,6 +8,7 @@ import com.demo.java.user.dao.UserDao;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
 import com.demo.java.utils.crypto.DigestUtils;
+import com.demo.java.utils.string.PatternUtils;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -17,7 +18,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User valid(String userName, String password) {
-        User t = userDao.getByUserName(userName);
+        User t = null;
+        if (PatternUtils.regexEmail(userName)) {
+            t = userDao.getByEmail(userName);
+        } else if (PatternUtils.regexPhone(userName)) {
+            t = userDao.getByPhone(userName);
+        } else {
+            t = userDao.getByUserName(userName);
+        }
         if (t != null) {
             String md5Pwd = DigestUtils.md5Hex(password);
             if (t.getPassword().equals(md5Pwd)) {
