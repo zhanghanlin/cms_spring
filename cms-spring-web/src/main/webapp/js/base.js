@@ -329,7 +329,8 @@ Base.include.css("/css/admin/ionicons.min.css");
 Base.include.css("/css/admin/morris.css");
 Base.include.css("/css/admin/_all-skins.min.css");
 
-Base.include.js("/js/admin/app.min.js");
+//Base.include.js("/js/admin/app.min.js");
+//Base.include.js("/js/admin/admin.js");
 Base.include.js("/js/admin/fastclick.min.js");
 Base.include.js("/js/jquery/jquery.sparkline.min.js");
 Base.include.js("/js/jquery/jquery-jvectormap.min.js");

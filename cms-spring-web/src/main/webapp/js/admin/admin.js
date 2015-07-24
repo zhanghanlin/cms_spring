@@ -54,6 +54,12 @@
 					+ "</label>"
 					+ "<p>激活装箱布局</p>"
 					+ "</div>"
+					// layout nav
+					+ "<div class='form-group'>"
+					+ "<label class='control-sidebar-subheading'>"
+					+ "<input type='checkbox' data-layoutnav='layout-nav' class='pull-right'/> "
+					+ "固定导航" + "</label>" + "<p>固定导航栏</p>"
+					+ "</div>"
 					// Sidebar Toggle
 					+ "<div class='form-group'>"
 					+ "<label class='control-sidebar-subheading'>"
@@ -327,6 +333,18 @@
 			} else {
 				sidebar.removeClass("control-sidebar-light")
 				sidebar.addClass("control-sidebar-dark")
+			}
+		});
+		$("[data-layoutnav='layout-nav']").on('click', function() {
+			var nav = $("nav.navbar");
+			if (nav.hasClass("navbar-static-top")) {
+				nav.removeClass("navbar-static-top")
+				nav.addClass("navbar-fixed-top")
+				$('div.content-wrapper').css('padding-top',$('nav.navbar').height());
+			} else {
+				nav.removeClass("navbar-fixed-top")
+				nav.addClass("navbar-static-top")
+				$('div.content-wrapper').css('padding-top',0);
 			}
 		});
 
