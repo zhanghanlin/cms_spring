@@ -29,7 +29,7 @@
 		<filter-class>com.demo.java.web.filter.AuthenticationFiter</filter-class>
 		<init-param>
 			<param-name>exclude</param-name>
-			<param-value>/js/,/css/,/fonts/,/login,/doLogin</param-value>
+			<param-value>/js/,/css/,/fonts/,/login,/doLogin,/favicon.ico</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
@@ -93,7 +93,6 @@
 			<include-coda></include-coda>
 		</jsp-property-group>
 	</jsp-config>
-
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
