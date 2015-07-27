@@ -1,4 +1,4 @@
-package com.demo.java.user.entity;
+package com.demo.java.menu.entity;
 
 import com.demo.java.annotation.Table;
 import com.demo.java.common.entity.AbstractEntity;
