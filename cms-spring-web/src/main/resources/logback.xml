@@ -13,6 +13,9 @@
 	<logger name="org.springframework">
 		<level value="WARN" />
 	</logger>
+	<logger name="oejh.HttpGenerator">
+		<level value="WARN" />
+	</logger>
 	<logger name="com.alibaba.druid">
 		<level value="WARN" />
 	</logger>

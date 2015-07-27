@@ -16,6 +16,7 @@
 		<jdk.version>1.7</jdk.version>
 		<druid.version>1.0.12</druid.version>
 		<spring.version>3.2.13.RELEASE</spring.version>
+		<aspectj.version>1.7.4</aspectj.version>
 		<fastjson.version>1.2.3</fastjson.version>
 		<junit.version>4.11</junit.version>
 		<slf4j.version>1.7.6</slf4j.version>
@@ -171,6 +172,17 @@
 				<groupId>commons-codec</groupId>
 				<artifactId>commons-codec</artifactId>
 				<version>${commons-codec.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${aspectj.version}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>${aspectj.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

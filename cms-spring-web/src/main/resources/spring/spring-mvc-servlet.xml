@@ -70,6 +70,21 @@
 		<!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>
+			<mvc:exclude-mapping path="/fonts/**"/>
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/css/**"/>
+			<mvc:exclude-mapping path="/images/**"/>
+			<mvc:exclude-mapping path="/login"/>
+			<mvc:exclude-mapping path="/doLogin"/>
+			<mvc:exclude-mapping path="/register"/>
+			<mvc:exclude-mapping path="/doRegister"/>
+			<bean class="com.demo.java.web.interceptor.SecurityInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<!-- 静态资源映射 -->
 	<mvc:resources mapping="/fonts/**" location="/fonts/" />

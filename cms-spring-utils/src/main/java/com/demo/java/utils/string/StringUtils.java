@@ -9,6 +9,17 @@ import org.apache.commons.lang.CharUtils;
 import org.joda.time.DateTime;
 
 public class StringUtils extends org.apache.commons.lang.StringUtils {
+
+    public static String array2str(Object[] objs) {
+        StringBuffer sb = new StringBuffer();
+        if (objs.length > 0) {
+            for (int i = 0; i < objs.length; i++) {
+                sb.append(objs[i]).append(" ");
+            }
+        }
+        return sb.toString();
+    }
+
     /**
      * String to Unicode
      * 

@@ -1,9 +1,12 @@
 package com.demo.java.user.service.impl;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.demo.java.common.dict.Status;
 import com.demo.java.user.dao.UserDao;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
@@ -33,5 +36,20 @@ public class UserServiceImpl implements UserService {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean save(User t) {
+        if (t == null) {
+            return false;
+        }
+        String md5Pwd = DigestUtils.md5Hex(t.getPassword());
+        t.setPassword(md5Pwd);
+        t.setStatus(Status.NORMAL);
+        t.setCreatedAt(new Date());
+        t.setCreatedBy("System");
+        t.setVersion(1);
+        int res = userDao.save(t);
+        return res > 0;
     }
 }

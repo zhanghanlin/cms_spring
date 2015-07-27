@@ -1,4 +1,4 @@
-package com.demo.java.web.controller.user;
+package com.demo.java.web.controller.menu;
 
 import javax.annotation.Resource;
 

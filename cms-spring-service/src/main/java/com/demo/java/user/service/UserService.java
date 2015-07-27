@@ -5,4 +5,6 @@ import com.demo.java.user.entity.User;
 public interface UserService {
 
     public User valid(String userName, String password);
+
+    public boolean save(User t);
 }

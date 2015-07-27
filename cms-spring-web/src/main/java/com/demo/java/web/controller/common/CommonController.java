@@ -36,9 +36,9 @@ public class CommonController extends AbstractController {
      * @since JDK 1.7
      */
     @RequestMapping(value = "/main")
-    public ModelAndView main(HttpServletRequest request) {
+    public ModelAndView toMain(HttpServletRequest request) {
         randomUUID(request);
-        return new ModelAndView("main");
+        return new ModelAndView("common/main");
     }
 
     /**
@@ -50,9 +50,23 @@ public class CommonController extends AbstractController {
      * @since JDK 1.7
      */
     @RequestMapping(value = "/login")
-    public ModelAndView list(HttpServletRequest request) {
+    public ModelAndView toLogin(HttpServletRequest request) {
         randomUUID(request);
-        return new ModelAndView("login/login");
+        return new ModelAndView("common/login");
+    }
+
+    /**
+     * 进入注册页面.<br/>
+     * 
+     * @author zhanghanlin
+     * @param request
+     * @return
+     * @since JDK 1.7
+     */
+    @RequestMapping(value = "/register")
+    public ModelAndView toRegister(HttpServletRequest request) {
+        randomUUID(request);
+        return new ModelAndView("common/register");
     }
 
     /**
@@ -70,25 +84,55 @@ public class CommonController extends AbstractController {
     @ResponseBody
     public ModelAndView doLogin(@RequestParam String userName, @RequestParam String password, @RequestParam String UUID, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView model = new ModelAndView();
-        String sessionUUID = randomUUID(request);
-        if (StringUtils.isBlank(UUID) || !UUID.equals(sessionUUID)) {
+        if (!checkUUID(UUID, request)) {
             return new ModelAndView("redirect:/login");
         }
         try {
             if (StringUtils.isBlank(userName) || StringUtils.isBlank(password)) {
                 model.addObject("msg", "请输入帐号密码");
-            }
-            User t = userService.valid(userName, password);
-            if (t != null) {
-                LoginCookieUtils.setLoginCookie(t, request, response);
-                return new ModelAndView("redirect:/main");
             } else {
-                model.addObject("msg", "帐号或密码错误");
+                User t = userService.valid(userName, password);
+                if (t != null) {
+                    LoginCookieUtils.setLoginCookie(t, request, response);
+                    return new ModelAndView("redirect:/main");
+                } else {
+                    model.addObject("msg", "帐号或密码错误");
+                }
             }
+            model.setViewName("redirect:/login");
         } catch (Exception e) {
             LOG.error("login > userName : {}, error : {}", userName, e.getMessage(), e);
         }
-        return new ModelAndView("redirect:/login");
+        return model;
+    }
+
+    /**
+     * 注册帐号.<br/>
+     * 
+     * @author zhanghanlin
+     * @param user
+     * @param request
+     * @param response
+     * @return
+     * @since JDK 1.7
+     */
+    @RequestMapping(value = "/doRegister", method = RequestMethod.POST)
+    @ResponseBody
+    public ModelAndView doRegister(User user, String UUID, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView model = new ModelAndView();
+        if (!checkUUID(UUID, request)) {
+            return new ModelAndView("redirect:/login");
+        }
+        if (user != null) {
+            boolean res = userService.save(user);
+            if (!res) {
+                model.addObject("msg", "注册失败");
+                model.setViewName("redirect:/register");
+            } else {
+                model.setViewName("redirect:/login");
+            }
+        }
+        return model;
     }
 
     /**
