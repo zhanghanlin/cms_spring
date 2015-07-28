@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.demo.java.memory.MenuCache;
-import com.demo.java.menu.entity.MenuTree;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
@@ -100,10 +98,8 @@ public class CommonController extends AbstractController {
                 User t = userService.valid(userName, password);
                 if (t != null) {
                     LoginCookieUtils.setLoginCookie(t, request, response);
-                    MenuTree tree = menuService.list();
-                    MenuCache.add(t.getId(), tree);
                     request.getSession().setAttribute("user", t);
-                    request.getSession().setAttribute("menuTree", tree);
+                    request.getSession().setAttribute("menuTree", menuService.list());
                     return new ModelAndView("redirect:/main");
                 } else {
                     model.addObject("msg", "帐号或密码错误");

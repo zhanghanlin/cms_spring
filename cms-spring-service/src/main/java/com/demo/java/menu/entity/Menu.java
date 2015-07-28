@@ -16,6 +16,10 @@ public class Menu extends AbstractEntity {
 
     private String note;
 
+    private String link;
+
+    private String icon;
+
     private int status;
 
     public String getName() {
@@ -48,6 +52,22 @@ public class Menu extends AbstractEntity {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public int getStatus() {

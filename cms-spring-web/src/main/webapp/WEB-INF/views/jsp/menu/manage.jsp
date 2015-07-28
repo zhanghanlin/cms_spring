@@ -7,8 +7,8 @@
 	</head>
 	<body class="skin-blue sidebar-mini">
 		<div class="wrapper">
-			<jsp:directive.include file="/common/head.html" />
-			<jsp:directive.include file="left.jsp" />
+			<jsp:include page="../common/head.jsp" />
+			<jsp:include page="../common/left.jsp" />
 			<div class="content-wrapper">
 				<section class="content-header">
 					<h1>Menu Tree</h1>
@@ -21,7 +21,7 @@
 					<div class="row">
 						<div class="col-md-3">
 							<div class="box box-solid">
-								<c:forEach items="${menuTree.childNode }" var="m">
+								<c:forEach items="${menuTree }" var="m">
 								<div class="box-header with-border">
 									<h3 class="box-title">${m.node.name }</h3>
 									<div class="box-tools">

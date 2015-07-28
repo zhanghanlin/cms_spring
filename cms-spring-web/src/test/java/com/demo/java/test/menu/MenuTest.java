@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.demo.java.menu.dao.MenuDao;
 import com.demo.java.menu.entity.Menu;
-import com.demo.java.menu.entity.MenuTree;
+import com.demo.java.menu.entity.MenuNode;
 import com.demo.java.test.AbstractTest;
 
 public class MenuTest extends AbstractTest {
@@ -22,15 +22,10 @@ public class MenuTest extends AbstractTest {
 
     @Test
     public void testTree() {
-        String topCode = "0";
-        Menu menu = menuDao.get(topCode);
-        if (menu == null) {
-            LOG.info("top menu null");
-        }
         List<Menu> list = menuDao.list();
-        MenuTree tree = new MenuTree(menu);
+        MenuNode tree = new MenuNode();
         for (Menu m : list) {
-            MenuTree t = new MenuTree(m);
+            MenuNode t = new MenuNode(m);
             tree.addChildNode(t);
         }
         LOG.info(tree.toJSON());

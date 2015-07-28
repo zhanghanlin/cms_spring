@@ -7,19 +7,23 @@ import java.util.List;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
-public class MenuTree implements Serializable {
+public class MenuNode implements Serializable {
 
     private static final long serialVersionUID = 1488831552854335402L;
 
-    private String code;
+    private String code = "0";
 
-    private String parentCode;
+    private String parentCode = "0";
 
     private Menu node;
 
-    private List<MenuTree> childNode;
+    private List<MenuNode> childNode;
 
-    public MenuTree(Menu menu) {
+    public MenuNode() {
+        init();
+    }
+
+    public MenuNode(Menu menu) {
         init();
         this.code = menu.getCode();
         this.parentCode = menu.getParentCode();
@@ -28,33 +32,33 @@ public class MenuTree implements Serializable {
 
     public void init() {
         if ((childNode == null) || childNode.isEmpty()) {
-            childNode = new ArrayList<MenuTree>();
+            childNode = new ArrayList<MenuNode>();
         }
     }
 
-    public void addChildNode(MenuTree t) {
+    public void addChildNode(MenuNode t) {
         if (this.code.equals(t.getParentCode())) {
             childNode.add(t);
         } else {
-            MenuTree mt = find(t.getParentCode());
+            MenuNode mt = find(t.getParentCode());
             mt.getChildNode().add(t);
         }
     }
 
-    public void removeChildNode(MenuTree t) {
-        MenuTree mt = find(t.getParentCode());
+    public void removeChildNode(MenuNode t) {
+        MenuNode mt = find(t.getParentCode());
         mt.getChildNode().remove(t);
     }
 
-    public MenuTree find(String code) {
+    public MenuNode find(String code) {
         if (this.code.equals(code)) {
             return this;
         }
         if ((childNode == null) || childNode.isEmpty()) {
             return null;
         } else {
-            for (MenuTree menuTree : childNode) {
-                MenuTree mt = menuTree.find(menuTree.getCode());
+            for (MenuNode menuTree : childNode) {
+                MenuNode mt = menuTree.find(code);
                 if (mt != null) {
                     return mt;
                 }
@@ -87,11 +91,11 @@ public class MenuTree implements Serializable {
         this.node = node;
     }
 
-    public List<MenuTree> getChildNode() {
+    public List<MenuNode> getChildNode() {
         return childNode;
     }
 
-    public void setChildNode(List<MenuTree> childNode) {
+    public void setChildNode(List<MenuNode> childNode) {
         this.childNode = childNode;
     }
 

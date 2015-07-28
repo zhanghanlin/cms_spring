@@ -4,10 +4,12 @@
 DROP TABLE IF EXISTS `cms_menu`;
 CREATE TABLE `cms_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL COMMENT '权限名',
-  `note` varchar(200) COMMENT '权限说明',
-  `code` varchar(200) COMMENT '权限结构码',
-  `parent_code` varchar(200) COMMENT '上一级权限',
+  `name` varchar(100) NOT NULL COMMENT '菜单名',
+  `note` varchar(200) COMMENT '菜单说明',
+  `code` varchar(200) COMMENT '菜单结构码',
+  `parent_code` varchar(200) DEFAULT '0' COMMENT '上一级菜单结构码',
+  `link` varchar(200) NOT NULL COMMENT '菜单连接地址',
+  `icon` varchar(200) COMMENT '菜单图标样式',
   `status` int(3) NOT NULL DEFAULT '0' COMMENT '状态,默认正常',
   `created_at` date NOT NULL COMMENT '创建时间',
   `created_by` varchar(100) NOT NULL COMMENT '创建人',

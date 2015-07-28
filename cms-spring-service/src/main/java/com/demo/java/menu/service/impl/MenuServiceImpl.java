@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.demo.java.menu.dao.MenuDao;
 import com.demo.java.menu.entity.Menu;
-import com.demo.java.menu.entity.MenuTree;
+import com.demo.java.menu.entity.MenuNode;
 import com.demo.java.menu.service.MenuService;
 
 @Service("menuService")
@@ -18,18 +18,13 @@ public class MenuServiceImpl implements MenuService {
     MenuDao menuDao;
 
     @Override
-    public MenuTree list() {
-        String topCode = "0";
-        Menu menu = menuDao.get(topCode);
-        if (menu == null) {
-            return null;
-        }
+    public List<MenuNode> list() {
         List<Menu> list = menuDao.list();
-        MenuTree tree = new MenuTree(menu);
+        MenuNode tree = new MenuNode();
         for (Menu m : list) {
-            MenuTree t = new MenuTree(m);
+            MenuNode t = new MenuNode(m);
             tree.addChildNode(t);
         }
-        return tree;
+        return tree.getChildNode();
     }
 }

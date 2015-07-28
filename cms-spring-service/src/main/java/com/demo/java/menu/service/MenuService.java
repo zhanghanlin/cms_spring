@@ -1,8 +1,10 @@
 package com.demo.java.menu.service;
 
-import com.demo.java.menu.entity.MenuTree;
+import java.util.List;
+
+import com.demo.java.menu.entity.MenuNode;
 
 public interface MenuService {
 
-    public MenuTree list();
+    public List<MenuNode> list();
 }
