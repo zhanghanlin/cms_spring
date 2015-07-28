@@ -7,7 +7,7 @@
 	<body class="skin-blue sidebar-mini">
 		<div class="wrapper">
 			<jsp:directive.include file="/common/head.html" />
-			<jsp:directive.include file="/common/left.html" />
+			<jsp:directive.include file="left.jsp" />
 			<div class="content-wrapper">
 				<section class="content-header">
 					<h1>CMS <small>index</small></h1>
