@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.demo.java.menu.service.MenuService;
+import com.demo.java.menu.utils.MenuMemory;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
 import com.demo.java.utils.string.StringUtils;
@@ -98,8 +99,8 @@ public class CommonController extends AbstractController {
                 User t = userService.valid(userName, password);
                 if (t != null) {
                     LoginCookieUtils.setLoginCookie(t, request, response);
+                    MenuMemory.put(t.getId(), menuService.menuTree());
                     request.getSession().setAttribute("user", t);
-                    request.getSession().setAttribute("menuTree", menuService.list());
                     return new ModelAndView("redirect:/main");
                 } else {
                     model.addObject("msg", "帐号或密码错误");

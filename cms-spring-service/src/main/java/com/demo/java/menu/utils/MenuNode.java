@@ -1,4 +1,4 @@
-package com.demo.java.menu.entity;
+package com.demo.java.menu.utils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.demo.java.menu.entity.Menu;
 
 public class MenuNode implements Serializable {
 

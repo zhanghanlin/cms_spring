@@ -402,7 +402,8 @@ function _init() {
 	$.AdminLTE.tree = function(menu) {
 		var _this = this;
 		var animationSpeed = $.AdminLTE.options.animationSpeed;
-		$("li a", $(menu)).on(
+		$('ul.sidebar-menu').delegate('li a','click',
+				//$("li a", $(menu)).on(
 				'click',
 				function(e) {
 					// Get the clicked link and the next element
