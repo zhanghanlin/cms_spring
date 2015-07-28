@@ -4,6 +4,7 @@
 	<head>
 		<jsp:directive.include file="/common/common.html" />
 	</head>
+	<!-- https://almsaeedstudio.com/themes/AdminLTE/index2.html -->
 	<body class="skin-blue sidebar-mini">
 		<div class="wrapper">
 			<jsp:directive.include file="head.jsp" />
