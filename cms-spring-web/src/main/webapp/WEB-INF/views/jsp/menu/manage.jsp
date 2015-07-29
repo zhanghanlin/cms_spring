@@ -4,7 +4,14 @@
 <html>
 	<head>
 		<jsp:directive.include file="/common/common.html" />
-		<link href="/css/treeview/treeview.css" rel="stylesheet" type="text/css">
+		<style type="text/css">
+		table.treetable tr.collapsed span.indenter a:BEFORE {
+			content: "展开"
+		}
+		table.treetable tr.expanded span.indenter a:BEFORE {
+			content: "闭合"
+		}
+		</style>
 	</head>
 	<body class="skin-blue sidebar-mini">
 		<div class="wrapper">

@@ -12,8 +12,16 @@ $(function() {
 		</tr>';
 		},
 		parseObj : function(o) {
-			return '<tr>\
-						<td>' + o.id + '</td>\
+			var code = o.code;
+			var dataId = '';
+			while(code.length / 3 >= 1) {
+				dataId += (code.substr(0,3) *　1) + '-';
+				code = code.substr(3);
+			}
+			dataId = dataId.substr(0,dataId.length - 1);
+			var parentId = dataId.substr(0,dataId.lastIndexOf('-'))
+			return '<tr data-tt-id="'+dataId+'" data-tt-parent-id="'+parentId+'">\
+						<td></td>\
 						<td>' + o.name
 					+ '</td>\
 						<td>' + o.note + '</td>\
@@ -36,7 +44,7 @@ $(function() {
 						html += tree.child(o);
 					});
 					$('#menuTable').html(tree.tableHead() + html);
-					$("#menuTable").treetable();
+					$("#menuTable").treetable({expandable: true});
 				}
 			});
 		},
@@ -52,4 +60,7 @@ $(function() {
 		}
 	};
 	tree.list();
+	
+
+	
 });
