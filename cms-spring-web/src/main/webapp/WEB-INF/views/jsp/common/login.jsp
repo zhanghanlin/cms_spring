@@ -37,7 +37,7 @@
 	</div>
 	<script src="/js/jquery/jquery.min.js"></script>
 	<script src="/js/bootstrap/bootstrap.min.js"></script>
-	<script src="/js/admin/icheck.min.js"></script>
+	<script src="/js/tools/icheck.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			$('input').iCheck({
