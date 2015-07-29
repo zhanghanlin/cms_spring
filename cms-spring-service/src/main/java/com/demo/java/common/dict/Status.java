@@ -1,6 +1,10 @@
 package com.demo.java.common.dict;
 
 public class Status {
+    /**
+     * 所有状态
+     */
+    public static final int ALL = -1;
 
     /**
      * 正常

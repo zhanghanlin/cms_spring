@@ -10,6 +10,7 @@ CREATE TABLE `cms_menu` (
   `parent_code` varchar(200) DEFAULT '0' COMMENT '上一级菜单结构码',
   `link` varchar(200) NOT NULL COMMENT '菜单连接地址',
   `icon` varchar(200) COMMENT '菜单图标样式',
+  `weight` int(3) COMMENT '权重,排序使用',
   `status` int(3) NOT NULL DEFAULT '0' COMMENT '状态,默认正常',
   `created_at` date NOT NULL COMMENT '创建时间',
   `created_by` varchar(100) NOT NULL COMMENT '创建人',

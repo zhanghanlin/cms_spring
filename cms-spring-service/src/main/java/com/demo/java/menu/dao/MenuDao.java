@@ -13,8 +13,16 @@ import com.demo.java.menu.entity.Menu;
 @Repository
 public class MenuDao extends AbstractDao<Menu> {
 
+    public List<Menu> list(int status) {
+        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.GET_LIST, new Object[] { status }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        if ((list != null) && !list.isEmpty()) {
+            return list;
+        }
+        return null;
+    }
+
     public List<Menu> list() {
-        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.GET_LIST, new Object[] { Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.GET_ALL, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
         if ((list != null) && !list.isEmpty()) {
             return list;
         }

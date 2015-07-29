@@ -1,11 +1,10 @@
 $(function() {
 	$.getJSON('/menu/tree',function(obj){
-		if(obj && obj.childNode){
+		if(obj.hasChild){
 			var html = '';
 			$.each(obj.childNode,function(i,o){
-				var subChild = o.childNode;
 				var cls = '';
-				if(subChild && subChild.length > 0){
+				if(o.hasChild){
 					cls = 'treeview';
 				}
 				html += '<li class="'+cls+'">\
@@ -14,7 +13,7 @@ $(function() {
 								<span>'+o.node.name+'</span>\
 								<i class="fa fa-angle-left pull-right"></i>\
 							</a>';
-				html += menuSubTree(subChild);
+				html += menuSubTree(o);
 			});
 			$('.sidebar-menu').append(html);
 		}
@@ -22,15 +21,15 @@ $(function() {
 	
 	function menuSubTree(obj) {
 		var html = '';
-		if(obj && obj.length > 0) {
+		if(obj.hasChild) {
 			html += '<ul class="treeview-menu">';
-			$.each(obj,function(j,o){
+			$.each(obj.childNode,function(j,o){
 				html += '<li><a href="'+o.node.link+'"><i class="fa fa-circle-o"></i>'+o.node.name;
 				if(o.childNode.length > 0){
 					html += '<i class="fa fa-angle-left pull-right"></i>';
 				}
 				html += '</a>';
-				html += menuSubTree(o.childNode);
+				html += menuSubTree(o);
 				html += '</li>';
 			});		
 			html += '</ul>';

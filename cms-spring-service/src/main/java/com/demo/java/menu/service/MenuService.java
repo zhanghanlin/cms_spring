@@ -4,5 +4,5 @@ import com.demo.java.menu.utils.MenuNode;
 
 public interface MenuService {
 
-    public MenuNode menuTree();
+    public MenuNode menuTree(int status);
 }

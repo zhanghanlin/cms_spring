@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -19,28 +20,23 @@
 				</section>
 				<section class="content">
 					<div class="row">
-						<div class="col-md-3">
-						<div id="menutree_manage">
-							<div id="treecontrol">
-								<a title="Collapse the entire tree below" href="#"><img
-									src="/images/treeview/minus.gif" /> Collapse All</a> <a
-									title="Expand the entire tree below" href="#"><img
-									src="/images/treeview/plus.gif" /> Expand All</a> <a
-									title="Toggle the tree below, opening closed branches, closing open branches"
-									href="#">Toggle All</a>
+						<div class="col-xs-12">
+							<div class="box">
+								<div class="box-header">
+									<h3 class="box-title">Menu</h3>
+								</div>
+								<div class="box-body table-responsive no-padding">
+									<table class="table table-hover" id="menuTable"></table>
+								</div>
 							</div>
-							<ul id="menuManageTree"></ul>
 						</div>
-						</div>
-						<div class="col-md-8"></div>
 					</div>
 				</section>
 			</div>
 			<jsp:directive.include file="/common/right.html" />
 			<jsp:directive.include file="/common/footer.html" />
 		</div>
-		<script src="/js/jquery/jquery.cookie.js"></script>
-		<script src="/js/jquery/jquery.treeview.js"></script>
+		<script src="/js/jquery/jquery.treetable.js"></script>
 		<script src="/js/cms/menu/menu.js"></script>
 	</body>
 </html>

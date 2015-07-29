@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.demo.java.common.dict.Status;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.menu.utils.MenuMemory;
 import com.demo.java.user.entity.User;
@@ -99,7 +100,7 @@ public class CommonController extends AbstractController {
                 User t = userService.valid(userName, password);
                 if (t != null) {
                     LoginCookieUtils.setLoginCookie(t, request, response);
-                    MenuMemory.put(t.getId(), menuService.menuTree());
+                    MenuMemory.put(t.getId(), menuService.menuTree(Status.NORMAL));
                     request.getSession().setAttribute("user", t);
                     return new ModelAndView("redirect:/main");
                 } else {

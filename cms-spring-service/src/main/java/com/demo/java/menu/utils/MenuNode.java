@@ -68,36 +68,28 @@ public class MenuNode implements Serializable {
         return null;
     }
 
-    public String getCode() {
-        return code;
+    public int getLevel() {
+        return code.length() / 3;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public boolean getHasChild() {
+        return (childNode != null) && (childNode.size() > 0);
+    }
+
+    public String getCode() {
+        return code;
     }
 
     public String getParentCode() {
         return parentCode;
     }
 
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode;
-    }
-
     public Menu getNode() {
         return node;
     }
 
-    public void setNode(Menu node) {
-        this.node = node;
-    }
-
     public List<MenuNode> getChildNode() {
         return childNode;
-    }
-
-    public void setChildNode(List<MenuNode> childNode) {
-        this.childNode = childNode;
     }
 
     public String toJSON() {

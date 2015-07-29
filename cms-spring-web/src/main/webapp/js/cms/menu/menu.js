@@ -1,44 +1,55 @@
 $(function() {
 	var tree = {
-		menu : function() {
-			$.getJSON('/menu/tree', function(obj) {
-				if (obj && obj.childNode) {
+		tableHead : function() {
+			return '<tr>\
+			<td>#</td>\
+			<td>Name</td>\
+			<td>Note</td>\
+			<td>Code</td>\
+			<td>Link</td>\
+			<td>Icon</td>\
+			<td>Status</td>\
+		</tr>';
+		},
+		parseObj : function(o) {
+			return '<tr>\
+						<td>' + o.id + '</td>\
+						<td>' + o.name
+					+ '</td>\
+						<td>' + o.note + '</td>\
+						<td>'
+					+ o.code + '</td>\
+						<td><a href="' + o.link + '">'
+					+ o.link + '</a></td>\
+						<td><i class="fa ' + o.icon
+					+ '"></i></td>\
+						<td>' + o.status
+					+ '</td>\
+					</tr>';
+		},
+		list : function() {
+			$.getJSON('/menu/tree/_all', function(obj) {
+				if (obj.hasChild) {
 					var html = '';
 					$.each(obj.childNode, function(i, o) {
-						var subChild = o.childNode;
-						html += '<li><span>' + o.node.name + '</span>';
-						html += tree.subTree(subChild);
-						html += '</li>';
+						html += tree.parseObj(o.node);
+						html += tree.child(o);
 					});
-					$('#menuManageTree').append(html);
-					tree.treeView($('#menuManageTree'));
+					$('#menuTable').html(tree.tableHead() + html);
+					$("#menuTable").treetable();
 				}
 			});
 		},
-		subTree : function(obj) {
+		child : function(obj) {
 			var html = '';
-			if (obj && obj.length > 0) {
-				html += '<ul>';
-				$.each(obj, function(j, o) {
-					html += '<li><span>'+ o.node.name + '</span>';
-					html += tree.subTree(o.childNode);
-					html += '</li>';
+			if (obj.hasChild) {
+				$.each(obj.childNode, function(j, o) {
+					html += tree.parseObj(o.node);
+					html += tree.child(o);
 				});
-				html += '</ul>';
 			}
-			return html
-		},
-		treeView : function(dom) {
-			dom.treeview({
-				animated : "fast",
-				control: "#treecontrol",
-				unique : true,
-				persist : "cookie",
-				toggle : function() {
-					window.console && console.log("%o was toggled", this);
-				}
-			});
+			return html;
 		}
-	}
-	tree.menu();
+	};
+	tree.list();
 });

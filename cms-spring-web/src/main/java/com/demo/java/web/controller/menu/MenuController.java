@@ -1,5 +1,6 @@
 package com.demo.java.web.controller.menu;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.demo.java.common.dict.Status;
 import com.demo.java.menu.entity.Menu;
+import com.demo.java.menu.service.MenuService;
 import com.demo.java.menu.utils.MenuMemory;
 import com.demo.java.menu.utils.MenuNode;
 import com.demo.java.user.entity.User;
@@ -21,6 +24,9 @@ public class MenuController extends AbstractController {
 
     static final Logger LOG = LoggerFactory.getLogger(MenuController.class);
 
+    @Resource
+    MenuService menuService;
+
     @RequestMapping("/add")
     public ModelAndView toAdd(Menu menu, String UUID, HttpServletRequest request) {
         randomUUID(request);
@@ -30,6 +36,12 @@ public class MenuController extends AbstractController {
     @RequestMapping("/manage")
     public ModelAndView toManage(String UUID, HttpServletRequest request) {
         return new ModelAndView("menu/manage");
+    }
+
+    @RequestMapping("/tree/_all")
+    @ResponseBody
+    public MenuNode allTree(HttpServletRequest request) {
+        return menuService.menuTree(Status.ALL);
     }
 
     @RequestMapping("/tree")
