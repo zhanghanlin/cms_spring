@@ -5,11 +5,21 @@
 	<head>
 		<jsp:directive.include file="/common/common.html" />
 		<style type="text/css">
+		table.treetable tr td {
+			cursor: default;
+		} 
+		table.treetable tr td:first-child {
+			padding-left:15px;
+			width: 70px;
+		} 
+		table.treetable tr span a {
+			font-family: "fontAwesome";
+		}
 		table.treetable tr.collapsed span.indenter a:BEFORE {
-			content: "展开"
+			content: "\f0da";
 		}
 		table.treetable tr.expanded span.indenter a:BEFORE {
-			content: "闭合"
+			content: "\f0d7";
 		}
 		</style>
 	</head>
@@ -21,8 +31,9 @@
 				<section class="content-header">
 					<h1>Menu Tree</h1>
 					<ol class="breadcrumb">
-						<li><a href="###"><i class="fa fa-dashboard"></i> Home</a></li>
-						<li class="active">Menu Tree</li>
+						<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
+						<li><a href="###">系统设置</a></li>
+						<li class="active">菜单管理</li>
 					</ol>
 				</section>
 				<section class="content">
@@ -31,6 +42,13 @@
 							<div class="box">
 								<div class="box-header">
 									<h3 class="box-title">Menu</h3>
+									<div class="box-tools">
+										<a role="button" href="/menu/toAdd" class="btn btn-default btn-sm" style="margin-right: 10px;">新增</a>
+										<ul class="pagination pagination-sm no-margin pull-right">
+											<li><a href="###" class="expandAll">展开全部</a></li>
+											<li><a href="###" class="collapseAll">闭合全部</a></li>
+										</ul>
+									</div>
 								</div>
 								<div class="box-body table-responsive no-padding">
 									<table class="table table-hover" id="menuTable"></table>

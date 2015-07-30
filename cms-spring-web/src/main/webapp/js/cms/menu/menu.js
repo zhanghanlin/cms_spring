@@ -1,37 +1,40 @@
 $(function() {
 	var tree = {
+		tableObj : $('#menuTable'),
+		status : {
+			NORMAL : 0,
+			DISABLE : 1,
+			DELETE : 2
+		},
 		tableHead : function() {
 			return '<tr>\
 			<td>#</td>\
 			<td>Name</td>\
-			<td>Note</td>\
-			<td>Code</td>\
-			<td>Link</td>\
 			<td>Icon</td>\
 			<td>Status</td>\
+			<td>Operation</td>\
 		</tr>';
 		},
 		parseObj : function(o) {
 			var code = o.code;
-			var dataId = '';
-			while(code.length / 3 >= 1) {
-				dataId += (code.substr(0,3) *　1) + '-';
+			var dataId;
+			while (code.length / 3 >= 1) {
+				dataId += '-' + parseInt(code.substr(0, 3));
 				code = code.substr(3);
 			}
-			dataId = dataId.substr(0,dataId.length - 1);
-			var parentId = dataId.substr(0,dataId.lastIndexOf('-'))
-			return '<tr data-tt-id="'+dataId+'" data-tt-parent-id="'+parentId+'">\
+			dataId = dataId.substr(1);
+			var parentId = dataId.substr(0, dataId.lastIndexOf('-'));
+			return '<tr data-tt-id="' + dataId + '" data-tt-parent-id="'
+					+ parentId + '">\
 						<td></td>\
-						<td>' + o.name
+						<td title="'
+					+ o.note + '">' + o.name
 					+ '</td>\
-						<td>' + o.note + '</td>\
-						<td>'
-					+ o.code + '</td>\
-						<td><a href="' + o.link + '">'
-					+ o.link + '</a></td>\
 						<td><i class="fa ' + o.icon
 					+ '"></i></td>\
-						<td>' + o.status
+						<td>' + tree.menuStatus(o.status)
+					+ '</td>\
+						<td>' + tree.menuOpera()
 					+ '</td>\
 					</tr>';
 		},
@@ -43,8 +46,10 @@ $(function() {
 						html += tree.parseObj(o.node);
 						html += tree.child(o);
 					});
-					$('#menuTable').html(tree.tableHead() + html);
-					$("#menuTable").treetable({expandable: true});
+					tree.tableObj.html(tree.tableHead() + html);
+					tree.tableObj.treetable({
+						expandable : true
+					});
 				}
 			});
 		},
@@ -57,10 +62,55 @@ $(function() {
 				});
 			}
 			return html;
+		},
+		menuTools : function() {
+			$('.box-tools ul li a').click(function() {
+				if ($(this).hasClass('expandAll')) {
+					tree.tableObj.treetable('expandAll');
+					return false;
+				}
+				if ($(this).hasClass('collapseAll')) {
+					tree.tableObj.treetable('collapseAll');
+					return false;
+				}
+			})
+		},
+		menuOpera : function() {
+			return '<button type="button" class="btn btn-default btn-xs">查看</button>\
+					<button type="button" class="btn btn-default btn-xs">新增子菜单</button>\
+					<button type="button" class="btn btn-default btn-xs">删除</button>\
+					<button type="button" class="btn btn-default btn-xs">禁用</button>';
+		},
+		menuStatus : function(status) {
+			status = parseInt(status);
+			if (status == tree.status.NORMAL) {
+				return '<span class="label label-success">正常</span>';
+			}
+			if (status == tree.status.DISABLE) {
+				return '<span class="label label-warning">禁用</span>';
+			}
+			if (status == tree.status.DELETE) {
+				return '<span class="label label-danger">删除</span>';
+			}
+		},
+		drag : function() {
+			$("#menuTable tr").draggable({
+				revert : 'invalid',
+				helper : 'clone', // original 拖拽源控件,clone托转控制体
+				scroll : true,
+				cursor : "move", // 光标样式
+				delay : 500, // 按下鼠标，等待500毫秒，启动拖动
+				start : function(event, ui) {
+					console.info("start" + this);
+				},
+				drag : function(event, ui) {
+				},
+				stop : function(event, ui) {
+					console.info("stop" + this);
+				}
+			});
 		}
 	};
 	tree.list();
-	
-
-	
+	tree.menuTools();
 });

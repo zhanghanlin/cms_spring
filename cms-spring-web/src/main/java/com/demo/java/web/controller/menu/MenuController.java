@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,7 +28,7 @@ public class MenuController extends AbstractController {
     @Resource
     MenuService menuService;
 
-    @RequestMapping("/add")
+    @RequestMapping("/toAdd")
     public ModelAndView toAdd(Menu menu, String UUID, HttpServletRequest request) {
         randomUUID(request);
         return new ModelAndView("menu/input");
@@ -47,6 +48,17 @@ public class MenuController extends AbstractController {
     @RequestMapping("/tree")
     @ResponseBody
     public MenuNode tree(HttpServletRequest request) {
+        MenuNode node = new MenuNode();
+        User t = (User) request.getSession().getAttribute("user");
+        if (t != null) {
+            node = MenuMemory.get(t.getId());
+        }
+        return node;
+    }
+
+    @RequestMapping("/tree/p/{pcode}")
+    @ResponseBody
+    public MenuNode getMenuByParent(@PathVariable String pcode, HttpServletRequest request) {
         MenuNode node = new MenuNode();
         User t = (User) request.getSession().getAttribute("user");
         if (t != null) {
