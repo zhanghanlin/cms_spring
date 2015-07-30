@@ -13,4 +13,6 @@ public final class MenuSqlMapper {
     public static final String GET_BY_PARENT_CODE = "select * from " + TABLE_NAME + " where parent_code = ? and status = ? order by weight desc";
 
     public static final String GET_MAX_LEVEL = "select MAX(LENGTH(code)/3) from " + TABLE_NAME + " where status = ?";
+
+    public static final String GET_MAX_CODE_BY_PARENT_CODE = "select MAX(code) from " + TABLE_NAME + " where parent_code = ? and status = ? ";
 }

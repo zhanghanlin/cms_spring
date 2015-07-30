@@ -32,7 +32,9 @@
 								<div class="box-header with-border">
 									<h3 class="box-title">新增</h3>
 								</div>
-								<form action="" class="form-horizontal">
+								<form action="/menu/add" method="post" class="form-horizontal">
+									<input type="hidden" value="${UUID }" name="UUID"/>
+									<input type="hidden" id="parentCode" value="0" name="parentCode"/>
 									<div class="box-body">
 										<div class="row">
 											<div class="col-md-10">
@@ -49,7 +51,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label">名称</label>
 													<div class="col-sm-3">
-														<input type="text" class="form-control" id="name" name="name" placeholder="分类名称">
+														<input type="text" class="form-control" id="name" name="name" placeholder="分类名称" required />
 													</div>
 												</div>
 											</div>
@@ -58,7 +60,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label">链接</label>
 													<div class="col-sm-5">
-														<input type="text" class="form-control" id="note" name="note" placeholder="分类链接,默认###">
+														<input type="text" class="form-control" id="note" name="note" placeholder="分类链接,默认###" required />
 													</div>
 												</div>
 											</div>
@@ -68,7 +70,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label">说明</label>
 													<div class="col-sm-5">
-														<input type="text" class="form-control" id="note" name="note" placeholder="分类说明">
+														<input type="text" class="form-control" id="note" name="note" placeholder="分类说明" required />
 													</div>
 												</div>
 											</div>
@@ -78,7 +80,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label">图标</label>
 													<div class="col-sm-2">
-														<input type="text" class="form-control" id="icon" name="icon" placeholder="分类图标">
+														<input type="text" class="form-control" id="icon" name="icon" placeholder="分类图标" required />
 													</div>
 													<label class="col-sm-1 control-label"><i></i></label>
 													<div class="col-sm-1">

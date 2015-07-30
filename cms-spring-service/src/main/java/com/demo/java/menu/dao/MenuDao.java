@@ -45,6 +45,10 @@ public class MenuDao extends AbstractDao<Menu> {
         return null;
     }
 
+    public String getMaxCodeByParentCode(String code) {
+        return jdbcTemplate.queryForObject(MenuSqlMapper.GET_MAX_CODE_BY_PARENT_CODE, new Object[] { code, Status.NORMAL }, String.class);
+    }
+
     public int maxLevel() {
         return jdbcTemplate.queryForObject(MenuSqlMapper.GET_MAX_LEVEL, new Object[] { Status.NORMAL }, Integer.class);
     }

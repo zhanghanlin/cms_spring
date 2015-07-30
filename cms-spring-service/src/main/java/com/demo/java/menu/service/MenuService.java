@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.utils.MenuNode;
+import com.demo.java.user.entity.User;
 
 public interface MenuService {
 
@@ -12,4 +13,6 @@ public interface MenuService {
     public List<Menu> getMenuByParentCode(String code);
 
     public int maxLevel();
+
+    public int add(Menu menu, User u);
 }

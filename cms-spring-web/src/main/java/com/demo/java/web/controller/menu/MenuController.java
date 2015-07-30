@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,5 +71,20 @@ public class MenuController extends AbstractController {
     @ResponseBody
     public ResponseContent<Integer> maxLevel(HttpServletRequest request) {
         return new ResponseContent<>(MenuEnum.SUCCESS, menuService.maxLevel());
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ModelAndView add(Menu menu, String UUID, HttpServletRequest request) {
+        ModelAndView model = new ModelAndView("redirect:/menu/toAdd");
+        if (!checkUUID(UUID, request)) {
+            return model;
+        }
+        User u = (User) request.getSession().getAttribute("user");
+        int res = menuService.add(menu, u);
+        if (res <= 0) {
+            return model;
+        }
+        model.setViewName("redirect:/menu/manage");
+        return model;
     }
 }

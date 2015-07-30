@@ -40,6 +40,7 @@ $(function() {
 		selectMenu : function() {
 			$('#menuDirectory').delegate('.select', 'change', function() {
 				var code = $(this).val();
+				$('#parentCode').val(code);
 				if (!code) {
 					return false;
 				}
@@ -53,7 +54,7 @@ $(function() {
 				menuInput.initSelect(code);
 			});
 		},
-		iconCheck : function() {
+		iconBlur : function() {
 			if ($('#icon').val()) {
 				$('#icon').parent().next().find('i').addClass('fa');
 				$('#icon').parent().next().find('i').addClass($('#icon').val());
@@ -67,5 +68,5 @@ $(function() {
 	};
 	menuInput.initLevel();
 	menuInput.selectMenu();
-	menuInput.iconCheck();
+	menuInput.iconBlur();
 });

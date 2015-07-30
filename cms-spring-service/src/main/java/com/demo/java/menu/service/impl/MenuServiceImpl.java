@@ -1,6 +1,7 @@
 package com.demo.java.menu.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +13,8 @@ import com.demo.java.menu.dao.MenuDao;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.menu.utils.MenuNode;
+import com.demo.java.user.entity.User;
+import com.demo.java.utils.string.StringUtils;
 
 @Service("menuService")
 public class MenuServiceImpl implements MenuService {
@@ -43,5 +46,31 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public int maxLevel() {
         return menuDao.maxLevel();
+    }
+
+    @Override
+    public int add(Menu menu, User u) {
+        if (StringUtils.isBlank(menu.getLink())) {
+            menu.setLink("###");
+        }
+        menu.setCreatedAt(new Date());
+        menu.setCreatedBy(u.getId().toString());
+        String pcode = menu.getParentCode();
+        String maxCode = menuDao.getMaxCodeByParentCode(pcode);
+        menu.setCode(nextCode(pcode, maxCode));
+        menu.setStatus(Status.NORMAL);
+        menu.setWeight(1);
+        menu.setVersion(1);
+        return menuDao.save(menu);
+    }
+
+    static String nextCode(String pcode, String maxCode) {
+        if (StringUtils.isBlank(maxCode)) {
+            return pcode + "001";
+        }
+        String code = maxCode.substring(maxCode.length() - 3);
+        Integer intCode = Integer.valueOf(code) + 1;
+        code = pcode + StringUtils.leftPad(intCode.toString(), 3, "0");
+        return code;
     }
 }
