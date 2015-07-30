@@ -157,4 +157,18 @@ public class CommonController extends AbstractController {
         LoginCookieUtils.clearLoginCookie(request, response);
         return new ModelAndView("redirect:/login");
     }
+
+    /**
+     * ICON.<br/>
+     * 
+     * @author zhanghanlin
+     * @param request
+     * @param response
+     * @return
+     * @since JDK 1.7
+     */
+    @RequestMapping(value = "/icons", method = RequestMethod.GET)
+    public ModelAndView icons(HttpServletRequest request, HttpServletResponse response) {
+        return new ModelAndView("/common/icons");
+    }
 }

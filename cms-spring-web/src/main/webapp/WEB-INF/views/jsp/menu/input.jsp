@@ -5,6 +5,11 @@
 	<head>
 		<link href="/css/tools/select2.min.css" rel="stylesheet" type="text/css">
 		<jsp:directive.include file="/common/common.html" />
+		<style type="text/css">
+		from.form-horizontal i {
+			font-family: "fontAwesome";
+		}
+		</style>
 	</head>
 	<body class="skin-blue sidebar-mini">
 		<div class="wrapper">
@@ -31,26 +36,67 @@
 									<div class="box-body">
 										<div class="row">
 											<div class="col-md-10">
+												<div class="form-group" id="menuDirectory">
+													<label class="col-sm-2 control-label">等级</label>
+													<div class="col-sm-2">
+														<select class="form-control" id="menuLevel"></select>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-10">
 												<div class="form-group">
-													<label class="col-sm-2 control-label">分类</label>
+													<label class="col-sm-2 control-label">名称</label>
 													<div class="col-sm-3">
-														<select class="form-control" id="menu1">
-															<option selected="selected">Alabama</option>
-															<option>Alaska</option>
-															<option>California</option>
-															<option>Delaware</option>
-															<option>Tennessee</option>
-															<option>Texas</option>
-															<option>Washington</option>
-														</select>
+														<input type="text" class="form-control" id="name" name="name" placeholder="分类名称">
+													</div>
+												</div>
+											</div>
+										</div><div class="row">
+											<div class="col-md-10">
+												<div class="form-group">
+													<label class="col-sm-2 control-label">链接</label>
+													<div class="col-sm-5">
+														<input type="text" class="form-control" id="note" name="note" placeholder="分类链接,默认###">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-10">
+												<div class="form-group">
+													<label class="col-sm-2 control-label">说明</label>
+													<div class="col-sm-5">
+														<input type="text" class="form-control" id="note" name="note" placeholder="分类说明">
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-10">
+												<div class="form-group">
+													<label class="col-sm-2 control-label">图标</label>
+													<div class="col-sm-2">
+														<input type="text" class="form-control" id="icon" name="icon" placeholder="分类图标">
+													</div>
+													<label class="col-sm-1 control-label"><i></i></label>
+													<div class="col-sm-1">
+														<a role="button" href="/icons" target="_blank" class="btn btn-default">Icon</a>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="box-footer">
-										<button type="submit" class="btn btn-default">Cancel</button>
-										<button type="submit" class="btn btn-info pull-right">Sign in</button>
+										<div class="row">
+											<div class="col-sm-3">
+												<button type="submit" class="btn btn-info pull-right">Sign in</button>
+											</div>
+											<div class="col-sm-3">
+												<button type="reset" class="btn btn-default">Cancel</button>
+											</div>
+										</div>
 									</div>
 								</form>
 							</div>
@@ -62,8 +108,6 @@
 			<jsp:directive.include file="/common/footer.html" />
 		</div>
 		<script type="text/javascript" src="/js/tools/select2.full.min.js"></script>
-		<script type="text/javascript">
-		$('#menu1').select2();
-		</script>
+		<script type="text/javascript" src="/js/cms/menu/input.js"></script>
 	</body>
 </html>

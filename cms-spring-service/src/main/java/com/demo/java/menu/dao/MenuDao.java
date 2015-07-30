@@ -36,4 +36,16 @@ public class MenuDao extends AbstractDao<Menu> {
         }
         return null;
     }
+
+    public List<Menu> getByParentCode(String code) {
+        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.GET_BY_PARENT_CODE, new Object[] { code, Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        if ((list != null) && !list.isEmpty()) {
+            return list;
+        }
+        return null;
+    }
+
+    public int maxLevel() {
+        return jdbcTemplate.queryForObject(MenuSqlMapper.GET_MAX_LEVEL, new Object[] { Status.NORMAL }, Integer.class);
+    }
 }

@@ -1,5 +1,7 @@
 package com.demo.java.web.controller.menu;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +20,8 @@ import com.demo.java.menu.utils.MenuMemory;
 import com.demo.java.menu.utils.MenuNode;
 import com.demo.java.user.entity.User;
 import com.demo.java.web.controller.AbstractController;
+import com.demo.java.web.response.MenuEnum;
+import com.demo.java.web.response.ResponseContent;
 
 @Controller
 @RequestMapping(value = "/menu")
@@ -58,12 +62,13 @@ public class MenuController extends AbstractController {
 
     @RequestMapping("/tree/p/{pcode}")
     @ResponseBody
-    public MenuNode getMenuByParent(@PathVariable String pcode, HttpServletRequest request) {
-        MenuNode node = new MenuNode();
-        User t = (User) request.getSession().getAttribute("user");
-        if (t != null) {
-            node = MenuMemory.get(t.getId());
-        }
-        return node;
+    public List<Menu> getMenuByParent(@PathVariable String pcode, HttpServletRequest request) {
+        return menuService.getMenuByParentCode(pcode);
+    }
+
+    @RequestMapping("/maxLevel")
+    @ResponseBody
+    public ResponseContent<Integer> maxLevel(HttpServletRequest request) {
+        return new ResponseContent<>(MenuEnum.SUCCESS, menuService.maxLevel());
     }
 }

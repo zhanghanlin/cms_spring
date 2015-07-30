@@ -34,4 +34,14 @@ public class MenuServiceImpl implements MenuService {
         }
         return tree;
     }
+
+    @Override
+    public List<Menu> getMenuByParentCode(String code) {
+        return menuDao.getByParentCode(code);
+    }
+
+    @Override
+    public int maxLevel() {
+        return menuDao.maxLevel();
+    }
 }

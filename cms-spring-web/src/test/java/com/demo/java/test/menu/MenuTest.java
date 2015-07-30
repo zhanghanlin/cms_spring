@@ -30,4 +30,9 @@ public class MenuTest extends AbstractTest {
         }
         LOG.info(tree.toJSON());
     }
+
+    @Test
+    public void testMaxLevel() {
+        LOG.info("max level : {}", menuDao.maxLevel());
+    }
 }
