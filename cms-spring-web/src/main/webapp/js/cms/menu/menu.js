@@ -16,7 +16,7 @@ $(function() {
 		},
 		parseObj : function(o) {
 			var code = o.code;
-			var dataId;
+			var dataId = '';
 			while (code.length / 3 >= 1) {
 				dataId += '-' + parseInt(code.substr(0, 3));
 				code = code.substr(3);
@@ -32,12 +32,12 @@ $(function() {
 					+ '"></i></td>\
 						<td>' + tree.menuStatus(o.status)
 					+ '</td>\
-						<td>' + tree.menuOpera(o.code)
+						<td>' + tree.menuOpera(o)
 					+ '</td>\
 					</tr>';
 		},
 		list : function() {
-			$.getJSON('/menu/tree/_all', function(obj) {
+			$.getJSON('/menu/_all', function(obj) {
 				if (obj.hasChild) {
 					var html = '';
 					$.each(obj.childNode, function(i, o) {
@@ -46,7 +46,8 @@ $(function() {
 					});
 					tree.tableObj.html(tree.tableHead() + html);
 					tree.tableObj.treetable({
-						expandable : true
+						expandable : true,
+						
 					});
 				}
 			});
@@ -73,9 +74,10 @@ $(function() {
 				}
 			})
 		},
-		menuOpera : function(code) {
+		menuOpera : function(o) {
 			return '<button type="button" class="btn btn-default btn-xs">查看</button>\
-					<a role="button" href="/menu/toAdd/'+code+'" class="btn btn-default btn-xs">新增子菜单</a>\
+					<a role="button" href="/menu/edit/'+o.id+'" class="btn btn-default btn-xs">编辑</button>\
+					<a role="button" href="/menu/toAdd/'+o.code+'" class="btn btn-default btn-xs">新增子菜单</a>\
 					<button type="button" class="btn btn-default btn-xs">删除</button>\
 					<button type="button" class="btn btn-default btn-xs">禁用</button>';
 		},

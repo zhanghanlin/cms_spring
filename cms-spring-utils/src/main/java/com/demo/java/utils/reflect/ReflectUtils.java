@@ -26,7 +26,7 @@ public class ReflectUtils {
         return StringUtils.camelCase2DB(field.getName());
     }
 
-    static String class2Table(Class<? extends Object> clazz) {
+    public static String class2Table(Class<? extends Object> clazz) {
         if (clazz.isAnnotationPresent(Table.class)) {
             return clazz.getAnnotation(Table.class).name();
         }

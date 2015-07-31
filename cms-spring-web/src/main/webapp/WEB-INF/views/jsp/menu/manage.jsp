@@ -14,6 +14,7 @@
 		} 
 		table.treetable tr span a {
 			font-family: "fontAwesome";
+			padding-right: 5px;
 		}
 		table.treetable tr.collapsed span.indenter a:BEFORE {
 			content: "\f067";

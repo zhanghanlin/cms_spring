@@ -38,15 +38,18 @@
 								<div class="box-header with-border">
 									<h3 class="box-title">新增</h3>
 								</div>
-								<form action="/menu/add" method="post" class="form-horizontal">
+								<form action="${action }" method="post" class="form-horizontal">
 									<input type="hidden" value="${UUID }" name="UUID"/>
-									<input type="hidden" id="parentCode" value='<c:out value="${code }" default="0"></c:out>' name="parentCode"/>
+									<input type="hidden" value="${menu.id }" name="id" id="id"/>
+									<input type="hidden" value="${menu.code }" name="code"/>
+									<input type="hidden" id="parentCode" value='<c:out value="${parentCode }" default="0"></c:out>' name="parentCode"/>
 									<div class="box-body">
 										<div class="row">
 											<div class="col-md-10">
 												<div class="form-group" id="menuDirectory">
 													<label class="col-sm-2 control-label">等级</label>
-													<c:if test="${fn:length(menuNames) > 0 }">
+													<c:choose>
+													<c:when test="${fn:length(menuNames) > 0 }">
 													<div class="col-sm-6">
 														<ol class="breadcrumb">
 														<c:forEach items="${menuNames }" var="m">
@@ -54,7 +57,13 @@
 														</c:forEach>
 														</ol>
 													</div>
-													</c:if>
+													</c:when>
+													<c:otherwise>
+													<div class="col-sm-2">
+														<select class="form-control" id="menuLevel"></select>
+													</div>
+													</c:otherwise>
+													</c:choose>
 												</div>
 											</div>
 										</div>
@@ -63,7 +72,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label">名称</label>
 													<div class="col-sm-3">
-														<input type="text" class="form-control" id="name" name="name" placeholder="分类名称" required />
+														<input type="text" class="form-control" id="name" value="${menu.name }" name="name" placeholder="分类名称" required />
 													</div>
 												</div>
 											</div>
@@ -72,7 +81,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label">链接</label>
 													<div class="col-sm-5">
-														<input type="text" class="form-control" id="note" name="note" placeholder="分类链接,默认###" required />
+														<input type="text" class="form-control" id="link" value="${menu.link }" name="link" placeholder="分类链接,默认###" required />
 													</div>
 												</div>
 											</div>
@@ -82,7 +91,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label">说明</label>
 													<div class="col-sm-5">
-														<input type="text" class="form-control" id="note" name="note" placeholder="分类说明" required />
+														<input type="text" class="form-control" id="note" value="${menu.note }" name="note" placeholder="分类说明" required />
 													</div>
 												</div>
 											</div>
@@ -92,7 +101,7 @@
 												<div class="form-group">
 													<label class="col-sm-2 control-label">图标</label>
 													<div class="col-sm-2">
-														<input type="text" class="form-control" id="icon" name="icon" placeholder="分类图标" required />
+														<input type="text" class="form-control" id="icon" value="${menu.icon }" name="icon" placeholder="分类图标" required />
 													</div>
 													<label class="col-sm-1 control-label"><i></i></label>
 													<div class="col-sm-1">
@@ -105,10 +114,10 @@
 									<div class="box-footer">
 										<div class="row">
 											<div class="col-sm-3">
-												<button type="submit" class="btn btn-info pull-right">Sign in</button>
+												<button type="submit" class="btn btn-info pull-right">${submit }</button>
 											</div>
 											<div class="col-sm-3">
-												<button type="reset" class="btn btn-default">Cancel</button>
+												<button type="reset" class="btn btn-default">取消</button>
 											</div>
 										</div>
 									</div>

@@ -90,4 +90,26 @@ public class MenuServiceImpl implements MenuService {
         code = pcode + StringUtils.leftPad(intCode.toString(), 3, "0");
         return code;
     }
+
+    @Override
+    public int updateStatus(Long id, int status, User u) {
+        Menu menu = new Menu();
+        menu.setId(id);
+        menu.setStatus(status);
+        menu.setChangedAt(new Date());
+        menu.setChangedBy(u.getUserName());
+        return menuDao.update(menu);
+    }
+
+    @Override
+    public int update(Menu menu, User u) {
+        menu.setChangedAt(new Date());
+        menu.setChangedBy(u.getUserName());
+        return menuDao.update(menu);
+    }
+
+    @Override
+    public Menu get(Long id) {
+        return menuDao.get(id);
+    }
 }

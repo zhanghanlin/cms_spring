@@ -17,4 +17,10 @@ public interface MenuService {
     public int add(Menu menu, User u);
 
     public List<String> getTreesNameByCode(String code);
+
+    public int updateStatus(Long id, int status, User u);
+
+    public int update(Menu menu, User u);
+
+    public Menu get(Long id);
 }
