@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,6 +9,11 @@
 		<style type="text/css">
 		from.form-horizontal i {
 			font-family: "fontAwesome";
+		}
+		ol.breadcrumb {
+			margin-bottom: 0px;
+			padding-left : 0px;
+			background-color: #fff;
 		}
 		</style>
 	</head>
@@ -34,15 +40,21 @@
 								</div>
 								<form action="/menu/add" method="post" class="form-horizontal">
 									<input type="hidden" value="${UUID }" name="UUID"/>
-									<input type="hidden" id="parentCode" value="0" name="parentCode"/>
+									<input type="hidden" id="parentCode" value='<c:out value="${code }" default="0"></c:out>' name="parentCode"/>
 									<div class="box-body">
 										<div class="row">
 											<div class="col-md-10">
 												<div class="form-group" id="menuDirectory">
 													<label class="col-sm-2 control-label">等级</label>
-													<div class="col-sm-2">
-														<select class="form-control" id="menuLevel"></select>
+													<c:if test="${fn:length(menuNames) > 0 }">
+													<div class="col-sm-6">
+														<ol class="breadcrumb">
+														<c:forEach items="${menuNames }" var="m">
+															<li>${m }</li>
+														</c:forEach>
+														</ol>
 													</div>
+													</c:if>
 												</div>
 											</div>
 										</div>

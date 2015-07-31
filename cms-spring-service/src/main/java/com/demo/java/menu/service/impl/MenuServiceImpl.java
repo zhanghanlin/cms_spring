@@ -3,6 +3,7 @@ package com.demo.java.menu.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -62,6 +63,22 @@ public class MenuServiceImpl implements MenuService {
         menu.setWeight(1);
         menu.setVersion(1);
         return menuDao.save(menu);
+    }
+
+    @Override
+    public List<String> getTreesNameByCode(String code) {
+        List<String> param = new ArrayList<String>();
+        List<String> list = new ArrayList<String>();
+        for (int i = 1; i <= (code.length() / 3); i++) {
+            param.add(code.substring(0, i * 3));
+        }
+        List<Map<String, Object>> objects = menuDao.getTreesNameByCode(param);
+        if ((objects != null) && !objects.isEmpty()) {
+            for (Map<String, Object> map : objects) {
+                list.add(map.get("name").toString());
+            }
+        }
+        return list;
     }
 
     static String nextCode(String pcode, String maxCode) {

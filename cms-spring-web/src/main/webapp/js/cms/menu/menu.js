@@ -8,12 +8,11 @@ $(function() {
 		},
 		tableHead : function() {
 			return '<tr>\
-			<td>#</td>\
-			<td>Name</td>\
-			<td>Icon</td>\
-			<td>Status</td>\
-			<td>Operation</td>\
-		</tr>';
+						<td>Name</td>\
+						<td>Icon</td>\
+						<td>Status</td>\
+						<td>Operation</td>\
+					</tr>';
 		},
 		parseObj : function(o) {
 			var code = o.code;
@@ -26,7 +25,6 @@ $(function() {
 			var parentId = dataId.substr(0, dataId.lastIndexOf('-'));
 			return '<tr data-tt-id="' + dataId + '" data-tt-parent-id="'
 					+ parentId + '">\
-						<td></td>\
 						<td title="'
 					+ o.note + '">' + o.name
 					+ '</td>\
@@ -34,7 +32,7 @@ $(function() {
 					+ '"></i></td>\
 						<td>' + tree.menuStatus(o.status)
 					+ '</td>\
-						<td>' + tree.menuOpera()
+						<td>' + tree.menuOpera(o.code)
 					+ '</td>\
 					</tr>';
 		},
@@ -75,9 +73,9 @@ $(function() {
 				}
 			})
 		},
-		menuOpera : function() {
+		menuOpera : function(code) {
 			return '<button type="button" class="btn btn-default btn-xs">查看</button>\
-					<button type="button" class="btn btn-default btn-xs">新增子菜单</button>\
+					<a role="button" href="/menu/toAdd/'+code+'" class="btn btn-default btn-xs">新增子菜单</a>\
 					<button type="button" class="btn btn-default btn-xs">删除</button>\
 					<button type="button" class="btn btn-default btn-xs">禁用</button>';
 		},

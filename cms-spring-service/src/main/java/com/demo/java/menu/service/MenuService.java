@@ -15,4 +15,6 @@ public interface MenuService {
     public int maxLevel();
 
     public int add(Menu menu, User u);
+
+    public List<String> getTreesNameByCode(String code);
 }

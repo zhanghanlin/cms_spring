@@ -34,9 +34,20 @@ public class MenuController extends AbstractController {
     MenuService menuService;
 
     @RequestMapping("/toAdd")
-    public ModelAndView toAdd(Menu menu, String UUID, HttpServletRequest request) {
+    public ModelAndView toAdd(HttpServletRequest request) {
         randomUUID(request);
         return new ModelAndView("menu/input");
+    }
+
+    @RequestMapping("/toAdd/{code}")
+    public ModelAndView toAddSub(@PathVariable String code, HttpServletRequest request) {
+        randomUUID(request);
+        ModelAndView model = new ModelAndView();
+        model.setViewName("menu/input");
+        model.addObject("code", code);
+        List<String> list = menuService.getTreesNameByCode(code);
+        model.addObject("menuNames", list);
+        return model;
     }
 
     @RequestMapping("/manage")

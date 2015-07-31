@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.demo.java.menu.dao.MenuDao;
 import com.demo.java.menu.entity.Menu;
+import com.demo.java.menu.service.MenuService;
 import com.demo.java.menu.utils.MenuNode;
 import com.demo.java.test.AbstractTest;
 
@@ -19,6 +20,8 @@ public class MenuTest extends AbstractTest {
 
     @Resource
     MenuDao menuDao;
+    @Resource
+    MenuService menuService;
 
     @Test
     public void testTree() {

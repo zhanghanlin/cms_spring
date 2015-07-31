@@ -10,16 +10,16 @@
 		} 
 		table.treetable tr td:first-child {
 			padding-left:15px;
-			width: 70px;
+			width: 200px;
 		} 
 		table.treetable tr span a {
 			font-family: "fontAwesome";
 		}
 		table.treetable tr.collapsed span.indenter a:BEFORE {
-			content: "\f0da";
+			content: "\f067";
 		}
 		table.treetable tr.expanded span.indenter a:BEFORE {
-			content: "\f0d7";
+			content: "\f068";
 		}
 		</style>
 	</head>

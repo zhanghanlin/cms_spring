@@ -1,7 +1,10 @@
 package com.demo.java.menu.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +15,8 @@ import com.demo.java.menu.entity.Menu;
 
 @Repository
 public class MenuDao extends AbstractDao<Menu> {
+
+    final static Logger LOG = LoggerFactory.getLogger(MenuDao.class);
 
     public List<Menu> list(int status) {
         List<Menu> list = jdbcTemplate.query(MenuSqlMapper.GET_LIST, new Object[] { status }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
@@ -51,5 +56,18 @@ public class MenuDao extends AbstractDao<Menu> {
 
     public int maxLevel() {
         return jdbcTemplate.queryForObject(MenuSqlMapper.GET_MAX_LEVEL, new Object[] { Status.NORMAL }, Integer.class);
+    }
+
+    public List<Map<String, Object>> getTreesNameByCode(List<String> param) {
+        String sql = "select name from  " + MenuSqlMapper.TABLE_NAME + "  where code in (0";
+        for (String c : param) {
+            sql += "," + c;
+        }
+        sql += ") and status = ? order by LENGTH(code)";
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("getTreesNameByCode sql : {}", sql);
+        }
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, new Object[] { Status.NORMAL });
+        return list;
     }
 }
