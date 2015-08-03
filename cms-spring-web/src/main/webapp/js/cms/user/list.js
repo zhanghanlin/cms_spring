@@ -47,13 +47,15 @@ $(function() {
 					+ '">&laquo;</a></li>';
 			for ( var i = 1; i <= obj.totalPage; i++) {
 				if (i == obj.curPage) {
-					page += '<li class="active"><a href="###" n="'+i+'">' + i + '</a></li>';
+					page += '<li class="active"><a href="###" n="' + i + '">'
+							+ i + '</a></li>';
 				} else {
-					page += '<li><a href="###" n="'+i+'">' + i + '</a></li>';
+					page += '<li><a href="###" n="' + i + '">' + i
+							+ '</a></li>';
 				}
 			}
-			page += '<li><a href="###"  n="'+obj.totalPage+'" class="' + nextCss
-					+ '">&raquo;</a></li>';
+			page += '<li><a href="###"  n="' + obj.totalPage + '" class="'
+					+ nextCss + '">&raquo;</a></li>';
 			$('.box-footer ul').html(page);
 			user.pageOpera();
 		},
@@ -92,12 +94,16 @@ $(function() {
 			}
 		},
 		pageOpera : function() {
-			$('.pagination').delegate('li a','click',function(){
-				if ($(this).hasClass('not-allowed') || $(this).parent().hasClass('active')) {
-					return false;
-				}
-				user.list($(this).attr('n'));
-			});
+			$('.pagination').delegate(
+					'li a',
+					'click',
+					function() {
+						if ($(this).hasClass('not-allowed')
+								|| $(this).parent().hasClass('active')) {
+							return false;
+						}
+						user.list($(this).attr('n'));
+					});
 		}
 	};
 	user.list(1);
