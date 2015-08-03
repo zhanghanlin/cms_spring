@@ -22,6 +22,9 @@
 		table.treetable tr.expanded span.indenter a:BEFORE {
 			content: "\f068";
 		}
+		div.modal-content {
+			border-radius : 10px;
+		}
 		</style>
 	</head>
 	<body class="skin-blue sidebar-mini">
