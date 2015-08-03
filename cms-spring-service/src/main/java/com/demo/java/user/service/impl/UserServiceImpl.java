@@ -1,6 +1,7 @@
 package com.demo.java.user.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -51,5 +52,15 @@ public class UserServiceImpl implements UserService {
         t.setVersion(1);
         int res = userDao.save(t);
         return res > 0;
+    }
+
+    @Override
+    public int size() {
+        return userDao.size();
+    }
+
+    @Override
+    public List<User> pageList(int pageNo, int pageSize) {
+        return userDao.pageList((pageNo - 1) * pageSize, pageSize);
     }
 }

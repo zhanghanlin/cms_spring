@@ -1,34 +1,5 @@
 $(function() {
 	var menuInput = {
-		editSelect : function() {
-			var pCode = $('#parentCode').val();
-			if (parseInt(pCode) == 0) {
-				return false;
-			}
-			var level = pCode.length / 3 + 1;
-			for ( var i = 1; i < level; i++) {
-				var _code = pCode.substr(0, (i - 1) * 3);
-				if (!_code)
-					_code = 0;
-//				$.ajax({
-//					url : '/menu/p/' + _code,
-//					type : 'GET',
-//					async : false,
-//					dataType : 'JSON',
-//					success : function(obj) {
-//						$('#menuDirectory').append(
-//								menuInput.ajaxSelectHtml(obj, i));
-//						$('#menu' + i).select2({
-//							placeholder : "请选择"
-//						});
-//						
-//					}
-//				});
-				$.ajaxSettings.async = false;
-				menuInput.initSelect(_code);
-				$('#menu' + i).val(pCode.substr(0, i * 3)).trigger('change');
-			}
-		},
 		ajaxSelectHtml : function(obj, level) {
 			var html = '<div class="col-sm-2 menuDiv"><select class="form-control select" id="menu'
 					+ level + '"><option></option>';
@@ -101,9 +72,6 @@ $(function() {
 			})
 		}
 	};
-	if (parseInt($('#id').val()) > 0) {
-		menuInput.editSelect();
-	}
 	menuInput.initLevel();
 	menuInput.selectMenu();
 	menuInput.iconBlur();

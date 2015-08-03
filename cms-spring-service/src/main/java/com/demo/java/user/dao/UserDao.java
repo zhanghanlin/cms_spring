@@ -35,4 +35,12 @@ public class UserDao extends AbstractDao<User> {
         }
         return null;
     }
+
+    public List<User> pageList(int start, int pageSize) {
+        return jdbcTemplate.query(UserSqlMapper.GET_PAGE_LIST, new Object[] { start, pageSize }, ParameterizedBeanPropertyRowMapper.newInstance(User.class));
+    }
+
+    public int size() {
+        return jdbcTemplate.queryForObject(UserSqlMapper.GET_ALL_SIZE, Integer.class);
+    }
 }

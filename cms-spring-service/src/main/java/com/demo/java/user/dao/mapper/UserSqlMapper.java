@@ -10,4 +10,7 @@ public final class UserSqlMapper {
 
     public static final String GET_BY_PHONE = "select * from " + TABLE_NAME + " where phone = ?";
 
+    public static final String GET_PAGE_LIST = "select * from " + TABLE_NAME + " ORDER BY id desc LIMIT ?,?";
+
+    public static final String GET_ALL_SIZE = "select count(id) from " + TABLE_NAME;
 }

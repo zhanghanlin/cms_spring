@@ -1,6 +1,6 @@
 $(function() {
 	var common = {
-		initMeun : function() {
+		initLeftTree : function() {
 			$
 					.getJSON(
 							'/menu/tree',
@@ -28,30 +28,30 @@ $(function() {
 											<i class="fa fa-angle-left pull-right"></i>\
 										</a>';
 														html += common
-																.subMenu(o);
+																.subLeftTree(o);
 													});
 									$('.sidebar-menu').append(html);
 								}
 							});
 		},
-		subMenu : function(obj) {
+		subLeftTree : function(obj) {
 			var html = '';
 			if (obj.hasChild) {
 				html += '<ul class="treeview-menu">';
 				$.each(obj.childNode, function(j, o) {
-					html += '<li><a href="' + o.node.link
-							+ '"><i class="fa fa-circle-o"></i>' + o.node.name;
+					html += '<li><a href="' + o.node.link + '"><i class="fa '
+							+ o.node.icon + '"></i>' + o.node.name;
 					if (o.childNode.length > 0) {
 						html += '<i class="fa fa-angle-left pull-right"></i>';
 					}
 					html += '</a>';
-					html += common.subMenu(o);
+					html += common.subLeftTree(o);
 					html += '</li>';
 				});
 				html += '</ul>';
 			}
-			return html
+			return html;
 		}
 	}
-	common.initMeun();
+	common.initLeftTree();
 });

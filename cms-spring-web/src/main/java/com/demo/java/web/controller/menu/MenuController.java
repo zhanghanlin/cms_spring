@@ -26,7 +26,7 @@ import com.demo.java.web.response.MenuEnum;
 import com.demo.java.web.response.ResponseContent;
 
 @Controller
-@RequestMapping(value = "/menu")
+@RequestMapping("menu")
 public class MenuController extends AbstractController {
 
     static final Logger LOG = LoggerFactory.getLogger(MenuController.class);
@@ -34,7 +34,7 @@ public class MenuController extends AbstractController {
     @Resource
     MenuService menuService;
 
-    @RequestMapping("/toAdd")
+    @RequestMapping("toAdd")
     public ModelAndView toAdd(HttpServletRequest request) {
         randomUUID(request);
         ModelAndView model = new ModelAndView("menu/input");
@@ -43,7 +43,7 @@ public class MenuController extends AbstractController {
         return model;
     }
 
-    @RequestMapping("/toAdd/{code}")
+    @RequestMapping("toAdd/{code}")
     public ModelAndView toAddSub(@PathVariable String code, HttpServletRequest request) {
         randomUUID(request);
         ModelAndView model = new ModelAndView();
@@ -56,18 +56,18 @@ public class MenuController extends AbstractController {
         return model;
     }
 
-    @RequestMapping("/manage")
-    public ModelAndView toManage(String UUID, HttpServletRequest request) {
-        return new ModelAndView("menu/manage");
+    @RequestMapping("toList")
+    public ModelAndView toList(String UUID, HttpServletRequest request) {
+        return new ModelAndView("menu/list");
     }
 
-    @RequestMapping("/_all")
+    @RequestMapping("_all")
     @ResponseBody
     public MenuNode allTree(HttpServletRequest request) {
         return menuService.menuTree(Status.ALL);
     }
 
-    @RequestMapping("/tree")
+    @RequestMapping("tree")
     @ResponseBody
     public MenuNode tree(HttpServletRequest request) {
         MenuNode node = new MenuNode();
@@ -78,19 +78,19 @@ public class MenuController extends AbstractController {
         return node;
     }
 
-    @RequestMapping("/p/{pcode}")
+    @RequestMapping("p/{pcode}")
     @ResponseBody
     public List<Menu> getMenuByParent(@PathVariable String pcode, HttpServletRequest request) {
         return menuService.getMenuByParentCode(pcode);
     }
 
-    @RequestMapping("/maxLevel")
+    @RequestMapping("maxLevel")
     @ResponseBody
     public ResponseContent<Integer> maxLevel(HttpServletRequest request) {
         return new ResponseContent<>(MenuEnum.SUCCESS, menuService.maxLevel());
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     public ModelAndView add(Menu menu, String UUID, HttpServletRequest request) {
         ModelAndView model = new ModelAndView("redirect:/menu/toAdd");
         if (!checkUUID(UUID, request)) {
@@ -101,11 +101,11 @@ public class MenuController extends AbstractController {
         if (res <= 0) {
             return model;
         }
-        model.setViewName("redirect:/menu/manage");
+        model.setViewName("redirect:/menu/list");
         return model;
     }
 
-    @RequestMapping(value = "/edit/{id}")
+    @RequestMapping("edit/{id}")
     public ModelAndView edit(@PathVariable Long id, HttpServletRequest request) {
         randomUUID(request);
         ModelAndView model = new ModelAndView("menu/input");
@@ -113,11 +113,13 @@ public class MenuController extends AbstractController {
         model.addObject("menu", menu);
         model.addObject("parentCode", menu.getParentCode());
         model.addObject("action", "/menu/update");
+        List<String> list = menuService.getTreesNameByCode(menu.getParentCode());
+        model.addObject("menuNames", list);
         model.addObject("submit", "更新");
         return model;
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public ModelAndView update(Menu menu, String UUID, HttpServletRequest request) {
         ModelAndView model = new ModelAndView("redirect:/menu/toAdd");
         if (!checkUUID(UUID, request)) {
@@ -128,17 +130,24 @@ public class MenuController extends AbstractController {
         if (res <= 0) {
             return model;
         }
-        model.setViewName("redirect:/menu/manage");
+        model.setViewName("redirect:/menu/list");
         return model;
     }
 
-    @RequestMapping(value = "/update/status", method = RequestMethod.POST)
+    @RequestMapping(value = "update/status", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseContent<Integer> updateStatus(@RequestParam Long id, @RequestParam int status, @RequestParam String UUID, HttpServletRequest request) {
-        if (!checkUUID(UUID, request)) {
-            return new ResponseContent<>(MenuEnum.ERROR);
-        }
+    public ResponseContent<Menu> updateStatus(@RequestParam Long id, @RequestParam int status, HttpServletRequest request) {
         User t = (User) request.getSession().getAttribute("user");
-        return new ResponseContent<>(MenuEnum.SUCCESS, menuService.updateStatus(id, status, t));
+        int res = menuService.updateStatus(id, status, t);
+        if (res > 0) {
+            return new ResponseContent<Menu>(MenuEnum.SUCCESS, menuService.get(id));
+        }
+        return new ResponseContent<Menu>(MenuEnum.ERROR);
+    }
+
+    @RequestMapping("get/{id}")
+    @ResponseBody
+    public Menu get(@PathVariable Long id, HttpServletRequest request) {
+        return menuService.get(id);
     }
 }

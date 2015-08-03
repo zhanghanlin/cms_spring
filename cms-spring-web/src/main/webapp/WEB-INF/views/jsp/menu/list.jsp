@@ -54,6 +54,9 @@
 								<div class="box-body table-responsive no-padding">
 									<table class="table table-hover" id="menuTable"></table>
 								</div>
+								<div class="box-footer clearfix">
+									<ul class="pagination pagination-sm no-margin pull-right"></ul>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -63,6 +66,6 @@
 			<jsp:directive.include file="/common/footer.html" />
 		</div>
 		<script src="/js/jquery/jquery.treetable.js"></script>
-		<script src="/js/cms/menu/menu.js"></script>
+		<script src="/js/cms/menu/list.js"></script>
 	</body>
 </html>
