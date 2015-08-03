@@ -403,8 +403,7 @@ function _init() {
 		var _this = this;
 		var animationSpeed = $.AdminLTE.options.animationSpeed;
 		$('ul.sidebar-menu').delegate('li a','click',
-				//$("li a", $(menu)).on(
-				'click',
+				//$("li a", $(menu)).on('click',
 				function(e) {
 					// Get the clicked link and the next element
 					var $this = $(this);

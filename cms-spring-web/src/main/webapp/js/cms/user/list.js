@@ -1,5 +1,6 @@
 $(function() {
 	var user = {
+		pageSize : 1,
 		tableObj : $('#userTable'),
 		Status : {
 			NORMAL : 0,
@@ -24,9 +25,10 @@ $(function() {
 					+ '</td>\
 						<td>' + user.userStatus(o.status)
 					+ '</td>\
-						<td>' + Base.date.unixToDate(o.createdAt) + '</td>\
-						<td>'
-					+ user.userOpera(o) + '</td>\
+						<td>' + Base.date.unixToDate(o.createdAt)
+					+ '</td>\
+						<td>' + user.userOpera(o)
+					+ '</td>\
 					</tr>';
 		},
 		parsePage : function(obj) {
@@ -41,17 +43,24 @@ $(function() {
 			if (obj.curPage == obj.totalPage) {
 				nextCss = 'not-allowed';
 			}
-			var page = '<li><a href="###" class="'+preCss+'">&laquo;</a></li>';
+			var page = '<li><a href="###" n="1" class="' + preCss
+					+ '">&laquo;</a></li>';
 			for ( var i = 1; i <= obj.totalPage; i++) {
-				page += '<li><a href="###">'+i+'</a></li>';
+				if (i == obj.curPage) {
+					page += '<li class="active"><a href="###" n="'+i+'">' + i + '</a></li>';
+				} else {
+					page += '<li><a href="###" n="'+i+'">' + i + '</a></li>';
+				}
 			}
-			page += '<li><a href="###" class="'+nextCss+'">&raquo;</a></li>';
+			page += '<li><a href="###"  n="'+obj.totalPage+'" class="' + nextCss
+					+ '">&raquo;</a></li>';
 			$('.box-footer ul').html(page);
+			user.pageOpera();
 		},
-		list : function() {
+		list : function(curPage) {
 			var param = {
-				curPage : 1,
-				pageSize : 2
+				curPage : curPage,
+				pageSize : user.pageSize
 			};
 			$.getJSON('/user/list', param, function(obj) {
 				var html = '';
@@ -81,7 +90,15 @@ $(function() {
 			if (status == user.Status.DELETE) {
 				return '<span class="label label-danger">删除</span>';
 			}
+		},
+		pageOpera : function() {
+			$('.pagination').delegate('li a','click',function(){
+				if ($(this).hasClass('not-allowed') || $(this).parent().hasClass('active')) {
+					return false;
+				}
+				user.list($(this).attr('n'));
+			});
 		}
 	};
-	user.list();
+	user.list(1);
 });

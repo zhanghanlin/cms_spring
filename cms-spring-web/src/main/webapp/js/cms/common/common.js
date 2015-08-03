@@ -1,6 +1,7 @@
 $(function() {
 	var common = {
 		initLeftTree : function() {
+			var breadcrumb = common.pageBreadcrumb();
 			$
 					.getJSON(
 							'/menu/tree',
@@ -15,6 +16,9 @@ $(function() {
 														if (o.hasChild) {
 															cls = 'treeview';
 														}
+														if (breadcrumb[0] == o.node.name) {
+															cls += ' active';
+														}
 														html += '<li class="'
 																+ cls
 																+ '">\
@@ -28,19 +32,29 @@ $(function() {
 											<i class="fa fa-angle-left pull-right"></i>\
 										</a>';
 														html += common
-																.subLeftTree(o);
+																.subLeftTree(o,
+																		breadcrumb);
 													});
 									$('.sidebar-menu').append(html);
 								}
 							});
 		},
-		subLeftTree : function(obj) {
+		subLeftTree : function(obj, breadcrumb) {
 			var html = '';
 			if (obj.hasChild) {
-				html += '<ul class="treeview-menu">';
+				var cls = '';
+				if (breadcrumb[obj.level - 1] == obj.node.name) {
+					cls = ' active';
+				}
+				html += '<ul class="treeview-menu ' + cls + '">';
 				$.each(obj.childNode, function(j, o) {
-					html += '<li><a href="' + o.node.link + '"><i class="fa '
-							+ o.node.icon + '"></i>' + o.node.name;
+					var subCls = '';
+					if (breadcrumb[o.level - 1] == o.node.name) {
+						subCls = ' active';
+					}
+					html += '<li class="' + subCls + '"><a href="'
+							+ o.node.link + '"><i class="fa ' + o.node.icon
+							+ '"></i>' + o.node.name;
 					if (o.childNode.length > 0) {
 						html += '<i class="fa fa-angle-left pull-right"></i>';
 					}
@@ -51,6 +65,13 @@ $(function() {
 				html += '</ul>';
 			}
 			return html;
+		},
+		pageBreadcrumb : function() {
+			return $('.content-header ol li').map(function() {
+				if ($(this).index() > 0) {
+					return $(this).text();
+				}
+			}).get();
 		}
 	}
 	common.initLeftTree();

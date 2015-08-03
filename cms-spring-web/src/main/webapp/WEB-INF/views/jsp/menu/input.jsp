@@ -117,7 +117,7 @@
 												<button type="submit" class="btn btn-info pull-right">${submit }</button>
 											</div>
 											<div class="col-sm-3">
-												<button type="reset" class="btn btn-default">取消</button>
+												<a role="button" href="/menu/toList" class="btn btn-default">取消</a>
 											</div>
 										</div>
 									</div>
