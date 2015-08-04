@@ -17,7 +17,7 @@
 
 	<filter>
 		<filter-name>XSSFilter</filter-name>
-		<filter-class>com.demo.java.web.filter.XSSFilter</filter-class>
+		<filter-class>com.demo.java.web.common.filter.XSSFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>XSSFilter</filter-name>
@@ -83,4 +83,13 @@
 	<welcome-file-list>
 		<welcome-file>main</welcome-file>
 	</welcome-file-list>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>errorPage/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>errorPage/500.jsp</location>
+	</error-page>
 </web-app>

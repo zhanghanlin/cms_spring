@@ -86,14 +86,14 @@ $(function() {
 					<a role="button" href="/menu/toAdd/'
 						+ o.code
 						+ '" class="btn btn-default btn-xs">新增子菜单</a>\
-					<button type="button" class="btn btn-default btn-xs delete" status="'
-						+ menu.Status.DELETE + '">删除</button>';
+					<a role="button" class="btn btn-default btn-xs delete" status="'
+						+ menu.Status.DELETE + '">删除</a>&nbsp;';
 				if (status == menu.Status.NORMAL) {
-					html += '<button type="button" class="btn btn-default btn-xs disable" status="'
-							+ menu.Status.DISABLE + '">禁用</button>';
+					html += '<a role="button" class="btn btn-default btn-xs disable" status="'
+							+ menu.Status.DISABLE + '">禁用</a>';
 				} else {
-					html += '<button type="button" class="btn btn-default btn-xs normal" status="'
-							+ menu.Status.NORMAL + '">启用</button>';
+					html += '<a role="button" class="btn btn-default btn-xs normal" status="'
+							+ menu.Status.NORMAL + '">启用</a>';
 				}
 			}
 			return html;
@@ -112,7 +112,7 @@ $(function() {
 		},
 		updateStatus : function() {
 			menu.tableObj.delegate(
-					'button.delete,button.disable,button.normal', 'click',
+					'a.delete,a.disable,a.normal', 'click',
 					function() {
 						var _this = $(this);
 						var id = _this.parent().attr('i');

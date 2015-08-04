@@ -44,13 +44,13 @@ $(function() {
 			if (obj.hasChild) {
 				var cls = '';
 				if (breadcrumb[obj.level - 1] == obj.node.name) {
-					cls = ' active';
+					cls = ' menu-open';
 				}
 				html += '<ul class="treeview-menu ' + cls + '">';
 				$.each(obj.childNode, function(j, o) {
 					var subCls = '';
 					if (breadcrumb[o.level - 1] == o.node.name) {
-						subCls = ' active';
+						subCls = 'active';
 					}
 					html += '<li class="' + subCls + '"><a href="'
 							+ o.node.link + '"><i class="fa ' + o.node.icon

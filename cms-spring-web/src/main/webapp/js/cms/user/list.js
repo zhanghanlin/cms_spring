@@ -75,9 +75,6 @@ $(function() {
 		},
 		userOpera : function(o) {
 			return '<button type="button" class="btn btn-default btn-xs">查看</button>\
-						<a role="button" href="/user/edit/'
-					+ o.id
-					+ '" class="btn btn-default btn-xs">编辑</a>\
 						<button type="button" class="btn btn-default btn-xs">删除</button>\
 						<button type="button" class="btn btn-default btn-xs">禁用</button>';
 		},
