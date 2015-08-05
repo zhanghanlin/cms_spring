@@ -34,7 +34,7 @@
 			<jsp:include page="../common/left.jsp" />
 			<div class="content-wrapper">
 				<section class="content-header">
-					<h1>Menu Tree</h1>
+					<h1>菜单管理</h1>
 					<ol class="breadcrumb">
 						<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
 						<li><a href="###">系统设置</a></li>
@@ -46,7 +46,7 @@
 						<div class="col-xs-12">
 							<div class="box">
 								<div class="box-header">
-									<h3 class="box-title">Menu</h3>
+									<h3 class="box-title"></h3>
 									<div class="box-tools">
 										<a role="button" href="/menu/toAdd" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal" style="margin-right: 10px;">新增</a>
 										<ul class="pagination pagination-sm no-margin pull-right">

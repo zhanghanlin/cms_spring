@@ -22,7 +22,7 @@
 			<jsp:include page="../common/left.jsp" />
 			<div class="content-wrapper">
 				<section class="content-header">
-					<h1>User List</h1>
+					<h1>权限列表</h1>
 					<ol class="breadcrumb">
 						<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
 						<li><a href="###">系统设置</a></li>
@@ -34,7 +34,7 @@
 						<div class="col-xs-12">
 							<div class="box">
 								<div class="box-header">
-									<h3 class="box-title">权限列表</h3>
+									<h3 class="box-title"></h3>
 									<div class="box-tools">
 										<div class="input-group" style="width: 150px;">
 											<input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search" />

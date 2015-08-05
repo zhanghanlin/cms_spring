@@ -14,6 +14,7 @@ $(function() {
 						<td>邮箱</td>\
 						<td>状态</td>\
 						<td>创建时间</td>\
+						<td>操作</td>\
 					</tr>';
 		},
 		parseObj : function(o) {
