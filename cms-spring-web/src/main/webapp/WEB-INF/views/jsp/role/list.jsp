@@ -3,29 +3,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link href="/css/tools/select2.min.css" rel="stylesheet" type="text/css">
 		<jsp:directive.include file="/common/common.html" />
 		<style type="text/css">
-		table.treetable tr td {
+		a.not-allowed {
+			cursor: not-allowed;
+		}
+		table#userTable tr td {
 			cursor: default;
 		} 
-		table.treetable tr td:first-child {
+		table#userTable tr td:first-child {
 			padding-left:15px;
-			width: 200px;
 		} 
-		table.treetable tr span a {
-			font-family: "fontAwesome";
-			padding-right: 5px;
-		}
-		table.treetable tr.collapsed span.indenter a:BEFORE {
-			content: "\f067";
-		}
-		table.treetable tr.expanded span.indenter a:BEFORE {
-			content: "\f068";
-		}
-		div.modal-content {
-			border-radius : 10px;
-		}
 		</style>
 	</head>
 	<body class="skin-blue sidebar-mini">
@@ -34,11 +22,11 @@
 			<jsp:include page="../common/left.jsp" />
 			<div class="content-wrapper">
 				<section class="content-header">
-					<h1>Menu Tree</h1>
+					<h1>User List</h1>
 					<ol class="breadcrumb">
 						<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
 						<li><a href="###">系统设置</a></li>
-						<li class="active">菜单管理</li>
+						<li class="active">权限管理</li>
 					</ol>
 				</section>
 				<section class="content">
@@ -46,17 +34,18 @@
 						<div class="col-xs-12">
 							<div class="box">
 								<div class="box-header">
-									<h3 class="box-title">Menu</h3>
+									<h3 class="box-title">权限列表</h3>
 									<div class="box-tools">
-										<a role="button" href="/menu/toAdd" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal" style="margin-right: 10px;">新增</a>
-										<ul class="pagination pagination-sm no-margin pull-right">
-											<li><a href="###" class="expandAll">展开全部</a></li>
-											<li><a href="###" class="collapseAll">闭合全部</a></li>
-										</ul>
+										<div class="input-group" style="width: 150px;">
+											<input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search" />
+											<div class="input-group-btn">
+												<button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="box-body table-responsive no-padding">
-									<table class="table table-hover" id="menuTable"></table>
+									<table class="table table-hover" id="roleTable"></table>
 								</div>
 								<div class="box-footer clearfix">
 									<ul class="pagination pagination-sm no-margin pull-right"></ul>
@@ -64,17 +53,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="modal fade" data-backdrop="static" id="modal">
-						<div class="modal-dialog">
-							<div class="modal-content"><div class="modal-body"></div></div>
-						</div>
-					</div>
 				</section>
 			</div>
 			<jsp:directive.include file="/common/right.html" />
 			<jsp:directive.include file="/common/footer.html" />
 		</div>
-		<script src="/js/jquery/jquery.treetable.js"></script>
-		<script src="/js/cms/menu/menu.js"></script>
+		<script src="/js/cms/role/role.js"></script>
 	</body>
 </html>

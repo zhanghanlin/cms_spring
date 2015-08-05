@@ -58,6 +58,6 @@
 			<jsp:directive.include file="/common/right.html" />
 			<jsp:directive.include file="/common/footer.html" />
 		</div>
-		<script src="/js/cms/user/list.js"></script>
+		<script src="/js/cms/user/user.js"></script>
 	</body>
 </html>
