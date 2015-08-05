@@ -56,7 +56,17 @@
 									</div>
 								</div>
 								<div class="box-body table-responsive no-padding">
-									<table class="table table-hover" id="menuTable"></table>
+									<table class="table table-hover" id="menuTable">
+										<thead>
+											<tr>
+												<th>菜单名称</th>
+												<th>菜单图标</th>
+												<th>菜单状态</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
 								</div>
 								<div class="box-footer clearfix">
 									<ul class="pagination pagination-sm no-margin pull-right"></ul>

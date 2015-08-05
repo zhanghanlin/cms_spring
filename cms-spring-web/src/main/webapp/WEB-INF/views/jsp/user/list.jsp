@@ -45,7 +45,19 @@
 									</div>
 								</div>
 								<div class="box-body table-responsive no-padding">
-									<table class="table table-hover" id="userTable"></table>
+									<table class="table table-hover" id="userTable">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>用户名</th>
+												<th>邮箱</th>
+												<th>状态</th>
+												<th>创建时间</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
 								</div>
 								<div class="box-footer clearfix">
 									<ul class="pagination pagination-sm no-margin pull-right"></ul>

@@ -6,14 +6,6 @@ $(function() {
 			DISABLE : 1,
 			DELETE : 2
 		},
-		tableHead : function() {
-			return '<tr>\
-						<td>菜单名称</td>\
-						<td>菜单图标</td>\
-						<td>菜单状态</td>\
-						<td>操作</td>\
-					</tr>';
-		},
 		parseObj : function(o) {
 			var code = o.code;
 			var dataId = '';
@@ -23,17 +15,28 @@ $(function() {
 			}
 			dataId = dataId.substr(1);
 			var parentId = dataId.substr(0, dataId.lastIndexOf('-'));
-			return '<tr data-tt-id="' + dataId + '" data-tt-parent-id="'
-					+ parentId + '">\
-						<td title="' + o.note + '">'
-					+ o.name + '</td>\
-						<td><i class="fa ' + o.icon
-					+ '"></i></td>\
-						<td>' + menu.menuStatus(o.status)
-					+ '</td>\
-						<td i="' + o.id + '">' + menu.opera(o)
-					+ '</td>\
-					</tr>';
+			var str = [];
+			str.push('<tr data-tt-id="');
+			str.push(dataId);
+			str.push('" data-tt-parent-id="');
+			str.push(parentId);
+			str.push('"><td title="')
+			str.push(o.note);
+			str.push('">')
+			for ( var i = 1; i < (o.code.length / 3).toFixed(0); i++) {
+				str.push('|——');
+			}
+			str.push(o.name);
+			str.push('</td><td><i class="fa ')
+			str.push(o.icon);
+			str.push('"></i></td><td>')
+			str.push(menu.menuStatus(o.status));
+			str.push('</td><td i="')
+			str.push(o.id);
+			str.push('">')
+			str.push(menu.opera(o));
+			str.push('</td></tr>')
+			return str.join('');
 		},
 		list : function() {
 			$.getJSON('/menu/_all', function(obj) {
@@ -43,11 +46,12 @@ $(function() {
 						html += menu.parseObj(o.node);
 						html += menu.child(o);
 					});
-					menu.tableObj.html(menu.tableHead() + html);
-					menu.tableObj.treetable({
-						expandable : true
-					});
 				}
+
+				menu.tableObj.find('tbody').html(html);
+				menu.tableObj.treetable({
+					expandable : true
+				});
 			});
 		},
 		child : function(obj) {
@@ -73,28 +77,35 @@ $(function() {
 			})
 		},
 		opera : function(o) {
-			var html = '<a role="button" href="/menu/get/'
-					+ o.id
-					+ '" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>&nbsp;';
+			var str = [];
+			str.push('<a role="button" href="/menu/get/');
+			str.push(o.id);
+			str
+					.push('" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>&nbsp;');
 			var status = o.status;
 			if (status != menu.Status.DELETE) {
-				html += '<a role="button" href="/menu/edit/'
-						+ o.id
-						+ '" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">编辑</a>\
-						<a role="button" href="/menu/toAdd/'
-						+ o.id
-						+ '" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">新增子菜单</a>\
-						<a role="button" class="btn btn-default btn-xs delete" status="'
-						+ menu.Status.DELETE + '">删除</a>&nbsp;';
+				str.push('<a role="button" href="/menu/edit/')
+				str.push(o.id);
+				str
+						.push('" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">编辑</a>&nbsp;<a role="button" href="/menu/toAdd/');
+				str.push(o.id);
+				str
+						.push('" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">新增子菜单</a>&nbsp;<a role="button" class="btn btn-default btn-xs delete" status="');
+				str.push(menu.Status.DELETE);
+				str.push('">删除</a>&nbsp;');
 				if (status == menu.Status.NORMAL) {
-					html += '<a role="button" class="btn btn-default btn-xs disable" status="'
-							+ menu.Status.DISABLE + '">禁用</a>';
+					str
+							.push('<a role="button" class="btn btn-default btn-xs disable" status="');
+					str.push(menu.Status.DISABLE);
+					str.push('">禁用</a>');
 				} else {
-					html += '<a role="button" class="btn btn-default btn-xs normal" status="'
-							+ menu.Status.NORMAL + '">启用</a>';
+					str
+							.push('<a role="button" class="btn btn-default btn-xs normal" status="');
+					str.push(menu.Status.NORMAL);
+					str.push('">启用</a>');
 				}
 			}
-			return html;
+			return str.join('');
 		},
 		menuStatus : function(status) {
 			status = parseInt(status);

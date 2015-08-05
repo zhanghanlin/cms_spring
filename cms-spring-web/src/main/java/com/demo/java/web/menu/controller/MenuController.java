@@ -49,9 +49,9 @@ public class MenuController extends AbstractController {
         ModelAndView model = new ModelAndView("menu/input");
         Menu menu = menuService.get(id);
         model.addObject("parentCode", menu.getCode());
-        model.addObject("action", "/menu/add");
         List<String> list = menuService.getTreesNameByCode(menu.getCode());
         model.addObject("menuNames", list);
+        model.addObject("action", "/menu/add");
         model.addObject("submit", "新增");
         return model;
     }
@@ -63,7 +63,6 @@ public class MenuController extends AbstractController {
         model.addObject("menu", menu);
         List<String> list = menuService.getTreesNameByCode(menu.getCode());
         model.addObject("menuNames", list);
-        model.addObject("submit", "");
         return model;
     }
 
@@ -123,16 +122,16 @@ public class MenuController extends AbstractController {
         Menu menu = menuService.get(id);
         model.addObject("menu", menu);
         model.addObject("parentCode", menu.getParentCode());
-        model.addObject("action", "/menu/update");
         List<String> list = menuService.getTreesNameByCode(menu.getParentCode());
         model.addObject("menuNames", list);
+        model.addObject("action", "/menu/update");
         model.addObject("submit", "更新");
         return model;
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public ModelAndView update(Menu menu, String UUID, HttpServletRequest request) {
-        ModelAndView model = new ModelAndView("redirect:/menu/toAdd");
+        ModelAndView model = new ModelAndView("redirect:/menu/edit/" + menu.getId());
         if (!checkUUID(UUID, request)) {
             return model;
         }

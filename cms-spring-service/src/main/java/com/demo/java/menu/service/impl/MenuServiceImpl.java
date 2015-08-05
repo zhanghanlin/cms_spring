@@ -55,13 +55,11 @@ public class MenuServiceImpl implements MenuService {
             menu.setLink("###");
         }
         menu.setCreatedAt(new Date());
-        menu.setCreatedBy(u.getId().toString());
+        menu.setCreatedBy(u.getUserName());
         String pcode = menu.getParentCode();
         String maxCode = menuDao.getMaxCodeByParentCode(pcode);
         menu.setCode(nextCode(pcode, maxCode));
         menu.setStatus(Status.NORMAL);
-        menu.setWeight(1);
-        menu.setVersion(1);
         return menuDao.save(menu);
     }
 
