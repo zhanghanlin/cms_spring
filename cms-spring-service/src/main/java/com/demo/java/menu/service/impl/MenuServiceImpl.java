@@ -69,6 +69,7 @@ public class MenuServiceImpl implements MenuService {
     public List<String> getTreesNameByCode(String code) {
         List<String> param = new ArrayList<String>();
         List<String> list = new ArrayList<String>();
+        list.add("CMS");
         for (int i = 1; i <= (code.length() / 3); i++) {
             param.add(code.substring(0, i * 3));
         }

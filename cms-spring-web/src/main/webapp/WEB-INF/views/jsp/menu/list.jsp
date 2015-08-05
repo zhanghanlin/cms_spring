@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link href="/css/tools/select2.min.css" rel="stylesheet" type="text/css">
 		<jsp:directive.include file="/common/common.html" />
 		<style type="text/css">
 		table.treetable tr td {
@@ -47,7 +48,7 @@
 								<div class="box-header">
 									<h3 class="box-title">Menu</h3>
 									<div class="box-tools">
-										<a role="button" href="/menu/toAdd" class="btn btn-default btn-sm" style="margin-right: 10px;">新增</a>
+										<a role="button" href="/menu/toAdd" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal" style="margin-right: 10px;">新增</a>
 										<ul class="pagination pagination-sm no-margin pull-right">
 											<li><a href="###" class="expandAll">展开全部</a></li>
 											<li><a href="###" class="collapseAll">闭合全部</a></li>
@@ -61,6 +62,11 @@
 									<ul class="pagination pagination-sm no-margin pull-right"></ul>
 								</div>
 							</div>
+						</div>
+					</div>
+					<div class="modal fade" data-backdrop="static" id="modal">
+						<div class="modal-dialog">
+							<div class="modal-content"><div class="modal-body"></div></div>
 						</div>
 					</div>
 				</section>

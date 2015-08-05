@@ -39,20 +39,20 @@ public class MenuController extends AbstractController {
         randomUUID(request);
         ModelAndView model = new ModelAndView("menu/input");
         model.addObject("action", "/menu/add");
-        model.addObject("submit", "添加");
+        model.addObject("submit", "新增");
         return model;
     }
 
-    @RequestMapping("toAdd/{code}")
-    public ModelAndView toAddSub(@PathVariable String code, HttpServletRequest request) {
+    @RequestMapping("toAdd/{id}")
+    public ModelAndView toAddSub(@PathVariable Long id, HttpServletRequest request) {
         randomUUID(request);
-        ModelAndView model = new ModelAndView();
-        model.setViewName("menu/input");
-        model.addObject("parentCode", code);
-        List<String> list = menuService.getTreesNameByCode(code);
-        model.addObject("menuNames", list);
+        ModelAndView model = new ModelAndView("menu/input");
+        Menu menu = menuService.get(id);
+        model.addObject("parentCode", menu.getCode());
         model.addObject("action", "/menu/add");
-        model.addObject("submit", "添加");
+        List<String> list = menuService.getTreesNameByCode(menu.getCode());
+        model.addObject("menuNames", list);
+        model.addObject("submit", "新增");
         return model;
     }
 

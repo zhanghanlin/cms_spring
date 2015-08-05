@@ -73,20 +73,18 @@ $(function() {
 			})
 		},
 		opera : function(o) {
-			var html = '<button type="button" class="btn btn-default btn-xs detail" data-toggle="modal" data-target="#modal'
+			var html = '<a role="button" href="/menu/edit/'
 					+ o.id
-					+ '">查看</button>&nbsp;<div class="modal" id="modal'
-					+ o.id
-					+ '"></div>';
+					+ '" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>&nbsp;';
 			var status = o.status;
 			if (status != menu.Status.DELETE) {
 				html += '<a role="button" href="/menu/edit/'
 						+ o.id
-						+ '" class="btn btn-default btn-xs">编辑</a>\
-					<a role="button" href="/menu/toAdd/'
-						+ o.code
-						+ '" class="btn btn-default btn-xs">新增子菜单</a>\
-					<a role="button" class="btn btn-default btn-xs delete" status="'
+						+ '" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">编辑</a>\
+						<a role="button" href="/menu/toAdd/'
+						+ o.id
+						+ '" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">新增子菜单</a>\
+						<a role="button" class="btn btn-default btn-xs delete" status="'
 						+ menu.Status.DELETE + '">删除</a>&nbsp;';
 				if (status == menu.Status.NORMAL) {
 					html += '<a role="button" class="btn btn-default btn-xs disable" status="'
@@ -111,8 +109,7 @@ $(function() {
 			}
 		},
 		updateStatus : function() {
-			menu.tableObj.delegate(
-					'a.delete,a.disable,a.normal', 'click',
+			menu.tableObj.delegate('a.delete,a.disable,a.normal', 'click',
 					function() {
 						var _this = $(this);
 						var id = _this.parent().attr('i');
@@ -130,97 +127,10 @@ $(function() {
 						}, 'JSON');
 					});
 		},
-		details : function() {
-			menu.tableObj
-					.delegate(
-							'button.detail',
-							'click',
-							function() {
-								var _this = $(this);
-								var id = _this.parent().attr('i');
-								$
-										.getJSON(
-												'/menu/get/' + id,
-												function(obj) {
-													var html = '<div class="modal-dialog">\
-																	<div class="modal-content">\
-																		<div class="modal-header">\
-																			<button type="button" class="close" data-dismiss="modal" aria-label="Close">\
-																			<span aria-hidden="true">&times;</span></button>\
-																			<h4 class="modal-title">'
-															+ obj.name
-															+ '详细信息</h4>\
-																		</div>\
-																		<div class="modal-body">\
-																			<div class="row">\
-																				<div class="col-sm-12">\
-																					<div class="form-group">\
-																					<label class="col-sm-2 control-label">菜单名称</label>\
-																					<div class="col-sm-6">\
-																							<span>'
-															+ obj.name
-															+ '</span>\
-																					</div>\
-																					</div>\
-																				</div>\
-																			</div>\
-																			<div class="row">\
-																				<div class="col-sm-12">\
-																					<div class="form-group">\
-																					<label class="col-sm-2 control-label">菜单链接</label>\
-																					<div class="col-sm-6">\
-																							<span>'
-															+ obj.link
-															+ '</span>\
-																					</div>\
-																					</div>\
-																				</div>\
-																			</div>\
-																			<div class="row">\
-																				<div class="col-sm-12">\
-																					<div class="form-group">\
-																					<label class="col-sm-2 control-label">菜单说明</label>\
-																					<div class="col-sm-6">\
-																							<span>'
-															+ obj.note
-															+ '</span>\
-																					</div>\
-																					</div>\
-																				</div>\
-																			</div>\
-																			<div class="row">\
-																				<div class="col-sm-12">\
-																					<div class="form-group">\
-																					<label class="col-sm-2 control-label">菜单Icon</label>\
-																					<div class="col-sm-6">\
-																							<span><i class="fa '
-															+ obj.icon
-															+ '"></i></span>\
-																					</div>\
-																					</div>\
-																				</div>\
-																			</div>\
-																			<div class="row">\
-																				<div class="col-sm-12">\
-																					<div class="form-group">\
-																					<label class="col-sm-2 control-label">菜单状态</label>\
-																					<div class="col-sm-6">'
-															+ menu
-																	.menuStatus(obj.status)
-															+ '</div>\
-																					</div>\
-																				</div>\
-																			</div>\
-																		</div>\
-																		<div class="modal-footer">\
-																			<button type="button" class="btn btn-default pull-right" data-dismiss="modal">关闭</button>\
-																		</div>\
-																	</div>\
-																</div>';
-													$('#modal' + obj.id).html(
-															html);
-												});
-							});
+		closeModal : function() {
+			$('#modal').on('hidden.bs.modal', function() {
+				$(this).removeData('bs.modal');
+			})
 		},
 		drag : function() {
 			$("#menuTable tr").draggable({
@@ -243,5 +153,5 @@ $(function() {
 	menu.list();
 	menu.tools();
 	menu.updateStatus();
-	menu.details();
+	menu.closeModal();
 });

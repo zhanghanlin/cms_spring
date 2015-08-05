@@ -1,64 +1,48 @@
 $(function() {
 	var menuInput = {
-		ajaxSelectHtml : function(obj, level) {
-			var html = '<div class="col-sm-2 menuDiv"><select class="form-control select" id="menu'
-					+ level + '"><option></option>';
-			$.each(obj, function(i, o) {
-				html += '<option value="' + o.code + '">' + o.name
-						+ '</option>';
+		initSelect : function() {
+			$.getJSON('/menu/tree', function(obj) {
+				menuInput.selectHtml(obj);
 			});
-			html += '</select></div>';
-			return html;
 		},
-		initSelect : function(code) {
-			var level = code.length / 3 + 1;
-			$.getJSON('/menu/p/' + code, function(obj) {
-				while (level <= $('.menuDiv').length) {
-					$('.menuDiv:last').remove();
+		selectHtml : function(obj) {
+			var html = '<option value="0">CMS</option>';
+			$.each(obj.childNode, function(i, o) {
+				if (o.node) {
+					if (o.hasChild) {
+						html += '<optgroup label=' + o.node.name
+								+ '><option value="' + o.code + '">【'
+								+ o.node.name + '】</option>';
+						html += menuInput.subSelectHtml(o);
+						html += '</optgroup>';
+					} else {
+						html += '<option value="' + o.code + '">' + o.node.name
+								+ '</option>';
+					}
 				}
-				$('#menuDirectory')
-						.append(menuInput.ajaxSelectHtml(obj, level));
-				$('#menu' + level).select2({
-					placeholder : "请选择"
+			});
+			$('#menu').html(html).select2({
+				placeholder : "请选择",
+				width : '100%'
+			});
+		},
+		subSelectHtml : function(obj) {
+			var html = '';
+			if (obj.hasChild) {
+				$.each(obj.childNode, function(i, o) {
+					if (o.hasChild) {
+						html += '<optgroup label=' + o.node.name
+								+ '><option value="' + o.code + '">【'
+								+ o.node.name + '】</option>';
+						html += menuInput.subSelectHtml(o);
+						html += '</optgroup>';
+					} else {
+						html += '<option value="' + o.code + '">' + o.node.name
+								+ '</option>';
+					}
 				});
-			});
-		},
-		initLevel : function() {
-			$.getJSON('/menu/maxLevel', function(obj) {
-				var html = '';
-				for ( var i = 1; i <= obj.data + 1; i++) {
-					html += '<option value="' + i + '">Level  - ' + i
-							+ '</option>';
-				}
-				$('#menuLevel').html(html);
-				menuInput.selectLevel()
-			});
-		},
-		selectLevel : function() {
-			$('#menuLevel').change(function() {
-				$('div.menuDiv').remove();
-				var level = $(this).val();
-				if (level > 1) {
-					menuInput.initSelect(0);
-				}
-			});
-		},
-		selectMenu : function() {
-			$('#menuDirectory').delegate('.select', 'change', function() {
-				var code = $(this).val();
-				$('#parentCode').val(code);
-				if (!code) {
-					return false;
-				}
-				var level = code.length / 3 + 1;
-				if (level == $('#menuLevel').val()) {
-					return false;
-				}
-				if ($('#menu' + level).length > 0) {
-					$('#menu' + level).parent().remove();
-				}
-				menuInput.initSelect(code);
-			});
+			}
+			return html;
 		},
 		iconBlur : function() {
 			if ($('#icon').val()) {
@@ -72,7 +56,6 @@ $(function() {
 			})
 		}
 	};
-	menuInput.initLevel();
-	menuInput.selectMenu();
 	menuInput.iconBlur();
+	menuInput.initSelect();
 });
