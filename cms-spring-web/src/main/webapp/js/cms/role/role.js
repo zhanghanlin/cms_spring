@@ -1,7 +1,7 @@
 $(function() {
 	var role = {
 		pageSize : 1,
-		tableObj : $('#userTable'),
+		tableObj : $('#roleTable'),
 		Status : {
 			NORMAL : 0,
 			DISABLE : 1,
@@ -10,8 +10,8 @@ $(function() {
 		tableHead : function() {
 			return '<tr>\
 						<td>ID</td>\
-						<td>用户名</td>\
-						<td>邮箱</td>\
+						<td>权限名</td>\
+						<td>权限说明</td>\
 						<td>状态</td>\
 						<td>创建时间</td>\
 					</tr>';
@@ -20,14 +20,14 @@ $(function() {
 			return '<tr>\
 						<td>' + o.id + '</td>\
 						<td>'
-					+ o.userName + '</td>\
-						<td>' + o.email
+					+ o.name + '</td>\
+						<td>' + o.note
 					+ '</td>\
-						<td>' + user.userStatus(o.status)
+						<td>' + role.roleStatus(o.status)
 					+ '</td>\
 						<td>' + Base.date.unixToDate(o.createdAt)
 					+ '</td>\
-						<td>' + user.userOpera(o)
+						<td>' + role.roleOpera(o)
 					+ '</td>\
 					</tr>';
 		},
@@ -57,36 +57,36 @@ $(function() {
 			page += '<li><a href="###"  n="' + obj.totalPage + '" class="'
 					+ nextCss + '">&raquo;</a></li>';
 			$('.box-footer ul').html(page);
-			user.pageOpera();
+			role.pageOpera();
 		},
 		list : function(curPage) {
 			var param = {
 				curPage : curPage,
-				pageSize : user.pageSize
+				pageSize : role.pageSize
 			};
-			$.getJSON('/user/list', param, function(obj) {
+			$.getJSON('/role/list', param, function(obj) {
 				var html = '';
 				$.each(obj.result, function(i, o) {
-					html += user.parseObj(o);
+					html += role.parseObj(o);
 				})
-				user.tableObj.html(user.tableHead() + html);
-				user.parsePage(obj);
+				role.tableObj.html(role.tableHead() + html);
+				role.parsePage(obj);
 			});
 		},
-		userOpera : function(o) {
+		roleOpera : function(o) {
 			return '<button type="button" class="btn btn-default btn-xs">查看</button>\
 						<button type="button" class="btn btn-default btn-xs">删除</button>\
 						<button type="button" class="btn btn-default btn-xs">禁用</button>';
 		},
-		userStatus : function(status) {
+		roleStatus : function(status) {
 			status = parseInt(status);
-			if (status == user.Status.NORMAL) {
+			if (status == role.Status.NORMAL) {
 				return '<span class="label label-success">正常</span>';
 			}
-			if (status == user.Status.DISABLE) {
+			if (status == role.Status.DISABLE) {
 				return '<span class="label label-warning">禁用</span>';
 			}
-			if (status == user.Status.DELETE) {
+			if (status == role.Status.DELETE) {
 				return '<span class="label label-danger">删除</span>';
 			}
 		},
@@ -99,9 +99,9 @@ $(function() {
 								|| $(this).parent().hasClass('active')) {
 							return false;
 						}
-						user.list($(this).attr('n'));
+						role.list($(this).attr('n'));
 					});
 		}
 	};
-	user.list(1);
+	role.list(1);
 });
