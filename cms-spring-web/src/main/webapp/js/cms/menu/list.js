@@ -73,7 +73,7 @@ $(function() {
 			})
 		},
 		opera : function(o) {
-			var html = '<a role="button" href="/menu/edit/'
+			var html = '<a role="button" href="/menu/get/'
 					+ o.id
 					+ '" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>&nbsp;';
 			var status = o.status;

@@ -26,6 +26,10 @@ option span.sub {
 				<div class="box-header">
 					<button aria-hidden="true" data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span></button>
 				</div>
+				<c:set var="disabled" value=""></c:set>
+				<c:if test="${empty submit }">
+					<c:set var="disabled" value="disabled"></c:set>
+				</c:if>
 				<form action="${action }" method="post" class="form-horizontal">
 					<input type="hidden" value="${UUID }" name="UUID" /> <input
 						type="hidden" value="${menu.id }" name="id" id="id" /> <input
@@ -63,7 +67,7 @@ option span.sub {
 									<label class="col-sm-2 control-label">名称</label>
 									<div class="col-sm-5">
 										<input type="text" class="form-control" id="name"
-											value="${menu.name }" name="name" placeholder="分类名称" required />
+											value="${menu.name }" name="name" placeholder="分类名称" ${disabled } required/>
 									</div>
 								</div>
 							</div>
@@ -74,7 +78,7 @@ option span.sub {
 									<label class="col-sm-2 control-label">链接</label>
 									<div class="col-sm-7">
 										<input type="text" class="form-control" id="link"
-											value="${menu.link }" name="link" placeholder="分类链接,默认###"
+											value="${menu.link }" name="link" placeholder="分类链接,默认###" ${disabled } 
 											required />
 									</div>
 								</div>
@@ -86,7 +90,7 @@ option span.sub {
 									<label class="col-sm-2 control-label">说明</label>
 									<div class="col-sm-7">
 										<input type="text" class="form-control" id="note"
-											value="${menu.note }" name="note" placeholder="分类说明" required />
+											value="${menu.note }" name="note" placeholder="分类说明" ${disabled } required />
 									</div>
 								</div>
 							</div>
@@ -97,7 +101,7 @@ option span.sub {
 									<label class="col-sm-2 control-label">图标</label>
 									<div class="col-sm-3">
 										<input type="text" class="form-control" id="icon"
-											value="${menu.icon }" name="icon" placeholder="分类图标" required />
+											value="${menu.icon }" name="icon" placeholder="分类图标" ${disabled }  required />
 									</div>
 									<label class="col-sm-1 control-label"><i></i></label>
 									<div class="col-sm-1">
@@ -112,7 +116,9 @@ option span.sub {
 						<div class="row">
 							<div class="col-sm-6"></div>
 							<div class="col-sm-3">
+								<c:if test="${not empty submit }">
 								<button type="submit" class="btn btn-info pull-left">${submit}</button>
+								</c:if>
 								<button type="button" class="btn btn-default pull-right" data-dismiss="modal">关闭</button>
 							</div>
 						</div>

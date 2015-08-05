@@ -56,6 +56,17 @@ public class MenuController extends AbstractController {
         return model;
     }
 
+    @RequestMapping("get/{id}")
+    public ModelAndView get(@PathVariable Long id, HttpServletRequest request) {
+        ModelAndView model = new ModelAndView("menu/input");
+        Menu menu = menuService.get(id);
+        model.addObject("menu", menu);
+        List<String> list = menuService.getTreesNameByCode(menu.getCode());
+        model.addObject("menuNames", list);
+        model.addObject("submit", "");
+        return model;
+    }
+
     @RequestMapping("toList")
     public ModelAndView toList(String UUID, HttpServletRequest request) {
         return new ModelAndView("menu/list");
@@ -143,11 +154,5 @@ public class MenuController extends AbstractController {
             return new ResponseContent<Menu>(MenuEnum.SUCCESS, menuService.get(id));
         }
         return new ResponseContent<Menu>(MenuEnum.ERROR);
-    }
-
-    @RequestMapping("get/{id}")
-    @ResponseBody
-    public Menu get(@PathVariable Long id, HttpServletRequest request) {
-        return menuService.get(id);
     }
 }
