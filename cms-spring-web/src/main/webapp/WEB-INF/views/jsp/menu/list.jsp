@@ -6,13 +6,6 @@
 		<link href="/css/tools/select2.min.css" rel="stylesheet" type="text/css">
 		<jsp:directive.include file="/common/common.html" />
 		<style type="text/css">
-		table.treetable tr td {
-			cursor: default;
-		} 
-		table.treetable tr td:first-child {
-			padding-left:15px;
-			width: 200px;
-		} 
 		table.treetable tr span a {
 			font-family: "fontAwesome";
 			padding-right: 5px;
@@ -22,9 +15,6 @@
 		}
 		table.treetable tr.expanded span.indenter a:BEFORE {
 			content: "\f068";
-		}
-		div.modal-content {
-			border-radius : 10px;
 		}
 		</style>
 	</head>
@@ -75,9 +65,7 @@
 						</div>
 					</div>
 					<div class="modal fade" data-backdrop="static" id="modal">
-						<div class="modal-dialog">
-							<div class="modal-content"><div class="modal-body"></div></div>
-						</div>
+						<div class="modal-dialog"><div class="modal-content"></div></div>
 					</div>
 				</section>
 			</div>

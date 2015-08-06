@@ -23,4 +23,6 @@ public interface MenuService {
     public int update(Menu menu, User u);
 
     public Menu get(Long id);
+
+    public List<Menu> list();
 }

@@ -4,17 +4,6 @@
 <html>
 	<head>
 		<jsp:directive.include file="/common/common.html" />
-		<style type="text/css">
-		a.not-allowed {
-			cursor: not-allowed;
-		}
-		table#userTable tr td {
-			cursor: default;
-		} 
-		table#userTable tr td:first-child {
-			padding-left:15px;
-		} 
-		</style>
 	</head>
 	<body class="skin-blue sidebar-mini">
 		<div class="wrapper">
@@ -66,9 +55,22 @@
 							</div>
 						</div>
 					</div>
-					<div class="modal fade" data-backdrop="static" id="modal">
+					<div class="modal fade" data-backdrop="static" id="modal" >
+						<div class="modal-dialog"><div class="modal-content"></div></div>
+					</div>
+					<div class="modal fade" data-backdrop="static" id="role_modal">
 						<div class="modal-dialog">
-							<div class="modal-content"><div class="modal-body"></div></div>
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+									<h4 class="modal-title">分配权限</h4>
+								</div>
+								<div class="modal-body"><ul id="treeDemo" class="ztree"></ul></div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary pull-left">保存</button>
+									<button type="button" class="btn btn-default pull-right" data-dismiss="modal">取消</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</section>

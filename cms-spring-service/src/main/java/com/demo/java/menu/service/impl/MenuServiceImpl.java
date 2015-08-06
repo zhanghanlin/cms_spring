@@ -111,4 +111,9 @@ public class MenuServiceImpl implements MenuService {
     public Menu get(Long id) {
         return menuDao.get(id);
     }
+
+    @Override
+    public List<Menu> list() {
+        return menuDao.list();
+    }
 }

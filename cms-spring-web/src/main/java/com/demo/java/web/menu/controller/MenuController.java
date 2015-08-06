@@ -1,5 +1,6 @@
 package com.demo.java.web.menu.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,6 +25,7 @@ import com.demo.java.user.entity.User;
 import com.demo.java.web.common.controller.AbstractController;
 import com.demo.java.web.common.response.ResponseContent;
 import com.demo.java.web.menu.response.MenuEnum;
+import com.demo.java.web.menu.vo.ZTree;
 
 @Controller
 @RequestMapping("menu")
@@ -75,6 +77,17 @@ public class MenuController extends AbstractController {
     @ResponseBody
     public MenuNode allTree(HttpServletRequest request) {
         return menuService.menuTree(Status.ALL);
+    }
+
+    @RequestMapping("zTree")
+    @ResponseBody
+    public List<ZTree> zTree(HttpServletRequest request) {
+        List<ZTree> list = new ArrayList<ZTree>();
+        List<Menu> menuList = menuService.list();
+        for (Menu menu : menuList) {
+            list.add(new ZTree(menu));
+        }
+        return list;
     }
 
     @RequestMapping("tree")

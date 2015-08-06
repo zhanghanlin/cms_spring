@@ -4,17 +4,6 @@
 <html>
 	<head>
 		<jsp:directive.include file="/common/common.html" />
-		<style type="text/css">
-		a.not-allowed {
-			cursor: not-allowed;
-		}
-		table#userTable tr td {
-			cursor: default;
-		} 
-		table#userTable tr td:first-child {
-			padding-left:15px;
-		} 
-		</style>
 	</head>
 	<body class="skin-blue sidebar-mini">
 		<div class="wrapper">

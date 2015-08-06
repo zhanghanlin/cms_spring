@@ -1,0 +1,11 @@
+div.modal-content {
+	border-radius: 10px;
+}
+
+a.not-allowed {
+	cursor: not-allowed;
+}
+
+table tr td {
+	cursor: default;
+}

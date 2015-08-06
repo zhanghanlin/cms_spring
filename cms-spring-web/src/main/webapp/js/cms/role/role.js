@@ -13,13 +13,15 @@ $(function() {
 										'<a role="button" href="/role/edit/{id}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">编辑</a>',
 										'<a role="button" class="btn btn-default btn-xs">删除</a>',
 										'<a role="button" class="btn btn-default btn-xs">禁用</a>',
-										'<a role="button" class="btn btn-default btn-xs">分配权限</a>' ]
+										'<a role="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#role_modal">分配权限</a>' ]
 							});
 		},
 		closeModal : function() {
 			$('#modal').on('hidden.bs.modal', function() {
 				$(this).removeData('bs.modal');
-			})
+			});
+		},
+		menuList : function() {
 		}
 	};
 	role.list();
