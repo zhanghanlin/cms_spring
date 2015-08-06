@@ -2,12 +2,15 @@ $(function() {
 	var menuInput = {
 		initSelect : function() {
 			$.getJSON('/menu/tree', function(obj) {
+				if ($('#menu').length == 0) {
+					return false;
+				}
 				menuInput.selectHtml(obj);
 			});
 		},
 		selectHtml : function(obj) {
 			var html = '<option value="0">CMS</option>';
-			$.each(obj.childNode, function(i, o) {
+			$.each(obj.children, function(i, o) {
 				if (o.node) {
 					if (o.hasChild) {
 						html += '<optgroup label=' + o.node.name
@@ -29,7 +32,7 @@ $(function() {
 		subSelectHtml : function(obj) {
 			var html = '';
 			if (obj.hasChild) {
-				$.each(obj.childNode, function(i, o) {
+				$.each(obj.children, function(i, o) {
 					if (o.hasChild) {
 						html += '<optgroup label=' + o.node.name
 								+ '><option value="' + o.code + '">【'

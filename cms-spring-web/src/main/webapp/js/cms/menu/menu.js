@@ -42,7 +42,7 @@ $(function() {
 			$.getJSON('/menu/_all', function(obj) {
 				if (obj.hasChild) {
 					var html = '';
-					$.each(obj.childNode, function(i, o) {
+					$.each(obj.children, function(i, o) {
 						html += menu.parseObj(o.node);
 						html += menu.child(o);
 					});
@@ -57,7 +57,7 @@ $(function() {
 		child : function(obj) {
 			var html = '';
 			if (obj.hasChild) {
-				$.each(obj.childNode, function(j, o) {
+				$.each(obj.children, function(j, o) {
 					html += menu.parseObj(o.node);
 					html += menu.child(o);
 				});

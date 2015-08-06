@@ -1,6 +1,5 @@
 package com.demo.java.web.menu.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,13 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.demo.java.common.dict.Status;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
-import com.demo.java.menu.utils.MenuMemory;
-import com.demo.java.menu.utils.MenuNode;
 import com.demo.java.user.entity.User;
 import com.demo.java.web.common.controller.AbstractController;
 import com.demo.java.web.common.response.ResponseContent;
 import com.demo.java.web.menu.response.MenuEnum;
-import com.demo.java.web.menu.vo.ZTree;
+import com.demo.java.web.menu.utils.MenuMemory;
+import com.demo.java.web.menu.vo.MenuTree;
 
 @Controller
 @RequestMapping("menu")
@@ -63,7 +61,7 @@ public class MenuController extends AbstractController {
         ModelAndView model = new ModelAndView("menu/input");
         Menu menu = menuService.get(id);
         model.addObject("menu", menu);
-        List<String> list = menuService.getTreesNameByCode(menu.getCode());
+        List<String> list = menuService.getTreesNameByCode(menu.getParentCode());
         model.addObject("menuNames", list);
         return model;
     }
@@ -75,30 +73,20 @@ public class MenuController extends AbstractController {
 
     @RequestMapping("_all")
     @ResponseBody
-    public MenuNode allTree(HttpServletRequest request) {
-        return menuService.menuTree(Status.ALL);
-    }
-
-    @RequestMapping("zTree")
-    @ResponseBody
-    public List<ZTree> zTree(HttpServletRequest request) {
-        List<ZTree> list = new ArrayList<ZTree>();
-        List<Menu> menuList = menuService.list();
-        for (Menu menu : menuList) {
-            list.add(new ZTree(menu));
-        }
-        return list;
+    public MenuTree allTree(HttpServletRequest request) {
+        List<Menu> list = menuService.list(Status.ALL);
+        return MenuTree.list2tree(list);
     }
 
     @RequestMapping("tree")
     @ResponseBody
-    public MenuNode tree(HttpServletRequest request) {
-        MenuNode node = new MenuNode();
+    public MenuTree tree(HttpServletRequest request) {
+        MenuTree tree = new MenuTree();
         User t = (User) request.getSession().getAttribute("user");
         if (t != null) {
-            node = MenuMemory.get(t.getId());
+            tree = MenuMemory.get(t.getId());
         }
-        return node;
+        return tree;
     }
 
     @RequestMapping("p/{pcode}")

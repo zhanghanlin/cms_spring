@@ -13,7 +13,6 @@ import com.demo.java.common.dict.Status;
 import com.demo.java.menu.dao.MenuDao;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
-import com.demo.java.menu.utils.MenuNode;
 import com.demo.java.user.entity.User;
 import com.demo.java.utils.string.StringUtils;
 
@@ -22,22 +21,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Resource
     MenuDao menuDao;
-
-    @Override
-    public MenuNode menuTree(int status) {
-        List<Menu> list = new ArrayList<Menu>();
-        if (Status.ALL == status) {
-            list = menuDao.list();
-        } else {
-            list = menuDao.list(status);
-        }
-        MenuNode tree = new MenuNode();
-        for (Menu m : list) {
-            MenuNode t = new MenuNode(m);
-            tree.addChildNode(t);
-        }
-        return tree;
-    }
 
     @Override
     public List<Menu> getMenuByParentCode(String code) {
@@ -113,7 +96,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> list() {
-        return menuDao.list();
+    public List<Menu> list(int status) {
+        List<Menu> list = new ArrayList<Menu>();
+        if (Status.ALL == status) {
+            list = menuDao.list();
+        } else {
+            list = menuDao.list(status);
+        }
+        return list;
     }
 }

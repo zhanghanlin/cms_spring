@@ -3,12 +3,9 @@ package com.demo.java.menu.service;
 import java.util.List;
 
 import com.demo.java.menu.entity.Menu;
-import com.demo.java.menu.utils.MenuNode;
 import com.demo.java.user.entity.User;
 
 public interface MenuService {
-
-    public MenuNode menuTree(int status);
 
     public List<Menu> getMenuByParentCode(String code);
 
@@ -24,5 +21,5 @@ public interface MenuService {
 
     public Menu get(Long id);
 
-    public List<Menu> list();
+    public List<Menu> list(int status);
 }

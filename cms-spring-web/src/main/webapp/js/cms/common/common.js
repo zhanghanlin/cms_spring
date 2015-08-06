@@ -10,7 +10,7 @@ $(function() {
 									var html = '';
 									$
 											.each(
-													obj.childNode,
+													obj.children,
 													function(i, o) {
 														var cls = '';
 														if (o.hasChild) {
@@ -47,7 +47,7 @@ $(function() {
 					cls = ' menu-open';
 				}
 				html += '<ul class="treeview-menu ' + cls + '">';
-				$.each(obj.childNode, function(j, o) {
+				$.each(obj.children, function(j, o) {
 					var subCls = '';
 					if (breadcrumb && breadcrumb[o.level - 1] == o.node.name) {
 						subCls = 'active';
@@ -55,7 +55,7 @@ $(function() {
 					html += '<li class="' + subCls + '"><a href="'
 							+ o.node.link + '"><i class="fa ' + o.node.icon
 							+ '"></i>' + o.node.name;
-					if (o.childNode.length > 0) {
+					if (o.children.length > 0) {
 						html += '<i class="fa fa-angle-left pull-right"></i>';
 					}
 					html += '</a>';

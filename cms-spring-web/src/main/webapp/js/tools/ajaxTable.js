@@ -82,7 +82,7 @@
 		}
 
 		function pages(obj) {
-			if (obj.totalPage <= 0) {
+			if (obj.totalPage <= 1) {
 				return false;
 			}
 			var str = [];

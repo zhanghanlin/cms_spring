@@ -1,7 +1,5 @@
 package com.demo.java.test.menu;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -11,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import com.demo.java.menu.dao.MenuDao;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
-import com.demo.java.menu.utils.MenuNode;
 import com.demo.java.test.AbstractTest;
 
 public class MenuTest extends AbstractTest {
@@ -25,13 +22,6 @@ public class MenuTest extends AbstractTest {
 
     @Test
     public void testTree() {
-        List<Menu> list = menuDao.list();
-        MenuNode tree = new MenuNode();
-        for (Menu m : list) {
-            MenuNode t = new MenuNode(m);
-            tree.addChildNode(t);
-        }
-        LOG.info(tree.toJSON());
     }
 
     @Test
