@@ -26,9 +26,9 @@ $(function() {
 				$.getJSON('/menu/_all', function(data) {
 					console.info(data);
 					var json = '';
-					$('#treeview').treeview({
-						data : json
-					});
+//					$('#treeview').treeview({
+//						data : json
+//					});
 				})
 			});
 		},
