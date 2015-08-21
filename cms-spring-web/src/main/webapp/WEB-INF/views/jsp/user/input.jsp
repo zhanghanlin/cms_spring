@@ -10,7 +10,7 @@
 				aria-label="Close">
 				<span aria-hidden="true">×</span>
 			</button>
-			<h4 class="modal-title" id="roleLableTitle">权限Info</h4>
+			<h4 class="modal-title" id="roleLableTitle">用户信息</h4>
 		</div>
 		<div class="modal-body">
 			<div class="row">
@@ -20,15 +20,15 @@
 						<c:set var="disabled" value="disabled"></c:set>
 					</c:if>
 					<input type="hidden" value="${UUID }" name="UUID" /> <input
-						type="hidden" value="${role.id }" name="id" id="id" />
+						type="hidden" value="${user.id }" name="id" id="id" />
 					<div class="box-body">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<label class="col-sm-2 control-label">角色名</label>
+									<label class="col-sm-2 control-label">用户名</label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control" id="name"
-											value="${role.name }" name="name" placeholder="角色名"
+										<input type="text" class="form-control" id="userName"
+											value="${user.userName }" name="userName" placeholder="用户名"
 											${disabled } required />
 									</div>
 								</div>
@@ -37,10 +37,10 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<label class="col-sm-2 control-label">角色说明</label>
+									<label class="col-sm-2 control-label">用户邮箱</label>
 									<div class="col-sm-7">
-										<input type="text" class="form-control" id="note"
-											value="${role.note }" name="note" placeholder="角色说明"
+										<input type="text" class="form-control" id="email"
+											value="${user.email }" name="email" placeholder="用户邮箱"
 											${disabled } required />
 									</div>
 								</div>
@@ -59,6 +59,6 @@
 		</div>
 	</form>
 	<script type="text/javascript" src="/js/tools/select2.full.min.js"></script>
-	<script type="text/javascript" src="/js/cms/menu/input.js"></script>
+	<script type="text/javascript" src="/js/cms/user/input.js"></script>
 </body>
 </html>

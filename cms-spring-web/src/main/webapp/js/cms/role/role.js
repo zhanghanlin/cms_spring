@@ -22,8 +22,23 @@ $(function() {
 			});
 		},
 		menuList : function() {
+			$('#role_modal').on('show.bs.modal', function() {
+				$.getJSON('/menu/_all', function(data) {
+					console.info(data);
+					var json = '';
+					$('#treeview').treeview({
+						data : json
+					});
+				})
+			});
+		},
+		parseJSON : function(data) {
+			var json = '[{}]';
+			$.each(data,function(i,o){
+			});
 		}
 	};
 	role.list();
 	role.closeModal();
+	role.menuList();
 });
