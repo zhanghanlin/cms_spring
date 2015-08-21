@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,5 +38,14 @@ public class UserController extends AbstractController {
         List<User> result = userService.pageList(curPage, pageSize);
         int totalResults = userService.size();
         return new PageVo<User>(curPage, pageSize, totalResults, result);
+    }
+
+    @RequestMapping("get/{id}")
+    public ModelAndView get(@PathVariable Long id, HttpServletRequest request) {
+        ModelAndView model = new ModelAndView("user/input");
+        randomUUID(request);
+        User user = userService.get(id);
+        model.addObject("user", user);
+        return model;
     }
 }

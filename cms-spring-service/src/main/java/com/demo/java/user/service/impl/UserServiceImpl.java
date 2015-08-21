@@ -63,4 +63,9 @@ public class UserServiceImpl implements UserService {
     public List<User> pageList(int pageNo, int pageSize) {
         return userDao.pageList((pageNo - 1) * pageSize, pageSize);
     }
+
+    @Override
+    public User get(Long id) {
+        return userDao.get(id);
+    }
 }

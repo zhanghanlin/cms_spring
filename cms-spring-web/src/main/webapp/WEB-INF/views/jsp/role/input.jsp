@@ -59,6 +59,5 @@
 		</div>
 	</form>
 	<script type="text/javascript" src="/js/tools/select2.full.min.js"></script>
-	<script type="text/javascript" src="/js/cms/menu/input.js"></script>
 </body>
 </html>

@@ -13,4 +13,6 @@ public interface UserService {
     public int size();
 
     public List<User> pageList(int pageNo, int pageSize);
+
+    public User get(Long id);
 }

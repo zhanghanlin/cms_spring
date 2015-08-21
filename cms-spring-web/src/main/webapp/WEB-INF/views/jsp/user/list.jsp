@@ -54,6 +54,9 @@
 							</div>
 						</div>
 					</div>
+					<div class="modal fade" data-backdrop="static" id="modal" >
+						<div class="modal-dialog"><div class="modal-content"></div></div>
+					</div>
 				</section>
 			</div>
 			<jsp:directive.include file="/common/right.html" />

@@ -46,6 +46,18 @@
 								</div>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">用户手机</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" id="phone"
+											value="${user.phone }" name="phone" placeholder="用户手机"
+											${disabled } required />
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
