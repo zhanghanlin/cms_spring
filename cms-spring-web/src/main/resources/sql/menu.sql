@@ -21,3 +21,6 @@ CREATE TABLE `cms_menu` (
   UNIQUE KEY `UNI_ID` (`id`) USING BTREE,
   UNIQUE KEY `UNI_PNAME` (`code`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+INSERT INTO cms_menu ( NAME, note, CODE, parent_code, link, icon, weight, created_at, created_by ) VALUES ( '系统管理', '系统管理', '001', '0', '###', 'fa-list', 1, now(), 'System' );
+INSERT INTO cms_menu ( NAME, note, CODE, parent_code, link, icon, weight, created_at, created_by ) VALUES ( '菜单管理', '菜单管理', '001001', '001', '/menu/toList', 'fa-circle-o', 1, now(), 'System' );

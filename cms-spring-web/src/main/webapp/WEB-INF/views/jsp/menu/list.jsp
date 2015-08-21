@@ -27,7 +27,7 @@
 					<h1>菜单管理</h1>
 					<ol class="breadcrumb">
 						<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
-						<li><a href="###">系统设置</a></li>
+						<li><a href="###">系统管理</a></li>
 						<li class="active">菜单管理</li>
 					</ol>
 				</section>

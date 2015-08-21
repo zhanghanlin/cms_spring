@@ -18,3 +18,5 @@ CREATE TABLE `cms_user` (
   UNIQUE KEY `UNI_ID` (`id`) USING BTREE,
   UNIQUE KEY `UNI_UNAME` (`user_name`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+INSERT INTO cms_user ( user_name, PASSWORD, email, phone, created_at, created_by ) VALUES ( 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.com', '13111111111', now(), 'System' );
