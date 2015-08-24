@@ -451,6 +451,7 @@ function _init() {
 						e.preventDefault();
 					}
 					if ($this.attr('link')) {
+						$('#content').html('<div id="loading">Loading pages...</div>');
 						$('#content').load($this.attr('link'));
 						$this.parent("li").addClass('active');
 					}
