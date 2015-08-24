@@ -4,7 +4,6 @@
 <html>
 	<head>
 		<link href="/css/tools/select2.min.css" rel="stylesheet" type="text/css">
-		<jsp:directive.include file="/common/common.html" />
 		<style type="text/css">
 		table.treetable tr span a {
 			font-family: "fontAwesome";
@@ -18,60 +17,56 @@
 		}
 		</style>
 	</head>
-	<body class="skin-blue sidebar-mini">
-		<div class="wrapper">
-			<jsp:include page="../common/head.jsp" />
-			<jsp:include page="../common/left.jsp" />
-			<div class="content-wrapper">
-				<section class="content-header">
-					<h1>菜单管理</h1>
-					<ol class="breadcrumb">
-						<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
-						<li><a href="###">系统管理</a></li>
-						<li class="active">菜单管理</li>
-					</ol>
-				</section>
-				<section class="content">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="box">
-								<div class="box-header">
-									<h3 class="box-title"></h3>
-									<div class="box-tools">
-										<a role="button" href="/menu/toAdd" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal" style="margin-right: 10px;">新增</a>
-										<ul class="pagination pagination-sm no-margin pull-right">
-											<li><a href="###" class="expandAll">展开全部</a></li>
-											<li><a href="###" class="collapseAll">闭合全部</a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="box-body table-responsive no-padding">
-									<table class="table table-hover" id="menuTable">
-										<thead>
-											<tr>
-												<th>菜单名称</th>
-												<th>菜单图标</th>
-												<th>菜单状态</th>
-												<th>操作</th>
-											</tr>
-										</thead>
-										<tbody></tbody>
-									</table>
-								</div>
-								<div class="box-footer clearfix">
-									<ul class="pagination pagination-sm no-margin pull-right"></ul>
-								</div>
+	<body>
+		<section class="content-header">
+			<h1>菜单管理</h1>
+			<ol class="breadcrumb">
+				<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
+				<li><a href="###">系统管理</a></li>
+				<li class="active">菜单管理</li>
+			</ol>
+		</section>
+		<section class="content">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box">
+						<div class="box-header">
+							<h3 class="box-title"></h3>
+							<div class="box-tools">
+								<a role="button" href="/menu/toAdd"
+									class="btn btn-default btn-sm" data-toggle="modal"
+									data-target="#modal" style="margin-right: 10px;">新增</a>
+								<ul class="pagination pagination-sm no-margin pull-right">
+									<li><a href="###" class="expandAll">展开全部</a></li>
+									<li><a href="###" class="collapseAll">闭合全部</a></li>
+								</ul>
 							</div>
 						</div>
+						<div class="box-body table-responsive no-padding">
+							<table class="table table-hover" id="menuTable">
+								<thead>
+									<tr>
+										<th>菜单名称</th>
+										<th>菜单图标</th>
+										<th>菜单状态</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<div class="box-footer clearfix">
+							<ul class="pagination pagination-sm no-margin pull-right"></ul>
+						</div>
 					</div>
-					<div class="modal fade" data-backdrop="static" id="modal">
-						<div class="modal-dialog"><div class="modal-content"></div></div>
-					</div>
-				</section>
+				</div>
 			</div>
-			<jsp:directive.include file="/common/right.html" />
-			<jsp:directive.include file="/common/footer.html" />
-		</div>
+			<div class="modal fade" data-backdrop="static" id="modal">
+				<div class="modal-dialog">
+					<div class="modal-content"></div>
+				</div>
+			</div>
+		</section>
 		<script src="/js/jquery/jquery.treetable.js"></script>
 		<script src="/js/cms/menu/menu.js"></script>
 	</body>

@@ -10,17 +10,7 @@
 			<jsp:directive.include file="head.jsp" />
 			<jsp:directive.include file="left.jsp" />
 			<div class="content-wrapper">
-				<section class="content-header">
-					<h1>CMS <small>index</small></h1>
-				</section>
-				<section class="content">
-					<div class="row">
-						<section class="col-lg-12 connectedSortable">
-							<jsp:directive.include file="/common/tools/Calendar.html" />
-							<jsp:directive.include file="/common/tools/Visitors.html" />
-						</section>
-					</div>
-				</section>
+				<div id="content"></div>
 			</div>
 			<jsp:directive.include file="/common/right.html" />
 			<jsp:directive.include file="/common/footer.html" />

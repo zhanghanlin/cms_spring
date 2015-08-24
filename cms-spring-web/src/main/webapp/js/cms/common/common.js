@@ -1,7 +1,6 @@
 $(function() {
 	var common = {
 		initLeftTree : function() {
-			var breadcrumb = common.pageBreadcrumb();
 			$
 					.getJSON(
 							'/menu/tree',
@@ -16,9 +15,6 @@ $(function() {
 														if (o.hasChild) {
 															cls = 'treeview';
 														}
-														if (breadcrumb[0] == o.node.name) {
-															cls += ' active';
-														}
 														str.push('<li class="');
 														str.push(cls);
 														str
@@ -31,40 +27,21 @@ $(function() {
 																.push('</span><i class="fa fa-angle-left pull-right"></i></a>');
 														str
 																.push(common
-																		.subLeftTree(
-																				o,
-																				breadcrumb));
+																		.subLeftTree(o));
 													});
 									$('.sidebar-menu').append(str.join(''));
 								}
 							});
 		},
-		subLeftTree : function(obj, breadcrumb) {
+		subLeftTree : function(obj) {
 			var str = [];
 			if (obj.hasChild) {
-				var cls = '';
-				var style = 'display : none;';
-				if (breadcrumb && breadcrumb[obj.level - 1] == obj.node.name) {
-					cls = 'menu-open';
-					style = 'display : block;';
-				}
-				str.push('<ul class="treeview-menu ');
-				str.push(cls);
-				str.push(' " style="');
-				str.push(style)
-				str.push('">');
+				str.push('<ul class="treeview-menu">');
 				$
 						.each(
 								obj.children,
 								function(j, o) {
-									var subCls = '';
-									if (breadcrumb
-											&& breadcrumb[o.level - 1] == o.node.name) {
-										subCls = 'active';
-									}
-									str.push('<li class="');
-									str.push(subCls);
-									str.push('"><a href="');
+									str.push('<li><a href="###" link="');
 									str.push(o.node.link);
 									str.push('"><i class="fa ');
 									str.push(o.node.icon);
@@ -81,13 +58,6 @@ $(function() {
 				str.push('</ul>');
 			}
 			return str.join('');
-		},
-		pageBreadcrumb : function() {
-			return $('.content-header ol li').map(function() {
-				if ($(this).index() > 0) {
-					return $(this).text();
-				}
-			}).get();
 		}
 	}
 	common.initLeftTree();
