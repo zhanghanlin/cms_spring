@@ -1,5 +1,6 @@
 package com.demo.java.utils.string;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -200,5 +201,15 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * 使用率计算
+     * 
+     * @return
+     */
+    public static String fromUsage(long free, long total) {
+        Double d = new BigDecimal((free * 100) / total).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return String.valueOf(d);
     }
 }

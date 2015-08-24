@@ -1,6 +1,8 @@
 package com.demo.java.web.common.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,8 @@ import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
 import com.demo.java.utils.string.StringUtils;
 import com.demo.java.web.common.cookie.LoginCookieUtils;
+import com.demo.java.web.common.system.ServerInfo;
+import com.demo.java.web.common.system.ServerStatus;
 import com.demo.java.web.menu.utils.MenuMemory;
 import com.demo.java.web.menu.vo.MenuTree;
 
@@ -174,5 +178,42 @@ public class CommonController extends AbstractController {
     @RequestMapping(value = "/icons", method = RequestMethod.GET)
     public ModelAndView icons(HttpServletRequest request, HttpServletResponse response) {
         return new ModelAndView("/common/icons");
+    }
+
+    @RequestMapping(value = "/toMonitor")
+    public ModelAndView toMonitor() {
+        ServerStatus status = null;
+        try {
+            status = ServerInfo.getServerStatus();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ModelAndView("/common/monitor", "status", status);
+    }
+
+    @RequestMapping(value = "/monitor")
+    @ResponseBody
+    public Map<String, Object> monitorInfo() {
+        ServerStatus status = null;
+        try {
+            status = ServerInfo.getServerStatus();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> dataMap = new HashMap<String, Object>();
+        if (status == null) {
+            return dataMap;
+        }
+        String cpuUsage = status.getCpuUsage();
+        long useMem = status.getUsedMem();
+        long TotalMem = status.getTotalMem();
+        String serverUsage = StringUtils.fromUsage(useMem, TotalMem);
+        long JvmFreeMem = status.getJvmFreeMem();
+        long JvmTotalMem = status.getJvmTotalMem();
+        String JvmUsage = StringUtils.fromUsage(JvmTotalMem - JvmFreeMem, JvmTotalMem);
+        dataMap.put("cpuUsage", cpuUsage);
+        dataMap.put("serverUsage", serverUsage);
+        dataMap.put("JvmUsage", JvmUsage);
+        return dataMap;
     }
 }
