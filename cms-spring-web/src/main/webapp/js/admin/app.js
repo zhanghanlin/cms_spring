@@ -453,6 +453,7 @@ function _init() {
 					if ($this.attr('link')) {
 						$('#content').html('<div id="loading">Loading pages...</div>');
 						$('#content').load($this.attr('link'));
+						$this.parents('ul').first().find('li.active').removeClass('active');
 						$this.parent("li").addClass('active');
 					}
 				});

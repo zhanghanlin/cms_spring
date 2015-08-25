@@ -2986,7 +2986,10 @@
 				</div>
 				</section>
 			</div>
-			<jsp:directive.include file="/common/right.html" />
+			<aside class="control-sidebar control-sidebar-dark" id="right-sidebar">
+				<ul class="nav nav-tabs nav-justified control-sidebar-tabs"></ul>
+				<div class="tab-content"></div>
+			</aside>
 			<jsp:directive.include file="/common/footer.html" />
 		</div>
 	</body>

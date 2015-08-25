@@ -1,12 +1,11 @@
 package com.demo.java.user.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.demo.java.user.entity.User;
 
 public interface UserService {
-
-    public User valid(String userName, String password);
 
     public boolean save(User t);
 
@@ -15,4 +14,8 @@ public interface UserService {
     public List<User> pageList(int pageNo, int pageSize);
 
     public User get(Long id);
+
+    public User findByLogin(String login);
+
+    public Set<String> getRoles(Long id);
 }

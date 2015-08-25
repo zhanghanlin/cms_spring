@@ -22,6 +22,9 @@
 	<logger name="com.demo.java">
 		<level value="INFO" />
 	</logger>
+	<logger name="org.apache.shiro">
+		<level value="INFO"/>
+	</logger>
 	<!-- Console -->
 	<root level="INFO">
 		<appender-ref ref="Console" />

@@ -1,9 +1,8 @@
 package com.demo.java.test.user;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +19,14 @@ public class UserTest extends AbstractTest {
     UserService userService;
 
     @Test
-    public void testSearch() {
-        List<User> list = userService.pageList(0, 10);
-        LOG.info("search list : {}", list.size());
+    public void testRegister() {
+        User user = new User();
+        user.setUserName("test");
+        user.setPhone("13111111111");
+        user.setEmail("test@test.com");
+        user.setPassword("test");
+        SimpleHash hash = new SimpleHash("md5", user.getPassword(), null, 2);
+        user.setPassword(hash.toHex());
+        userService.save(user);
     }
 }

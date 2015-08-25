@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <header class="main-header">
 	<a href="###" class="logo">
 		<span class="logo-mini"><b></b>CMS</span>
@@ -31,12 +32,12 @@
 				<li class="dropdown user user-menu">
 					<a href="###" class="dropdown-toggle" data-toggle="dropdown">
 						<img src="/images/andy.jpg" class="user-image" alt="User Image" />
-						<span class="hidden-xs">${user.userName }</span>
+						<span class="hidden-xs"><shiro:principal/></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li class="user-header">
 							<img src="/images/andy.jpg" class="user-image" alt="User Image" />
-							<p>${user.userName } - Web Developer<small>Member since Nov. 2015</small></p>
+							<p><shiro:principal/> - Web Developer<small>Member since Nov. 2015</small></p>
 						</li>
 						<li class="user-body">
 							<div class="col-xs-4 text-center"><a href="###">A</a></div>

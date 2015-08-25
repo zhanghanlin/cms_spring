@@ -7,17 +7,17 @@ import com.demo.java.web.menu.vo.MenuTree;
 
 public class MenuMemory {
 
-    private final static Map<Long, MenuTree> cache = new HashMap<Long, MenuTree>();
+    private final static Map<Object, MenuTree> cache = new HashMap<Object, MenuTree>();
 
-    public static Map<Long, MenuTree> getCache() {
+    public static Map<Object, MenuTree> getCache() {
         return cache;
     }
 
-    public static MenuTree get(Long id) {
+    public static MenuTree get(Object id) {
         return cache.get(id);
     }
 
-    public static void put(Long id, MenuTree node) {
+    public static void put(Object id, MenuTree node) {
         cache.put(id, node);
     }
 }

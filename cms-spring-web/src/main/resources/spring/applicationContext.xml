@@ -15,4 +15,5 @@
 	<import resource="applicationContext-redis.xml" />
 	<import resource="applicationContext-profile.xml" />
 	<import resource="applicationContext-dataSource.xml" />
+	<import resource="applicationContext-shiro-web.xml" />
 </beans>

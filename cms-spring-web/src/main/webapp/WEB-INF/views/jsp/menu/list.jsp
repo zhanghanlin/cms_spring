@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link href="/css/tools/select2.min.css" rel="stylesheet" type="text/css">
 		<style type="text/css">
 		table.treetable tr span a {
 			font-family: "fontAwesome";

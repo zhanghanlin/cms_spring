@@ -13,7 +13,7 @@ import com.demo.java.common.dict.Status;
 import com.demo.java.menu.dao.MenuDao;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
-import com.demo.java.user.entity.User;
+import com.demo.java.utils.shiro.UserUtils;
 import com.demo.java.utils.string.StringUtils;
 
 @Service("menuService")
@@ -33,12 +33,12 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public int add(Menu menu, User u) {
+    public int add(Menu menu) {
         if (StringUtils.isBlank(menu.getLink())) {
             menu.setLink("###");
         }
         menu.setCreatedAt(new Date());
-        menu.setCreatedBy(u.getUserName());
+        menu.setCreatedBy(UserUtils.getUserName());
         String pcode = menu.getParentCode();
         String maxCode = menuDao.getMaxCodeByParentCode(pcode);
         menu.setCode(nextCode(pcode, maxCode));
@@ -74,19 +74,19 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public int updateStatus(Long id, int status, User u) {
+    public int updateStatus(Long id, int status) {
         Menu menu = new Menu();
         menu.setId(id);
         menu.setStatus(status);
         menu.setChangedAt(new Date());
-        menu.setChangedBy(u.getUserName());
+        menu.setChangedBy(UserUtils.getUserName());
         return menuDao.update(menu);
     }
 
     @Override
-    public int update(Menu menu, User u) {
+    public int update(Menu menu) {
         menu.setChangedAt(new Date());
-        menu.setChangedBy(u.getUserName());
+        menu.setChangedBy(UserUtils.getUserName());
         return menuDao.update(menu);
     }
 

@@ -19,6 +19,8 @@ import com.demo.java.common.dict.Status;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.user.entity.User;
+import com.demo.java.user.service.UserService;
+import com.demo.java.utils.shiro.UserUtils;
 import com.demo.java.web.common.controller.AbstractController;
 import com.demo.java.web.common.response.ResponseContent;
 import com.demo.java.web.menu.response.MenuEnum;
@@ -33,6 +35,9 @@ public class MenuController extends AbstractController {
 
     @Resource
     MenuService menuService;
+
+    @Resource
+    UserService userService;
 
     @RequestMapping("toAdd")
     public ModelAndView toAdd(HttpServletRequest request) {
@@ -82,9 +87,16 @@ public class MenuController extends AbstractController {
     @ResponseBody
     public MenuTree tree(HttpServletRequest request) {
         MenuTree tree = new MenuTree();
-        User t = (User) request.getSession().getAttribute("user");
-        if (t != null) {
-            tree = MenuMemory.get(t.getId());
+        String userName = UserUtils.getUserName();
+        String menuKey = userName + "_m_t";
+        tree = MenuMemory.get(menuKey);
+        if (tree == null) {
+            User t = userService.findByLogin(userName);
+            if (t != null) {
+                List<Menu> list = menuService.list(Status.NORMAL);
+                tree = MenuTree.list2tree(list);
+                MenuMemory.put(menuKey, tree);
+            }
         }
         return tree;
     }
@@ -102,18 +114,16 @@ public class MenuController extends AbstractController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public ModelAndView add(Menu menu, String UUID, HttpServletRequest request) {
-        ModelAndView model = new ModelAndView("redirect:/menu/toAdd");
+    @ResponseBody
+    public ResponseContent<Menu> add(Menu menu, String UUID, HttpServletRequest request) {
         if (!checkUUID(UUID, request)) {
-            return model;
+            return new ResponseContent<Menu>(MenuEnum.ERROR);
         }
-        User u = (User) request.getSession().getAttribute("user");
-        int res = menuService.add(menu, u);
-        if (res <= 0) {
-            return model;
+        int res = menuService.add(menu);
+        if (res > 0) {
+            return new ResponseContent<Menu>(MenuEnum.SUCCESS);
         }
-        model.setViewName("redirect:/menu/toList");
-        return model;
+        return new ResponseContent<Menu>(MenuEnum.ERROR);
     }
 
     @RequestMapping("edit/{id}")
@@ -131,25 +141,22 @@ public class MenuController extends AbstractController {
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ModelAndView update(Menu menu, String UUID, HttpServletRequest request) {
-        ModelAndView model = new ModelAndView("redirect:/menu/edit/" + menu.getId());
+    @ResponseBody
+    public ResponseContent<Menu> update(Menu menu, String UUID, HttpServletRequest request) {
         if (!checkUUID(UUID, request)) {
-            return model;
+            return new ResponseContent<Menu>(MenuEnum.ERROR);
         }
-        User u = (User) request.getSession().getAttribute("user");
-        int res = menuService.update(menu, u);
-        if (res <= 0) {
-            return model;
+        int res = menuService.update(menu);
+        if (res > 0) {
+            return new ResponseContent<Menu>(MenuEnum.SUCCESS);
         }
-        model.setViewName("redirect:/menu/toList");
-        return model;
+        return new ResponseContent<Menu>(MenuEnum.ERROR);
     }
 
     @RequestMapping(value = "update/status", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Menu> updateStatus(@RequestParam Long id, @RequestParam int status, HttpServletRequest request) {
-        User t = (User) request.getSession().getAttribute("user");
-        int res = menuService.updateStatus(id, status, t);
+        int res = menuService.updateStatus(id, status);
         if (res > 0) {
             return new ResponseContent<Menu>(MenuEnum.SUCCESS, menuService.get(id));
         }

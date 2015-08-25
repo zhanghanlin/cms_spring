@@ -12,10 +12,10 @@
 		</div>
 		<div class="login-box-body">
 			<p class="login-box-msg">登陆你的帐号</p>
-			<form action="/doLogin" method="POST">
+			<form method="POST">
 				<input type="hidden" value="${UUID }" name="UUID"/>
 				<div class="form-group has-feedback">
-					<input type="email" class="form-control" name="userName" placeholder="Email" required/>
+					<input type="email" class="form-control" name="username" placeholder="Email" required/>
 					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
@@ -25,7 +25,8 @@
 				<div class="row">
 					<div class="col-xs-8">
 						<div class="checkbox icheck">
-							<label><input type="checkbox" />&nbsp;&nbsp;记住我</label>
+							<input type="hidden" name="rememberMe" value="true" />
+							<label><input type="checkbox"/>&nbsp;&nbsp;记住我</label>
 						</div>
 					</div>
 					<div class="col-xs-4"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div>
