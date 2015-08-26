@@ -23,8 +23,8 @@ public class MenuServiceImpl implements MenuService {
     MenuDao menuDao;
 
     @Override
-    public List<Menu> getMenuByParentCode(String code) {
-        return menuDao.getByParentCode(code);
+    public List<Menu> findByParentId(Long parentId) {
+        return menuDao.findByParentId(parentId);
     }
 
     @Override
@@ -40,21 +40,21 @@ public class MenuServiceImpl implements MenuService {
         menu.setCreatedAt(new Date());
         menu.setCreatedBy(UserUtils.getUserName());
         String pcode = menu.getParentCode();
-        String maxCode = menuDao.getMaxCodeByParentCode(pcode);
+        String maxCode = menuDao.findMaxCodeByParentId(menu.getParentId());
         menu.setCode(nextCode(pcode, maxCode));
         menu.setStatus(Status.NORMAL);
         return menuDao.save(menu);
     }
 
     @Override
-    public List<String> getTreesNameByCode(String code) {
+    public List<String> findMenuNameByCode(String code) {
         List<String> param = new ArrayList<String>();
         List<String> list = new ArrayList<String>();
         list.add("CMS");
         for (int i = 1; i <= (code.length() / 3); i++) {
             param.add(code.substring(0, i * 3));
         }
-        List<Map<String, Object>> objects = menuDao.getTreesNameByCode(param);
+        List<Map<String, Object>> objects = menuDao.findTreeNameByCode(param);
         if ((objects != null) && !objects.isEmpty()) {
             for (Map<String, Object> map : objects) {
                 list.add(map.get("name").toString());
@@ -104,5 +104,15 @@ public class MenuServiceImpl implements MenuService {
             list = menuDao.list(status);
         }
         return list;
+    }
+
+    @Override
+    public List<Menu> findByIds(Long[] menuIds) {
+        return menuDao.findByIds(menuIds);
+    }
+
+    @Override
+    public List<Menu> findByRoleId(Long roleId) {
+        return menuDao.findByRoleId(roleId);
     }
 }

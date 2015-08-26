@@ -6,63 +6,43 @@ $(function() {
 			DISABLE : 1,
 			DELETE : 2
 		},
-		parseObj : function(o) {
-			var code = o.code;
-			var dataId = '';
-			while (code.length / 3 >= 1) {
-				dataId += '-' + parseInt(code.substr(0, 3));
-				code = code.substr(3);
-			}
-			dataId = dataId.substr(1);
-			var parentId = dataId.substr(0, dataId.lastIndexOf('-'));
+		menuHtml : function(arr, data) {
+			if (!arr)
+				return false;
 			var str = [];
-			str.push('<tr data-tt-id="');
-			str.push(dataId);
-			str.push('" data-tt-parent-id="');
-			str.push(parentId);
-			str.push('"><td title="')
-			str.push(o.note);
-			str.push('">')
-			for ( var i = 1; i < (o.code.length / 3).toFixed(0); i++) {
-				str.push('|——');
-			}
-			str.push(o.name);
-			str.push('</td><td><i class="fa ')
-			str.push(o.icon);
-			str.push('"></i></td><td>')
-			str.push(menu.menuStatus(o.status));
-			str.push('</td><td i="')
-			str.push(o.id);
-			str.push('">')
-			str.push(menu.opera(o));
-			str.push('</td></tr>')
+			$.each(arr, function(i, o) {
+				str.push('<tr data-tt-id="');
+				str.push(o.id);
+				str.push('" data-tt-parent-id="');
+				str.push(o.parentId);
+				str.push('"><td title="')
+				str.push(o.note);
+				str.push('">')
+				for ( var i = 1; i < o.level; i++) {
+					str.push('|——');
+				}
+				str.push(o.name);
+				str.push('</td><td><i class="fa ')
+				str.push(o.icon);
+				str.push('"></i></td><td>')
+				str.push(menu.menuStatus(o.status));
+				str.push('</td><td i="')
+				str.push(o.id);
+				str.push('">')
+				str.push(menu.opera(o));
+				str.push('</td></tr>')
+				str.push(menu.menuHtml(data[o.id], data));
+			});
 			return str.join('');
 		},
 		list : function() {
-			$.getJSON('/menu/_all', function(obj) {
-				if (obj.hasChild) {
-					var html = '';
-					$.each(obj.children, function(i, o) {
-						html += menu.parseObj(o.node);
-						html += menu.child(o);
-					});
-				}
-
+			$.getJSON('/menu/all', function(data) {
+				var html = menu.menuHtml(data[0], data);
 				menu.tableObj.find('tbody').html(html);
 				menu.tableObj.treetable({
 					expandable : true
 				});
 			});
-		},
-		child : function(obj) {
-			var html = '';
-			if (obj.hasChild) {
-				$.each(obj.children, function(j, o) {
-					html += menu.parseObj(o.node);
-					html += menu.child(o);
-				});
-			}
-			return html;
 		},
 		tools : function() {
 			$('.box-tools ul li a').click(function() {
@@ -78,7 +58,7 @@ $(function() {
 		},
 		opera : function(o) {
 			var str = [];
-			str.push('<a role="button" href="/menu/get/');
+			str.push('<a role="button" href="/menu/detail/');
 			str.push(o.id);
 			str
 					.push('" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>&nbsp;');

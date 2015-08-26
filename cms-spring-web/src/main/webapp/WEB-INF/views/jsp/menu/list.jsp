@@ -32,7 +32,7 @@
 						<div class="box-header">
 							<h3 class="box-title"></h3>
 							<div class="box-tools">
-								<a role="button" href="/menu/toAdd"
+								<a role="button" href="/menu/toAdd/0"
 									class="btn btn-default btn-sm" data-toggle="modal"
 									data-target="#modal" style="margin-right: 10px;">新增</a>
 								<ul class="pagination pagination-sm no-margin pull-right">

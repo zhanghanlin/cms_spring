@@ -28,12 +28,11 @@ ol.breadcrumb {
 					<c:if test="${empty submit }">
 						<c:set var="disabled" value="disabled"></c:set>
 					</c:if>
-					<input type="hidden" value="${UUID }" name="UUID" /> <input
-						type="hidden" value="${menu.id }" name="id" id="id" /> <input
-						type="hidden" value="${menu.code }" name="code" /> <input
-						type="hidden" id="parentCode"
-						value='<c:out value="${parentCode }" default="0"></c:out>'
-						name="parentCode" />
+					<input type="hidden" value="${UUID }" name="UUID" />
+					<input type="hidden" value="${menu.id }" name="id" id="id" />
+					<input type="hidden" value="${menu.code }" name="code" />
+					<input type="hidden" id="parentCode" value='<c:out value="${parentCode }" default="0"></c:out>' name="parentCode" />
+					<input type="hidden" id="parentId" value='<c:out value="${parentId }" default="0"></c:out>' name="parentId" />
 					<div class="box-body">
 						<div class="row">
 							<div class="col-md-12">

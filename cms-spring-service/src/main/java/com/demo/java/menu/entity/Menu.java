@@ -1,5 +1,6 @@
 package com.demo.java.menu.entity;
 
+import com.demo.java.annotation.Ignore;
 import com.demo.java.annotation.Table;
 import com.demo.java.common.entity.AbstractEntity;
 
@@ -12,7 +13,7 @@ public class Menu extends AbstractEntity {
 
     private String code;
 
-    private String parentCode;
+    private Long parentId;
 
     private String note;
 
@@ -40,12 +41,22 @@ public class Menu extends AbstractEntity {
         this.code = code;
     }
 
-    public String getParentCode() {
-        return parentCode;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    @Ignore
+    public String getParentCode() {
+        int codeLength = code.length();
+        String pCode = "0";
+        if (codeLength > 3) {
+            pCode = code.substring(0, codeLength - 3);
+        }
+        return pCode;
     }
 
     public String getNote() {
@@ -86,5 +97,10 @@ public class Menu extends AbstractEntity {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Ignore
+    public int getLevel() {
+        return code.length() / 3;
     }
 }

@@ -63,8 +63,8 @@ $(function() {
 				type : "POST",
 				dataType : "json",
 				success : function(json) {// 表单提交成功回调函数
-					alert("表单操作完成！操作结果：" + json.msg);
-					$('#modal').modal('toggle');
+					$('#modal').modal('hide');
+					//$('.sidebar-menu li.active').not('.treeview').find('a').trigger('click');
 				},
 				error : function(err) {
 					alert("表单提交异常！" + err.msg);

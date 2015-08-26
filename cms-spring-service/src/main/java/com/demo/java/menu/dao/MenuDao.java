@@ -19,7 +19,7 @@ public class MenuDao extends AbstractDao<Menu> {
     final static Logger LOG = LoggerFactory.getLogger(MenuDao.class);
 
     public List<Menu> list(int status) {
-        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.GET_LIST, new Object[] { status }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_LIST, new Object[] { status }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
         if ((list != null) && !list.isEmpty()) {
             return list;
         }
@@ -27,7 +27,7 @@ public class MenuDao extends AbstractDao<Menu> {
     }
 
     public List<Menu> list() {
-        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.GET_ALL, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_ALL, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
         if ((list != null) && !list.isEmpty()) {
             return list;
         }
@@ -35,30 +35,30 @@ public class MenuDao extends AbstractDao<Menu> {
     }
 
     public Menu get(String code) {
-        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.GET_BY_CODE, new Object[] { code, Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_BY_CODE, new Object[] { code, Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
         if ((list != null) && !list.isEmpty()) {
             return list.get(0);
         }
         return null;
     }
 
-    public List<Menu> getByParentCode(String code) {
-        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.GET_BY_PARENT_CODE, new Object[] { code, Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+    public List<Menu> findByParentId(Long parentId) {
+        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_BY_PARENT_ID, new Object[] { parentId, Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
         if ((list != null) && !list.isEmpty()) {
             return list;
         }
         return null;
     }
 
-    public String getMaxCodeByParentCode(String code) {
-        return jdbcTemplate.queryForObject(MenuSqlMapper.GET_MAX_CODE_BY_PARENT_CODE, new Object[] { code }, String.class);
+    public String findMaxCodeByParentId(Long parentId) {
+        return jdbcTemplate.queryForObject(MenuSqlMapper.FIND_MAX_CODE_BY_PARENT_ID, new Object[] { parentId }, String.class);
     }
 
     public int maxLevel() {
-        return jdbcTemplate.queryForObject(MenuSqlMapper.GET_MAX_LEVEL, new Object[] { Status.NORMAL }, Integer.class);
+        return jdbcTemplate.queryForObject(MenuSqlMapper.FIND_MAX_LEVEL, new Object[] { Status.NORMAL }, Integer.class);
     }
 
-    public List<Map<String, Object>> getTreesNameByCode(List<String> param) {
+    public List<Map<String, Object>> findTreeNameByCode(List<String> param) {
         String sql = "select name from  " + MenuSqlMapper.TABLE_NAME + "  where code in (0";
         for (String c : param) {
             sql += "," + c;
@@ -69,5 +69,21 @@ public class MenuDao extends AbstractDao<Menu> {
         }
         List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, new Object[] { Status.NORMAL });
         return list;
+    }
+
+    public List<Menu> findByIds(Long[] menuIds) {
+        String sql = "select * from  " + MenuSqlMapper.TABLE_NAME + "  where id in (0";
+        for (Long mid : menuIds) {
+            sql += "," + mid.toString();
+        }
+        sql += ") and status = ? order by LENGTH(code)";
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("findByIds sql : {}", sql);
+        }
+        return jdbcTemplate.query(sql, new Object[] { Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+    }
+
+    public List<Menu> findByRoleId(Long roleId) {
+        return jdbcTemplate.query(MenuSqlMapper.FIND_BY_ROLE, new Object[] { roleId, Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
     }
 }

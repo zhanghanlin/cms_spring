@@ -1,7 +1,0 @@
-#menuManageTree .hitarea, #menuManageTree li.lastCollapsable, #menuManageTree li.lastExpandable {
-	#background-image: url("/images/treeview/treeview-black.gif");
-}
-
-#menuManageTree .hitarea {
-	#background: url("/images/treeview/treeview-default.gif") -64px -25px no-repeat
-} 

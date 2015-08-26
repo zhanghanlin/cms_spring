@@ -7,7 +7,7 @@ CREATE TABLE `cms_menu` (
   `name` varchar(100) NOT NULL COMMENT '菜单名',
   `note` varchar(200) COMMENT '菜单说明',
   `code` varchar(200) COMMENT '菜单结构码',
-  `parent_code` varchar(200) DEFAULT '0' COMMENT '上一级菜单结构码',
+  `parent_id` int(11) DEFAULT 0 COMMENT '上一级菜单Id',
   `link` varchar(200) NOT NULL COMMENT '菜单连接地址',
   `icon` varchar(200) COMMENT '菜单图标样式',
   `weight` int(3) COMMENT '权重,排序使用',
@@ -23,4 +23,4 @@ CREATE TABLE `cms_menu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 INSERT INTO cms_menu ( NAME, note, CODE, parent_code, link, icon, weight, created_at, created_by ) VALUES ( '系统管理', '系统管理', '001', '0', '###', 'fa-list', 1, now(), 'System' );
-INSERT INTO cms_menu ( NAME, note, CODE, parent_code, link, icon, weight, created_at, created_by ) VALUES ( '菜单管理', '菜单管理', '001001', '001', '/menu/toList', 'fa-circle-o', 1, now(), 'System' );
+INSERT INTO cms_menu ( NAME, note, CODE, parent_code, link, icon, weight, created_at, created_by ) VALUES ( '菜单管理', '菜单管理', '001001', '001', '/menu/toList', 'fa-circle-o', 1, now(), 'System' ); 

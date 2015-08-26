@@ -10,7 +10,7 @@
 				aria-label="Close">
 				<span aria-hidden="true">×</span>
 			</button>
-			<h4 class="modal-title" id="roleLableTitle">权限Info</h4>
+			<h4 class="modal-title" id="roleLableTitle">角色信息</h4>
 		</div>
 		<div class="modal-body">
 			<div class="row">
@@ -58,6 +58,6 @@
 				data-dismiss="modal">关闭</button>
 		</div>
 	</form>
-	<script type="text/javascript" src="/js/tools/select2.full.min.js"></script>
+	<script src="/js/cms/role/input.js"></script>
 </body>
 </html>

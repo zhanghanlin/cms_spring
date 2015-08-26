@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+	<link href="/css/ztree/ztree.css" rel="stylesheet" type="text/css">
 	<body>
 		<section class="content-header">
 			<h1>角色列表</h1>
@@ -59,21 +60,21 @@
 					<div class="modal-content"></div>
 				</div>
 			</div>
-			<div class="modal fade" data-backdrop="static" id="role_modal">
-				<div class="modal-dialog">
+			<div class="modal fade bs-example-modal-sm" data-backdrop="static" id="role_modal">
+				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
-								<span aria-hidden="true">×</span>
+								<span aria-hidden="true">x</span>
 							</button>
 							<h4 class="modal-title">分配权限</h4>
 						</div>
 						<div class="modal-body">
-							<div id="treeview"></div>
+							<ul id="ztree" class="ztree"></ul>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary pull-left">保存</button>
+							<button type="button" id="saveMenu2Role" class="btn btn-primary pull-left">保存</button>
 							<button type="button" class="btn btn-default pull-right"
 								data-dismiss="modal">取消</button>
 						</div>
@@ -81,6 +82,7 @@
 				</div>
 			</div>
 		</section>
+		<script type="text/javascript" src="/js/jquery/jquery.ztree.all.min.js"></script>
 		<script src="/js/cms/role/role.js"></script>
 	</body>
 </html>

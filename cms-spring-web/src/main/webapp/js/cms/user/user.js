@@ -9,7 +9,7 @@ $(function() {
 								columns : [ 'id', 'userName', 'email',
 										'status', 'createdAt' ],
 								opera : [
-										'<a role="button" href="/user/get/{id}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>',
+										'<a role="button" href="/user/detail/{id}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>',
 										'<a role="button" class="btn btn-default btn-xs">删除</a>',
 										'<a role="button" class="btn btn-default btn-xs">禁用</a>' ]
 							});
