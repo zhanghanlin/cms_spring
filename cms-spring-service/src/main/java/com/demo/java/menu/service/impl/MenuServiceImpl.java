@@ -43,7 +43,7 @@ public class MenuServiceImpl implements MenuService {
         String maxCode = menuDao.findMaxCodeByParentId(menu.getParentId());
         menu.setCode(nextCode(pcode, maxCode));
         menu.setStatus(Status.NORMAL);
-        return menuDao.save(menu);
+        return menuDao.insert(menu);
     }
 
     @Override
@@ -97,13 +97,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> list(int status) {
-        List<Menu> list = new ArrayList<Menu>();
-        if (Status.ALL == status) {
-            list = menuDao.list();
-        } else {
-            list = menuDao.list(status);
-        }
-        return list;
+        return menuDao.list(status);
     }
 
     @Override
@@ -114,5 +108,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> findByRoleId(Long roleId) {
         return menuDao.findByRoleId(roleId);
+    }
+
+    @Override
+    public List<Menu> findByUserId(Long userId) {
+        return menuDao.findByUserId(userId);
     }
 }

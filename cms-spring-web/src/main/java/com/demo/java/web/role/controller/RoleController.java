@@ -119,7 +119,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequestMapping("ztree")
+    @RequestMapping("menus")
     @ResponseBody
     public JSONArray zTree(@RequestParam Long roleId, HttpServletRequest request) {
         JSONArray array = new JSONArray();
@@ -157,8 +157,8 @@ public class RoleController extends AbstractController {
     @RequestMapping("list")
     @ResponseBody
     public PageVo<Role> list(int curPage, int pageSize, HttpServletRequest request) {
-        List<Role> result = roleService.pageList(curPage, pageSize);
-        int totalResults = roleService.findPageListTotalCount();
+        List<Role> result = roleService.findListByPage(curPage, pageSize);
+        int totalResults = roleService.getTotalCount();
         return new PageVo<Role>(curPage, pageSize, totalResults, result);
     }
 

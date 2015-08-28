@@ -2,16 +2,15 @@ package com.demo.java.user.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.demo.java.common.dict.Status;
 import com.demo.java.user.dao.UserDao;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
+import com.demo.java.utils.shiro.UserUtils;
 import com.demo.java.utils.string.PatternUtils;
 
 @Service("userService")
@@ -21,26 +20,23 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
 
     @Override
-    public boolean save(User t) {
+    public int add(User t) {
         if (t == null) {
-            return false;
+            return 0;
         }
-        t.setStatus(Status.NORMAL);
         t.setCreatedAt(new Date());
-        t.setCreatedBy("System");
-        t.setVersion(1);
-        int res = userDao.save(t);
-        return res > 0;
+        t.setCreatedBy(UserUtils.getUserName());
+        return userDao.insert(t);
     }
 
     @Override
-    public int size() {
-        return userDao.size();
+    public int getToalCount() {
+        return userDao.getToalCount();
     }
 
     @Override
-    public List<User> pageList(int pageNo, int pageSize) {
-        return userDao.pageList((pageNo - 1) * pageSize, pageSize);
+    public List<User> findListByPage(int pageNo, int pageSize) {
+        return userDao.findListByPage((pageNo - 1) * pageSize, pageSize);
     }
 
     @Override
@@ -59,10 +55,5 @@ public class UserServiceImpl implements UserService {
             t = userDao.getByUserName(login);
         }
         return t;
-    }
-
-    @Override
-    public Set<String> getRoles(Long id) {
-        return null;
     }
 }

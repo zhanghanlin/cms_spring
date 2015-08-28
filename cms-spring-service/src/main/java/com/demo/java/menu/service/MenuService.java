@@ -106,4 +106,14 @@ public interface MenuService {
      * @since JDK 1.7
      */
     public List<Menu> findByRoleId(Long roleId);
+
+    /**
+     * 根据用户查询对应权限.<br/>
+     * 
+     * @author zhanghanlin
+     * @param userId
+     * @return
+     * @since JDK 1.7
+     */
+    public List<Menu> findByUserId(Long userId);
 }

@@ -84,6 +84,18 @@ ol.breadcrumb {
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
+									<label class="col-sm-2 control-label">唯一Key</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" id="uniqueKey"
+											value="${menu.uniqueKey }" name="uniqueKey" placeholder="唯一Key"
+											${disabled } required />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
 									<label class="col-sm-2 control-label">说明</label>
 									<div class="col-sm-7">
 										<input type="text" class="form-control" id="note"

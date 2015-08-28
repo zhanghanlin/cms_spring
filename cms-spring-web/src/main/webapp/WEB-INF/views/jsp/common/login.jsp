@@ -11,7 +11,7 @@
 			<a href="###"><b>Admin&nbsp;&nbsp;</b>CMS</a>
 		</div>
 		<div class="login-box-body">
-			<p class="login-box-msg">登陆你的帐号</p>
+			<p class="login-box-msg">登陆你的帐号${error }</p>
 			<form method="POST">
 				<input type="hidden" value="${UUID }" name="UUID"/>
 				<div class="form-group has-feedback">

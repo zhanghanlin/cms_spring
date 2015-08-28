@@ -23,20 +23,20 @@ public class RoleServiceImpl implements RoleService {
     RoleMenuDao roleMenuDao;
 
     @Override
-    public List<Role> pageList(int curPage, int pageSize) {
-        return roleDao.pageList((curPage - 1) * pageSize, pageSize);
+    public List<Role> findListByPage(int curPage, int pageSize) {
+        return roleDao.findListByPage((curPage - 1) * pageSize, pageSize);
     }
 
     @Override
-    public int findPageListTotalCount() {
-        return roleDao.findPageListTotalCount();
+    public int getTotalCount() {
+        return roleDao.findNormalTotalCount();
     }
 
     @Override
     public int add(Role role) {
         role.setCreatedAt(new Date());
         role.setCreatedBy(UserUtils.getUserName());
-        return roleDao.save(role);
+        return roleDao.insert(role);
     }
 
     @Override
@@ -57,9 +57,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<Role> list(int status) {
+    public List<Role> findList(int status) {
+        return roleDao.findList(status);
+    }
 
-        // TODO Auto-generated method stub
-        return null;
+    @Override
+    public List<Role> findByUserId(Long userId) {
+        return roleDao.findByUserId(userId);
     }
 }

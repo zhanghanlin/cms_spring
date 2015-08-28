@@ -18,12 +18,12 @@ public class RoleDao extends AbstractDao<Role> {
 
     final static Logger LOG = LoggerFactory.getLogger(RoleDao.class);
 
-    public List<Role> pageList(int start, int pageSize) {
-        return jdbcTemplate.query(RoleSqlMapper.GET_PAGE_LIST, new Object[] { start, pageSize }, ParameterizedBeanPropertyRowMapper.newInstance(Role.class));
+    public List<Role> findListByPage(int start, int pageSize) {
+        return jdbcTemplate.query(RoleSqlMapper.FIND_LIST_PAGE, new Object[] { start, pageSize }, ParameterizedBeanPropertyRowMapper.newInstance(Role.class));
     }
 
-    public int findPageListTotalCount() {
-        return jdbcTemplate.queryForObject(RoleSqlMapper.GET_PAGE_LIST_TOTAL_COUNT, Integer.class);
+    public int findNormalTotalCount() {
+        return jdbcTemplate.queryForObject(RoleSqlMapper.FIND_NORMAL_TOTAL_COUNT, Integer.class);
     }
 
     public List<Role> findByIds(Long[] roleIds) {
@@ -36,5 +36,19 @@ public class RoleDao extends AbstractDao<Role> {
             LOG.debug("findByIds sql : {}", sql);
         }
         return jdbcTemplate.query(sql, new Object[] { Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Role.class));
+    }
+
+    public List<Role> findList(int status) {
+        String sql = RoleSqlMapper.FIND_LIST;
+        int param = status;
+        if (status == Status.ALL) {
+            sql = RoleSqlMapper.FIND_ALL;
+            param = Status.DELETE;
+        }
+        return jdbcTemplate.query(sql, new Object[] { param }, ParameterizedBeanPropertyRowMapper.newInstance(Role.class));
+    }
+
+    public List<Role> findByUserId(Long userId) {
+        return jdbcTemplate.query(RoleSqlMapper.FIND_BY_USER, new Object[] { userId }, ParameterizedBeanPropertyRowMapper.newInstance(Role.class));
     }
 }

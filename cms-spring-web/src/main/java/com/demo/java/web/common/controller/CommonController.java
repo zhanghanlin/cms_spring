@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +42,7 @@ public class CommonController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresAuthentication
-    @RequestMapping(value = "/main")
+    @RequestMapping(value = "/")
     public ModelAndView toMain(HttpServletRequest request) {
         randomUUID(request);
         return new ModelAndView("common/main");
@@ -98,8 +96,8 @@ public class CommonController extends AbstractController {
         if (user != null) {
             SimpleHash hash = new SimpleHash("md5", user.getPassword(), null, 2);
             user.setPassword(hash.toHex());
-            boolean res = userService.save(user);
-            if (!res) {
+            int res = userService.add(user);
+            if (res <= 0) {
                 model.addObject("msg", "注册失败");
                 model.setViewName("redirect:/register");
             } else {

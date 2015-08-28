@@ -29,6 +29,8 @@
 				},
 				dataType : 'JSON',
 				success : function(data) {
+					if (!data)
+						return;
 					var str = [];
 					$.each(data.result, function(i, o) {
 						str.push('<tr>');
@@ -50,9 +52,9 @@
 							var operaStr = opts.opera.join('&nbsp;');
 							if (/{[A-Za-z0-9]+}/.test(operaStr)) {
 								var label = operaStr.match(/{[A-Za-z0-9]+}/g);
-								$.each(label,function(i,lab){
+								$.each(label, function(i, lab) {
 									var t = lab.replace(/[{}]+/g, '');
-									operaStr = operaStr.replace(lab,o[t]);
+									operaStr = operaStr.replace(lab, o[t]);
 								});
 							}
 							str.push(operaStr);

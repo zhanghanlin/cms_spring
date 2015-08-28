@@ -27,6 +27,6 @@ public class UserTest extends AbstractTest {
         user.setPassword("test");
         SimpleHash hash = new SimpleHash("md5", user.getPassword(), null, 2);
         user.setPassword(hash.toHex());
-        userService.save(user);
+        userService.add(user);
     }
 }

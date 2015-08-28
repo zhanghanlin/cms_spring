@@ -29,6 +29,8 @@
 	<!-- Realm实现 -->
 	<bean id="userRealm" class="com.demo.java.web.shiro.realm.UserRealm">
 		<property name="userService" ref="userService" />
+		<property name="roleService" ref="roleService" />
+		<property name="menuService" ref="menuService" />
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 		<property name="cachingEnabled" value="true" />
 		<property name="authenticationCachingEnabled" value="true" />
@@ -102,8 +104,7 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
-        <property name="successUrl" value="/main" />  
-		<property name="unauthorizedUrl" value="/login" />
+        <property name="successUrl" value="/" />  
 		<property name="filters">
 			<util:map>
 				<entry key="authc" value-ref="formAuthenticationFilter" />

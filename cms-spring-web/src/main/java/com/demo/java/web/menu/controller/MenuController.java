@@ -110,6 +110,7 @@ public class MenuController extends AbstractController {
         Menu menu = menuService.get(id);
         model.addObject("menu", menu);
         model.addObject("parentCode", menu.getParentCode());
+        model.addObject("parentId", menu.getParentId());
         List<String> list = menuService.findMenuNameByCode(menu.getParentCode());
         model.addObject("menuNames", list);
         model.addObject("action", "/menu/update");

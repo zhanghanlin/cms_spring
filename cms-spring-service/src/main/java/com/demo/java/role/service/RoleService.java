@@ -17,7 +17,7 @@ public interface RoleService {
      * @return
      * @since JDK 1.7
      */
-    List<Role> pageList(int curPage, int pageSize);
+    List<Role> findListByPage(int curPage, int pageSize);
 
     /**
      * 分页集合总数.<br/>
@@ -26,7 +26,7 @@ public interface RoleService {
      * @return
      * @since JDK 1.7
      */
-    int findPageListTotalCount();
+    int getTotalCount();
 
     /**
      * 新增角色.<br/>
@@ -76,5 +76,15 @@ public interface RoleService {
      * @return
      * @since JDK 1.7
      */
-    List<Role> list(int status);
+    List<Role> findList(int status);
+
+    /**
+     * 根据用户Id查询角色唯一Key.<br/>
+     * 
+     * @author zhanghanlin
+     * @param id
+     * @return
+     * @since JDK 1.7
+     */
+    List<Role> findByUserId(Long userId);
 }

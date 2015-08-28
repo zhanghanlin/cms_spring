@@ -10,7 +10,7 @@
 			<jsp:include page="../WEB-INF/views/jsp/common/left.jsp" />
 			<div class="content-wrapper">
 				<section class="content-header">
-					<h1>404&nbsp;<small>Error Page</small></h1>
+					<h1>500&nbsp;<small>Error Page</small></h1>
 				</section>
 				<section class="content">
 					<div class="error-page">
@@ -18,8 +18,7 @@
 						<div class="error-content">
 							<h3><i class="fa fa-warning text-red"></i> Oops! Something went wrong.</h3>
 							<p>
-							We could not find the page you were looking for.
-							Meanwhile, you may <a href="/index">return to dashboard</a> or try using the search form.
+								点击返回<a href="/">首页</a>!
 							</p>
 						</div>
 					</div>

@@ -31,11 +31,16 @@ public class UserRoleServiceImpl implements UserRoleService {
             ur.setCreatedAt(new Date());
             ur.setRoleId(r.getId());
             ur.setUserId(id);
-            res = userRoleDao.save(ur);
+            res = userRoleDao.insert(ur);
             if (res == 0) {
                 break;
             }
         }
         return res;
+    }
+
+    @Override
+    public List<UserRole> findByUserId(Long userId) {
+        return userRoleDao.findByUserId(userId);
     }
 }

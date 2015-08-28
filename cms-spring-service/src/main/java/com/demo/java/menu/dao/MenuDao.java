@@ -19,23 +19,17 @@ public class MenuDao extends AbstractDao<Menu> {
     final static Logger LOG = LoggerFactory.getLogger(MenuDao.class);
 
     public List<Menu> list(int status) {
-        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_LIST, new Object[] { status }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
-        if ((list != null) && !list.isEmpty()) {
-            return list;
+        String sql = MenuSqlMapper.FIND_LIST;
+        int param = status;
+        if (status == Status.ALL) {
+            sql = MenuSqlMapper.FIND_ALL;
+            param = Status.DELETE;
         }
-        return null;
-    }
-
-    public List<Menu> list() {
-        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_ALL, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
-        if ((list != null) && !list.isEmpty()) {
-            return list;
-        }
-        return null;
+        return jdbcTemplate.query(sql, new Object[] { param }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
     }
 
     public Menu get(String code) {
-        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_BY_CODE, new Object[] { code, Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_BY_CODE, new Object[] { code }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
         if ((list != null) && !list.isEmpty()) {
             return list.get(0);
         }
@@ -43,7 +37,7 @@ public class MenuDao extends AbstractDao<Menu> {
     }
 
     public List<Menu> findByParentId(Long parentId) {
-        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_BY_PARENT_ID, new Object[] { parentId, Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        List<Menu> list = jdbcTemplate.query(MenuSqlMapper.FIND_BY_PARENT_ID, new Object[] { parentId }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
         if ((list != null) && !list.isEmpty()) {
             return list;
         }
@@ -55,7 +49,7 @@ public class MenuDao extends AbstractDao<Menu> {
     }
 
     public int maxLevel() {
-        return jdbcTemplate.queryForObject(MenuSqlMapper.FIND_MAX_LEVEL, new Object[] { Status.NORMAL }, Integer.class);
+        return jdbcTemplate.queryForObject(MenuSqlMapper.FIND_MAX_LEVEL, Integer.class);
     }
 
     public List<Map<String, Object>> findTreeNameByCode(List<String> param) {
@@ -63,11 +57,11 @@ public class MenuDao extends AbstractDao<Menu> {
         for (String c : param) {
             sql += "," + c;
         }
-        sql += ") and status = ? order by LENGTH(code)";
+        sql += ") and status = 0 order by LENGTH(code)";
         if (LOG.isDebugEnabled()) {
             LOG.debug("getTreesNameByCode sql : {}", sql);
         }
-        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, new Object[] { Status.NORMAL });
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
         return list;
     }
 
@@ -76,14 +70,18 @@ public class MenuDao extends AbstractDao<Menu> {
         for (Long mid : menuIds) {
             sql += "," + mid.toString();
         }
-        sql += ") and status = ? order by LENGTH(code)";
+        sql += ") and status = 0 order by LENGTH(code)";
         if (LOG.isDebugEnabled()) {
             LOG.debug("findByIds sql : {}", sql);
         }
-        return jdbcTemplate.query(sql, new Object[] { Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        return jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
     }
 
     public List<Menu> findByRoleId(Long roleId) {
-        return jdbcTemplate.query(MenuSqlMapper.FIND_BY_ROLE, new Object[] { roleId, Status.NORMAL }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+        return jdbcTemplate.query(MenuSqlMapper.FIND_BY_ROLE, new Object[] { roleId }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
+    }
+
+    public List<Menu> findByUserId(Long userId) {
+        return jdbcTemplate.query(MenuSqlMapper.FIND_BY_USER, new Object[] { userId }, ParameterizedBeanPropertyRowMapper.newInstance(Menu.class));
     }
 }

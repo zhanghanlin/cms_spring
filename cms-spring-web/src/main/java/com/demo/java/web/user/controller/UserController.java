@@ -5,9 +5,10 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,9 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.demo.java.common.dict.Status;
 import com.demo.java.role.entity.Role;
 import com.demo.java.role.service.RoleService;
 import com.demo.java.user.entity.User;
+import com.demo.java.user.entity.UserRole;
 import com.demo.java.user.service.UserRoleService;
 import com.demo.java.user.service.UserService;
 import com.demo.java.web.common.controller.AbstractController;
@@ -27,7 +31,7 @@ import com.demo.java.web.common.vo.PageVo;
 import com.demo.java.web.role.response.RoleEnum;
 import com.demo.java.web.user.response.UserEnum;
 
-@Controller
+@ControllerAdvice
 @RequestMapping("user")
 public class UserController extends AbstractController {
 
@@ -49,6 +53,7 @@ public class UserController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("user:list")
     @RequestMapping("toList")
     public ModelAndView toList() {
         return new ModelAndView("user/list");
@@ -67,8 +72,8 @@ public class UserController extends AbstractController {
     @RequestMapping("list")
     @ResponseBody
     public PageVo<User> list(int curPage, int pageSize, HttpServletRequest request) {
-        List<User> result = userService.pageList(curPage, pageSize);
-        int totalResults = userService.size();
+        List<User> result = userService.findListByPage(curPage, pageSize);
+        int totalResults = userService.getToalCount();
         return new PageVo<User>(curPage, pageSize, totalResults, result);
     }
 
@@ -81,6 +86,7 @@ public class UserController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("user:list")
     @RequestMapping("detail/{id}")
     public ModelAndView get(@PathVariable Long id, HttpServletRequest request) {
         ModelAndView model = new ModelAndView("user/input");
@@ -102,8 +108,18 @@ public class UserController extends AbstractController {
     @ResponseBody
     public JSONArray roles(@RequestParam Long userId, HttpServletRequest request) {
         JSONArray array = new JSONArray();
-        // List<Role> list = roleService.list(Status.NORMAL);
-        // List<UserRole> urList = userRoleService.findByUserId(userId);
+        List<Role> list = roleService.findList(Status.NORMAL);
+        List<UserRole> urList = userRoleService.findByUserId(userId);
+        for (Role role : list) {
+            JSONObject obj = JSONObject.parseObject(JSONObject.toJSONString(role));
+            for (UserRole ur : urList) {
+                if (ur.getRoleId().longValue() == role.getId().longValue()) {
+                    obj.put("check", true);
+                    break;
+                }
+            }
+            array.add(obj);
+        }
         return array;
     }
 

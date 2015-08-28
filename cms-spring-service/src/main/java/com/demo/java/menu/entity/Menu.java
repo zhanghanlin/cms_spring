@@ -13,6 +13,8 @@ public class Menu extends AbstractEntity {
 
     private String code;
 
+    private String uniqueKey;
+
     private Long parentId;
 
     private String note;
@@ -39,6 +41,14 @@ public class Menu extends AbstractEntity {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getUniqueKey() {
+        return uniqueKey;
+    }
+
+    public void setUniqueKey(String uniqueKey) {
+        this.uniqueKey = uniqueKey;
     }
 
     public Long getParentId() {

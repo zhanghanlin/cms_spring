@@ -25,7 +25,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<label class="col-sm-2 control-label">角色名</label>
+									<label class="col-sm-3 control-label">角色名</label>
 									<div class="col-sm-5">
 										<input type="text" class="form-control" id="name"
 											value="${role.name }" name="name" placeholder="角色名"
@@ -37,10 +37,22 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
-									<label class="col-sm-2 control-label">角色说明</label>
+									<label class="col-sm-3 control-label">角色说明</label>
 									<div class="col-sm-7">
 										<input type="text" class="form-control" id="note"
 											value="${role.note }" name="note" placeholder="角色说明"
+											${disabled } required />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">角色唯一Key</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" id="uniqueKey"
+											value="${role.uniqueKey }" name="uniqueKey" placeholder="角色唯一Key"
 											${disabled } required />
 									</div>
 								</div>

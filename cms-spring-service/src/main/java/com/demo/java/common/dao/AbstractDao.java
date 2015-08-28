@@ -27,7 +27,7 @@ public abstract class AbstractDao<T> {
     @Resource
     protected JdbcTemplate jdbcTemplate;
 
-    public int save(T t) {
+    public int insert(T t) {
         String sql = ReflectUtils.getInsertSQL(t);
         Object[] objs = ReflectUtils.getBeanValue(t).toArray();
         return jdbcTemplate.update(sql, objs);

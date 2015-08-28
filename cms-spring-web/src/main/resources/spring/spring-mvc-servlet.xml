@@ -16,12 +16,12 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
-	
+	<aop:config proxy-target-class="true"></aop:config>
 	<bean
 		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager" />
 	</bean>
-	<mvc:view-controller path="/" view-name="main" />
+	<mvc:view-controller path="/" view-name="/" />
 
 	<!-- 默认的注解映射的支持 -->
 	<mvc:annotation-driven>
@@ -76,6 +76,19 @@
 		<property name="prefix" value="/WEB-INF/views/jsp/" />
 		<!--可为空,方便实现自已的依据扩展名来选择视图解释类的逻辑 -->
 		<property name="suffix" value=".jsp" />
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">
+					common/unauthorized
+				</prop>
+				<prop key="org.apache.shiro.authz.UnauthenticatedException">
+					common/error/unauthorized2
+				</prop>
+			</props>
+		</property>
 	</bean>
 
 	<!-- 静态资源映射 -->

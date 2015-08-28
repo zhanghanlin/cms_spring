@@ -12,6 +12,8 @@ public class Role extends AbstractEntity {
 
     private String note;
 
+    private String uniqueKey;
+
     private int status;
 
     public String getName() {
@@ -28,6 +30,14 @@ public class Role extends AbstractEntity {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getUniqueKey() {
+        return uniqueKey;
+    }
+
+    public void setUniqueKey(String uniqueKey) {
+        this.uniqueKey = uniqueKey;
     }
 
     public int getStatus() {

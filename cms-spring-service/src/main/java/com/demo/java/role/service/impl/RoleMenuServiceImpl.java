@@ -31,7 +31,7 @@ public class RoleMenuServiceImpl implements RoleMenuService {
             rm.setCreatedAt(new Date());
             rm.setRoleId(id);
             rm.setMenuId(m.getId());
-            res = roleMenuDao.save(rm);
+            res = roleMenuDao.insert(rm);
             if (res == 0) {
                 break;
             }

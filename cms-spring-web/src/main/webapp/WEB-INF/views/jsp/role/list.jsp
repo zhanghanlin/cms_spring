@@ -41,6 +41,7 @@
 										<th>ID</th>
 										<th>角色名</th>
 										<th>角色说明</th>
+										<th>角色Key</th>
 										<th>状态</th>
 										<th>创建时间</th>
 										<th>操作</th>
@@ -60,7 +61,7 @@
 					<div class="modal-content"></div>
 				</div>
 			</div>
-			<div class="modal fade bs-example-modal-sm" data-backdrop="static" id="role_modal">
+			<div class="modal fade bs-example-modal-sm" data-backdrop="static" id="menu_modal">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">

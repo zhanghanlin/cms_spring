@@ -5,9 +5,9 @@ $(function() {
 					.ajaxTable(
 							{
 								url : '/role/list',
-								pageSize : 1,
-								columns : [ 'id', 'name', 'note', 'status',
-										'createdAt' ],
+								pageSize : 15,
+								columns : [ 'id', 'name', 'note', 'uniqueKey',
+										'status', 'createdAt' ],
 								opera : [
 										'<a role="button" href="/role/detail/{id}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>',
 										'<a role="button" href="/role/edit/{id}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">编辑</a>',
@@ -21,9 +21,9 @@ $(function() {
 				$(this).removeData('bs.modal');
 			});
 		},
-		menuList : function() {
-			$('#role_modal').on('show.bs.modal', function() {
-				$.getJSON('/role/ztree', {
+		menus : function() {
+			$('#menu_modal').on('show.bs.modal', function() {
+				$.getJSON('/role/menus', {
 					roleId : $('#saveMenu2Role').attr('role-id')
 				}, function(data) {
 					var setting = {
@@ -76,7 +76,7 @@ $(function() {
 				processData : true,
 				dataType : 'JSON',
 				success : function(data) {
-					$('#role_modal').modal('hide');
+					$('#menu_modal').modal('hide');
 				},
 				error : function(err) {
 					alert("表单提交异常！" + err.msg);
@@ -86,10 +86,10 @@ $(function() {
 	};
 	role.list();
 	role.closeModal();
-	role.menuList();
+	role.menus();
 	$('#roleTable').delegate('a.menu2role', 'click', function() {
 		$('#saveMenu2Role').attr('role-id', $(this).attr('role-id'));
-		$('#role_modal').modal('show');
+		$('#menu_modal').modal('show');
 	});
 	$('#saveMenu2Role').click(function() {
 		role.menu2Role($(this).attr('role-id'));

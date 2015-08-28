@@ -22,6 +22,11 @@ $(function() {
 					str.push('|——');
 				}
 				str.push(o.name);
+				str.push('</td>');
+				str.push('<td>');
+				str.push(o.note);
+				str.push('</td><td>');
+				str.push(o.uniqueKey);
 				str.push('</td><td><i class="fa ')
 				str.push(o.icon);
 				str.push('"></i></td><td>')

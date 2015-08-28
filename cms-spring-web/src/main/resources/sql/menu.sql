@@ -7,6 +7,7 @@ CREATE TABLE `cms_menu` (
   `name` varchar(100) NOT NULL COMMENT '菜单名',
   `note` varchar(200) COMMENT '菜单说明',
   `code` varchar(200) COMMENT '菜单结构码',
+  `unique_key` varchar(200) COMMENT '菜单唯一key',
   `parent_id` int(11) DEFAULT 0 COMMENT '上一级菜单Id',
   `link` varchar(200) NOT NULL COMMENT '菜单连接地址',
   `icon` varchar(200) COMMENT '菜单图标样式',
