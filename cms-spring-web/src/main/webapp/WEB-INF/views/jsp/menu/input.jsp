@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="/css/bootstrap/bootstrap-select.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 ol.breadcrumb {
 	margin-bottom: 0px;
@@ -31,29 +32,15 @@ ol.breadcrumb {
 					<input type="hidden" value="${UUID }" name="UUID" />
 					<input type="hidden" value="${menu.id }" name="id" id="id" />
 					<input type="hidden" value="${menu.code }" name="code" />
-					<input type="hidden" id="parentCode" value='<c:out value="${parentCode }" default="0"></c:out>' name="parentCode" />
-					<input type="hidden" id="parentId" value='<c:out value="${parentId }" default="0"></c:out>' name="parentId" />
+					<input type="hidden" id="parentId" value='<c:out value="${parentId }" default="0"></c:out>'/>
 					<div class="box-body">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group" id="menuDirectory">
-									<label class="col-sm-2 control-label">等级</label>
-									<c:choose>
-										<c:when test="${fn:length(menuNames) > 0 }">
-											<div class="col-sm-7">
-												<ol class="breadcrumb">
-													<c:forEach items="${menuNames }" var="m">
-														<li>${m }</li>
-													</c:forEach>
-												</ol>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="col-sm-5">
-												<select class="form-control" id="menu"><option></option></select>
-											</div>
-										</c:otherwise>
-									</c:choose>
+									<label class="col-sm-2 control-label">父级分类</label>
+									<div class="col-sm-5">
+										<select class="form-control selectpicker" name="parentId" ${disabled }></select>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -134,7 +121,7 @@ ol.breadcrumb {
 				data-dismiss="modal">关闭</button>
 		</div>
 	</form>
-	<script type="text/javascript" src="/js/tools/select2.full.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap/bootstrap-select.min.js"></script>
 	<script type="text/javascript" src="/js/cms/menu/input.js"></script>
 </body>
 </html>

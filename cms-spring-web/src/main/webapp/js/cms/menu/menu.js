@@ -116,7 +116,7 @@ $(function() {
 						};
 						$.post('/menu/update/status', param, function(obj) {
 							if (obj.code == 200) {
-								_this.parents('tr').find('td:eq(2)').html(
+								_this.parents('tr').find('td:eq(4)').html(
 										menu.menuStatus(obj.data.status));
 								_this.parent().html(menu.opera(obj.data));
 							}

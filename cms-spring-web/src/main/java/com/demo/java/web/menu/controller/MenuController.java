@@ -53,10 +53,7 @@ public class MenuController extends AbstractController {
         ModelAndView model = new ModelAndView("menu/input");
         if (id.longValue() > 0L) {
             Menu menu = menuService.get(id);
-            model.addObject("parentCode", menu.getCode());
             model.addObject("parentId", menu.getId());
-            List<String> list = menuService.findMenuNameByCode(menu.getCode());
-            model.addObject("menuNames", list);
         }
         model.addObject("action", "/menu/add");
         model.addObject("submit", "新增");
@@ -91,8 +88,7 @@ public class MenuController extends AbstractController {
         ModelAndView model = new ModelAndView("menu/input");
         Menu menu = menuService.get(id);
         model.addObject("menu", menu);
-        List<String> list = menuService.findMenuNameByCode(menu.getParentCode());
-        model.addObject("menuNames", list);
+        model.addObject("parentId", menu.getParentId());
         return model;
     }
 
@@ -112,10 +108,7 @@ public class MenuController extends AbstractController {
         ModelAndView model = new ModelAndView("menu/input");
         Menu menu = menuService.get(id);
         model.addObject("menu", menu);
-        model.addObject("parentCode", menu.getParentCode());
         model.addObject("parentId", menu.getParentId());
-        List<String> list = menuService.findMenuNameByCode(menu.getParentCode());
-        model.addObject("menuNames", list);
         model.addObject("action", "/menu/update");
         model.addObject("submit", "更新");
         return model;
