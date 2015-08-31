@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,6 +126,7 @@ public class CommonController extends AbstractController {
         return new ModelAndView("/common/icons");
     }
 
+    @RequiresPermissions("sys_monitor:monitor")
     @RequestMapping(value = "/toMonitor")
     public ModelAndView toMonitor() {
         ServerStatus status = null;
@@ -136,6 +138,7 @@ public class CommonController extends AbstractController {
         return new ModelAndView("/common/monitor", "status", status);
     }
 
+    @RequiresPermissions("sys_monitor:monitor")
     @RequestMapping(value = "/monitor")
     @ResponseBody
     public Map<String, Object> monitorInfo() {
