@@ -28,9 +28,6 @@
 	</bean>
 	<!-- Realm实现 -->
 	<bean id="userRealm" class="com.demo.java.web.shiro.realm.UserRealm">
-		<property name="userService" ref="userService" />
-		<property name="roleService" ref="roleService" />
-		<property name="menuService" ref="menuService" />
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
 		<property name="cachingEnabled" value="true" />
 		<property name="authenticationCachingEnabled" value="true" />
@@ -65,7 +62,8 @@
 	</bean>
 
 	<!-- 会话管理器 -->
-	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 		<property name="globalSessionTimeout" value="1800000" />
 		<property name="deleteInvalidSessions" value="true" />
 		<property name="sessionValidationSchedulerEnabled" value="true" />
@@ -104,10 +102,11 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/login" />
-        <property name="successUrl" value="/" />  
+		<property name="successUrl" value="/" />
 		<property name="filters">
 			<util:map>
 				<entry key="authc" value-ref="formAuthenticationFilter" />
+				<entry key="userSetting" value-ref="userSettingFilter" />
 			</util:map>
 		</property>
 		<property name="filterChainDefinitions">
@@ -127,4 +126,7 @@
 
 	<!-- Shiro生命周期处理器 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- 自定义加入filter，起在remember me session失效情况下刷新session作用 -->
+	<bean id="userSettingFilter" class="com.demo.java.web.shiro.filter.UserSetting" />
 </beans>

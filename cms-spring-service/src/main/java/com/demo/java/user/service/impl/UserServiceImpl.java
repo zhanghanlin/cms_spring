@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.demo.java.common.utils.UserUtils;
 import com.demo.java.user.dao.UserDao;
 import com.demo.java.user.entity.User;
+import com.demo.java.user.entity.UserVo;
 import com.demo.java.user.service.UserService;
 import com.demo.java.utils.string.PatternUtils;
 
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findListByPage(int pageNo, int pageSize) {
+    public List<UserVo> findListByPage(int pageNo, int pageSize) {
         return userDao.findListByPage((pageNo - 1) * pageSize, pageSize);
     }
 

@@ -6,7 +6,7 @@ $(function() {
 							{
 								url : '/role/list',
 								pageSize : 15,
-								columns : [ 'id', 'name', 'note', 'uniqueKey',
+								columns : [ 'name', 'note', 'uniqueKey',
 										'status', 'createdAt' ],
 								opera : [
 										'<a role="button" href="/role/detail/{id}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>',

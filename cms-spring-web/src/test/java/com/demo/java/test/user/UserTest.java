@@ -1,15 +1,17 @@
 package com.demo.java.test.user;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.demo.java.test.AbstractTest;
-import com.demo.java.user.entity.User;
+import com.demo.java.user.entity.UserVo;
 import com.demo.java.user.service.UserService;
+import com.demo.java.web.common.vo.PageVo;
 
 public class UserTest extends AbstractTest {
 
@@ -19,14 +21,12 @@ public class UserTest extends AbstractTest {
     UserService userService;
 
     @Test
-    public void testRegister() {
-        User user = new User();
-        user.setUserName("test");
-        user.setPhone("13111111111");
-        user.setEmail("test@test.com");
-        user.setPassword("test");
-        SimpleHash hash = new SimpleHash("md5", user.getPassword(), null, 2);
-        user.setPassword(hash.toHex());
-        userService.add(user);
+    public void testPage() {
+        int curPage = 1;
+        int pageSize = 1;
+        List<UserVo> result = userService.findListByPage(curPage, pageSize);
+        int totalResults = userService.getToalCount();
+        PageVo<UserVo> page = new PageVo<UserVo>(curPage, pageSize, totalResults, result);
+        LOG.info(page.toJSON());
     }
 }

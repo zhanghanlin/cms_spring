@@ -43,7 +43,14 @@
 										.toLocaleString().replace(/:\d{1,2}$/,
 												' '))
 							} else {
-								str.push(o[c]);
+								if (o[c] instanceof Array) {
+									$.each(o[c],function(_i,_o){
+										str.push(_o);
+										str.push('&nbsp;&nbsp;');
+									});
+								} else {
+									str.push(o[c]);
+								}
 							}
 							str.push('</td>');
 						});

@@ -38,7 +38,6 @@
 							<table class="table table-hover" id="roleTable">
 								<thead>
 									<tr>
-										<th>ID</th>
 										<th>角色名</th>
 										<th>角色说明</th>
 										<th>角色Key</th>

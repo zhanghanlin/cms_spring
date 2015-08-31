@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.demo.java.common.dao.AbstractDao;
 import com.demo.java.user.dao.mapper.UserSqlMapper;
 import com.demo.java.user.entity.User;
+import com.demo.java.user.entity.UserVo;
 
 @Repository
 public class UserDao extends AbstractDao<User> {
@@ -36,8 +37,8 @@ public class UserDao extends AbstractDao<User> {
         return null;
     }
 
-    public List<User> findListByPage(int start, int pageSize) {
-        return jdbcTemplate.query(UserSqlMapper.FIND_LIST_BY_PAGE, new Object[] { start, pageSize }, ParameterizedBeanPropertyRowMapper.newInstance(User.class));
+    public List<UserVo> findListByPage(int start, int pageSize) {
+        return jdbcTemplate.query(UserSqlMapper.FIND_LIST_BY_PAGE, new Object[] { start, pageSize }, ParameterizedBeanPropertyRowMapper.newInstance(UserVo.class));
     }
 
     public int getToalCount() {

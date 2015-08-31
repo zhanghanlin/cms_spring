@@ -2,6 +2,8 @@ package com.demo.java.web.shiro.realm;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -22,35 +24,27 @@ import com.demo.java.role.entity.Role;
 import com.demo.java.role.service.RoleService;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
+import com.demo.java.utils.Constants;
 
 public class UserRealm extends AuthorizingRealm {
 
+    @Resource
     UserService userService;
 
+    @Resource
     RoleService roleService;
 
+    @Resource
     MenuService menuService;
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    public void setRoleService(RoleService roleService) {
-        this.roleService = roleService;
-    }
-
-    public void setMenuService(MenuService menuService) {
-        this.menuService = menuService;
-    }
 
     @SuppressWarnings("unchecked")
     <T> List<T> getUserAttr(Long userId, String attr, Class<T> clazz) {
         Subject subject = SecurityUtils.getSubject();
         List<T> list = (List<T>) subject.getSession().getAttribute(attr);
         if ((list == null) || list.isEmpty()) {
-            if (attr.equals("u_roles")) {
+            if (attr.equals(Constants.current_user_role_key)) {
                 list = (List<T>) roleService.findByUserId(userId);
-            } else if (attr.equals("u_menus")) {
+            } else if (attr.equals(Constants.current_user_menu_key)) {
                 list = (List<T>) menuService.findByUserId(userId);
             }
             if ((list != null) && !list.isEmpty()) {
@@ -65,8 +59,8 @@ public class UserRealm extends AuthorizingRealm {
         String userName = (String) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         User user = userService.findByLogin(userName);
-        List<Role> roles = getUserAttr(user.getId(), "u_roles", Role.class);
-        List<Menu> menus = getUserAttr(user.getId(), "u_menus", Menu.class);
+        List<Role> roles = getUserAttr(user.getId(), Constants.current_user_role_key, Role.class);
+        List<Menu> menus = getUserAttr(user.getId(), Constants.current_user_menu_key, Menu.class);
         if ((user != null) && (roles != null) && (menus != null)) {
             for (Role r : roles) {
                 authorizationInfo.addRole(r.getUniqueKey());

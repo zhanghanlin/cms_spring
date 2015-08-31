@@ -3,6 +3,8 @@ package com.demo.java.web.common.vo;
 import java.io.Serializable;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class PageVo<T> implements Serializable {
 
     private static final long serialVersionUID = -3018527518728936040L;
@@ -62,5 +64,9 @@ public class PageVo<T> implements Serializable {
 
     public void setResult(List<T> result) {
         this.result = result;
+    }
+
+    public String toJSON() {
+        return JSONObject.toJSONString(this);
     }
 }

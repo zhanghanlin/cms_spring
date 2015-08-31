@@ -6,7 +6,7 @@ $(function() {
 							{
 								url : '/user/list',
 								pageSize : 15,
-								columns : [ 'id', 'userName', 'email',
+								columns : [ 'userName', 'email', 'roles',
 										'status', 'createdAt' ],
 								opera : [
 										'<a role="button" href="/user/detail/{id}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>',
@@ -37,14 +37,13 @@ $(function() {
 							}
 							str.push(' value="')
 							str.push(o.id);
-							str.push('" type="checkbox"/></td>');							
+							str.push('" type="checkbox"/></td>');
 							str.push('<td>');
 							str.push(o.name)
 							str.push('</td>');
 							str.push('<td>');
 							str.push(o.note)
 							str.push('</td></tr>');
-							console.info(str.join(''));
 						});
 						$('#roleTable tbody').html(str.join(''));
 					}

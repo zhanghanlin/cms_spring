@@ -23,6 +23,7 @@ import com.demo.java.role.entity.Role;
 import com.demo.java.role.service.RoleService;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.entity.UserRole;
+import com.demo.java.user.entity.UserVo;
 import com.demo.java.user.service.UserRoleService;
 import com.demo.java.user.service.UserService;
 import com.demo.java.web.common.controller.AbstractController;
@@ -71,10 +72,10 @@ public class UserController extends AbstractController {
     @RequiresPermissions("system:user")
     @RequestMapping("list")
     @ResponseBody
-    public PageVo<User> list(int curPage, int pageSize) {
-        List<User> result = userService.findListByPage(curPage, pageSize);
+    public PageVo<UserVo> list(int curPage, int pageSize) {
+        List<UserVo> result = userService.findListByPage(curPage, pageSize);
         int totalResults = userService.getToalCount();
-        return new PageVo<User>(curPage, pageSize, totalResults, result);
+        return new PageVo<UserVo>(curPage, pageSize, totalResults, result);
     }
 
     /**

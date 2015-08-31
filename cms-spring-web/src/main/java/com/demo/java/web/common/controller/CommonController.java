@@ -20,6 +20,7 @@ import com.demo.java.common.utils.UserUtils;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
+import com.demo.java.utils.Constants;
 import com.demo.java.utils.string.StringUtils;
 import com.demo.java.web.common.system.ServerInfo;
 import com.demo.java.web.common.system.ServerStatus;
@@ -46,10 +47,10 @@ public class CommonController extends AbstractController {
     @RequestMapping(value = "/")
     public ModelAndView toMain(HttpServletRequest request) {
         randomUUID(request);
-        User user = (User) request.getSession().getAttribute(UserUtils.user_key);
+        User user = (User) request.getSession().getAttribute(Constants.current_user_key);
         if (user == null) {
             user = userService.findByLogin(UserUtils.getLoginName());
-            request.getSession().setAttribute(UserUtils.user_key, user);
+            request.getSession().setAttribute(Constants.current_user_key, user);
         }
         return new ModelAndView("common/main");
     }

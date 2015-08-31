@@ -3,6 +3,7 @@ package com.demo.java.user.service;
 import java.util.List;
 
 import com.demo.java.user.entity.User;
+import com.demo.java.user.entity.UserVo;
 
 public interface UserService {
 
@@ -45,7 +46,7 @@ public interface UserService {
      * @return
      * @since JDK 1.7
      */
-    public List<User> findListByPage(int pageNo, int pageSize);
+    public List<UserVo> findListByPage(int pageNo, int pageSize);
 
     /**
      * 根据登陆名查询.<br/>
