@@ -136,7 +136,7 @@ $(function() {
 		},
 		xAxis : [ {
 			axisLabel : {
-				rotate : 50
+				rotate : 20
 			},
 			type : 'category',// 坐标轴类型，横轴默认为类目型'category'，纵轴默认为数值型'value'
 			data : (function() {
@@ -194,7 +194,7 @@ $(function() {
 
 				axisData = (new Date()).toLocaleTimeString()
 						.replace(/^\D*/, '');
-				axisData = axisData.substr(axisData.indexOf(":") + 1);
+				//axisData = axisData.substr(axisData.indexOf(":") + 1);
 				queue('cpu', data.cpuUsage);
 				queue('jvm', data.JvmUsage);
 				queue('mem', data.serverUsage);

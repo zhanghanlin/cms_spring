@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.slf4j.Logger;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.demo.java.common.utils.UserUtils;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
@@ -45,6 +45,11 @@ public class CommonController extends AbstractController {
     @RequestMapping(value = "/")
     public ModelAndView toMain(HttpServletRequest request) {
         randomUUID(request);
+        User user = (User) request.getSession().getAttribute(UserUtils.user_key);
+        if (user == null) {
+            user = userService.findByLogin(UserUtils.getLoginName());
+            request.getSession().setAttribute(UserUtils.user_key, user);
+        }
         return new ModelAndView("common/main");
     }
 
@@ -82,13 +87,12 @@ public class CommonController extends AbstractController {
      * @author zhanghanlin
      * @param user
      * @param request
-     * @param response
      * @return
      * @since JDK 1.7
      */
     @RequestMapping(value = "/doRegister", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView doRegister(User user, String UUID, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView doRegister(User user, String UUID, HttpServletRequest request) {
         ModelAndView model = new ModelAndView();
         if (!checkUUID(UUID, request)) {
             return new ModelAndView("redirect:/login");
@@ -117,7 +121,7 @@ public class CommonController extends AbstractController {
      * @since JDK 1.7
      */
     @RequestMapping(value = "/icons", method = RequestMethod.GET)
-    public ModelAndView icons(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView icons() {
         return new ModelAndView("/common/icons");
     }
 

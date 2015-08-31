@@ -30,7 +30,7 @@ $(function() {
 						check : {
 							enable : true,
 							chkboxType : {
-								"Y" : "s",
+								"Y" : "ps",
 								"N" : "ps"
 							}
 						},

@@ -65,13 +65,13 @@ public class UserController extends AbstractController {
      * @author zhanghanlin
      * @param curPage
      * @param pageSize
-     * @param request
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("user:list")
     @RequestMapping("list")
     @ResponseBody
-    public PageVo<User> list(int curPage, int pageSize, HttpServletRequest request) {
+    public PageVo<User> list(int curPage, int pageSize) {
         List<User> result = userService.findListByPage(curPage, pageSize);
         int totalResults = userService.getToalCount();
         return new PageVo<User>(curPage, pageSize, totalResults, result);
@@ -89,8 +89,8 @@ public class UserController extends AbstractController {
     @RequiresPermissions("user:list")
     @RequestMapping("detail/{id}")
     public ModelAndView get(@PathVariable Long id, HttpServletRequest request) {
-        ModelAndView model = new ModelAndView("user/input");
         randomUUID(request);
+        ModelAndView model = new ModelAndView("user/input");
         User user = userService.get(id);
         model.addObject("user", user);
         return model;
@@ -100,13 +100,13 @@ public class UserController extends AbstractController {
      * 用户角色列表.<br/>
      * 
      * @author zhanghanlin
-     * @param request
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("user:list")
     @RequestMapping("roles")
     @ResponseBody
-    public JSONArray roles(@RequestParam Long userId, HttpServletRequest request) {
+    public JSONArray roles(@RequestParam Long userId) {
         JSONArray array = new JSONArray();
         List<Role> list = roleService.findList(Status.NORMAL);
         List<UserRole> urList = userRoleService.findByUserId(userId);
@@ -130,6 +130,7 @@ public class UserController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("user:list")
     @RequestMapping(value = "role2user", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<User> updateMenu2Role(Long id, Long[] roleIds) {

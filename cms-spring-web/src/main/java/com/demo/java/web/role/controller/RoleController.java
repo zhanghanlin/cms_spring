@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -51,6 +52,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:role")
     @RequestMapping("toList")
     public ModelAndView toList() {
         return new ModelAndView("role/list");
@@ -64,10 +66,11 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:role")
     @RequestMapping("toAdd")
     public ModelAndView toAdd(HttpServletRequest request) {
-        ModelAndView model = new ModelAndView("role/input");
         randomUUID(request);
+        ModelAndView model = new ModelAndView("role/input");
         model.addObject("action", "/role/add");
         model.addObject("submit", "新增");
         return model;
@@ -82,10 +85,11 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:role")
     @RequestMapping("edit/{id}")
     public ModelAndView edit(@PathVariable Long id, HttpServletRequest request) {
-        ModelAndView model = new ModelAndView("role/input");
         randomUUID(request);
+        ModelAndView model = new ModelAndView("role/input");
         Role role = roleService.get(id);
         model.addObject("role", role);
         model.addObject("action", "/role/update");
@@ -102,26 +106,27 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:role")
     @RequestMapping("detail/{id}")
     public ModelAndView get(@PathVariable Long id, HttpServletRequest request) {
-        ModelAndView model = new ModelAndView("role/input");
         randomUUID(request);
+        ModelAndView model = new ModelAndView("role/input");
         Role role = roleService.get(id);
         model.addObject("role", role);
         return model;
     }
 
     /**
-     * zTree导航树.<br/>
+     * menus分配权限树.<br/>
      * 
      * @author zhanghanlin
-     * @param request
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:role")
     @RequestMapping("menus")
     @ResponseBody
-    public JSONArray zTree(@RequestParam Long roleId, HttpServletRequest request) {
+    public JSONArray menus(@RequestParam Long roleId) {
         JSONArray array = new JSONArray();
         List<Menu> list = menuService.list(Status.NORMAL);
         List<RoleMenu> rmList = roleMenuService.findByRoleId(roleId);
@@ -150,13 +155,13 @@ public class RoleController extends AbstractController {
      * @author zhanghanlin
      * @param curPage
      * @param pageSize
-     * @param request
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:role")
     @RequestMapping("list")
     @ResponseBody
-    public PageVo<Role> list(int curPage, int pageSize, HttpServletRequest request) {
+    public PageVo<Role> list(int curPage, int pageSize) {
         List<Role> result = roleService.findListByPage(curPage, pageSize);
         int totalResults = roleService.getTotalCount();
         return new PageVo<Role>(curPage, pageSize, totalResults, result);
@@ -172,6 +177,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:role")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Role> add(Role role, String UUID, HttpServletRequest request) {
@@ -195,6 +201,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:role")
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Role> update(Role role, String UUID, HttpServletRequest request) {
@@ -215,6 +222,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:role")
     @RequestMapping(value = "menu2role", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Role> updateMenu2Role(Long id, Long[] menuIds) {

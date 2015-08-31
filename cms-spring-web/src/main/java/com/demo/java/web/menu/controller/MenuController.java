@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.demo.java.common.dict.Status;
+import com.demo.java.common.utils.UserUtils;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.web.common.controller.AbstractController;
@@ -44,6 +46,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping("toAdd/{id}")
     public ModelAndView toAdd(@PathVariable Long id, HttpServletRequest request) {
         randomUUID(request);
@@ -64,13 +67,12 @@ public class MenuController extends AbstractController {
      * 进入到列表页面.<br/>
      * 
      * @author zhanghanlin
-     * @param UUID
-     * @param request
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping("toList")
-    public ModelAndView toList(String UUID, HttpServletRequest request) {
+    public ModelAndView toList() {
         return new ModelAndView("menu/list");
     }
 
@@ -80,12 +82,12 @@ public class MenuController extends AbstractController {
      * 
      * @author zhanghanlin
      * @param id
-     * @param request
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping("detail/{id}")
-    public ModelAndView get(@PathVariable Long id, HttpServletRequest request) {
+    public ModelAndView get(@PathVariable Long id) {
         ModelAndView model = new ModelAndView("menu/input");
         Menu menu = menuService.get(id);
         model.addObject("menu", menu);
@@ -103,6 +105,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping("edit/{id}")
     public ModelAndView edit(@PathVariable Long id, HttpServletRequest request) {
         randomUUID(request);
@@ -126,9 +129,10 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping("all")
     @ResponseBody
-    public Map<Object, List<Menu>> allTree(HttpServletRequest request) {
+    public Map<Object, List<Menu>> all() {
         Map<Object, List<Menu>> map = new HashMap<Object, List<Menu>>();
         List<Menu> list = menuService.list(Status.ALL);
         for (Menu m : list) {
@@ -146,15 +150,14 @@ public class MenuController extends AbstractController {
      * 左导航树.<br/>
      * 
      * @author zhanghanlin
-     * @param request
      * @return
      * @since JDK 1.7
      */
     @RequestMapping("tree")
     @ResponseBody
-    public Map<Object, List<Menu>> tree(HttpServletRequest request) {
+    public Map<Object, List<Menu>> tree() {
         Map<Object, List<Menu>> map = new HashMap<Object, List<Menu>>();
-        List<Menu> list = menuService.list(Status.NORMAL);
+        List<Menu> list = menuService.findByUserId(UserUtils.getUserId());
         for (Menu m : list) {
             List<Menu> subList = map.get(m.getParentId().toString());
             if (subList == null) {
@@ -167,17 +170,17 @@ public class MenuController extends AbstractController {
     }
 
     /**
-     * 根据父类Code查询子菜单列表.<br/>
+     * 根据parentId查询子菜单列表.<br/>
      * 
      * @author zhanghanlin
-     * @param pcode
-     * @param request
+     * @param parentId
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping("p/{parentId}")
     @ResponseBody
-    public List<Menu> getMenuByParent(@PathVariable Long parentId, HttpServletRequest request) {
+    public List<Menu> getMenuByParent(@PathVariable Long parentId) {
         return menuService.findByParentId(parentId);
     }
 
@@ -185,13 +188,13 @@ public class MenuController extends AbstractController {
      * 获取菜单最深级别.<br/>
      * 
      * @author zhanghanlin
-     * @param request
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping("maxLevel")
     @ResponseBody
-    public ResponseContent<Integer> maxLevel(HttpServletRequest request) {
+    public ResponseContent<Integer> maxLevel() {
         return new ResponseContent<Integer>(MenuEnum.SUCCESS, menuService.maxLevel());
     }
 
@@ -205,6 +208,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Menu> add(Menu menu, String UUID, HttpServletRequest request) {
@@ -228,6 +232,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Menu> update(Menu menu, String UUID, HttpServletRequest request) {
@@ -251,9 +256,10 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
+    @RequiresPermissions("system:menu")
     @RequestMapping(value = "update/status", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseContent<Menu> updateStatus(@RequestParam Long id, @RequestParam int status, HttpServletRequest request) {
+    public ResponseContent<Menu> updateStatus(@RequestParam Long id, @RequestParam int status) {
         int res = menuService.updateStatus(id, status);
         if (res > 0) {
             return new ResponseContent<Menu>(MenuEnum.SUCCESS, menuService.get(id));

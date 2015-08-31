@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.demo.java.common.utils.UserUtils;
 import com.demo.java.role.entity.Role;
 import com.demo.java.user.dao.UserRoleDao;
 import com.demo.java.user.entity.UserRole;
 import com.demo.java.user.service.UserRoleService;
-import com.demo.java.utils.shiro.UserUtils;
 
 @Service("userRoleService")
 public class UserRoleServiceImpl implements UserRoleService {

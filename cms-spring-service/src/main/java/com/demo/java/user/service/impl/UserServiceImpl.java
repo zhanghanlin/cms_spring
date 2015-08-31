@@ -7,10 +7,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.demo.java.common.utils.UserUtils;
 import com.demo.java.user.dao.UserDao;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
-import com.demo.java.utils.shiro.UserUtils;
 import com.demo.java.utils.string.PatternUtils;
 
 @Service("userService")

@@ -10,10 +10,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.demo.java.common.dict.Status;
+import com.demo.java.common.utils.UserUtils;
 import com.demo.java.menu.dao.MenuDao;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
-import com.demo.java.utils.shiro.UserUtils;
 import com.demo.java.utils.string.StringUtils;
 
 @Service("menuService")
