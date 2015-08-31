@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.demo.java.common.dict.Status;
 import com.demo.java.common.utils.UserUtils;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
@@ -127,7 +126,7 @@ public class MenuController extends AbstractController {
     @ResponseBody
     public Map<Object, List<Menu>> all() {
         Map<Object, List<Menu>> map = new HashMap<Object, List<Menu>>();
-        List<Menu> list = menuService.list(Status.ALL);
+        List<Menu> list = menuService.findAll();
         for (Menu m : list) {
             List<Menu> subList = map.get(m.getParentId().toString());
             if (subList == null) {
@@ -150,7 +149,7 @@ public class MenuController extends AbstractController {
     @ResponseBody
     public Map<Object, List<Menu>> tree() {
         Map<Object, List<Menu>> map = new HashMap<Object, List<Menu>>();
-        List<Menu> list = menuService.findByUserId(UserUtils.getUserId());
+        List<Menu> list = menuService.findByUserMenu(UserUtils.getUserId());
         for (Menu m : list) {
             List<Menu> subList = map.get(m.getParentId().toString());
             if (subList == null) {
@@ -160,35 +159,6 @@ public class MenuController extends AbstractController {
             map.put(m.getParentId().toString(), subList);
         }
         return map;
-    }
-
-    /**
-     * 根据parentId查询子菜单列表.<br/>
-     * 
-     * @author zhanghanlin
-     * @param parentId
-     * @return
-     * @since JDK 1.7
-     */
-    @RequiresPermissions("system:menu")
-    @RequestMapping("p/{parentId}")
-    @ResponseBody
-    public List<Menu> getMenuByParent(@PathVariable Long parentId) {
-        return menuService.findByParentId(parentId);
-    }
-
-    /**
-     * 获取菜单最深级别.<br/>
-     * 
-     * @author zhanghanlin
-     * @return
-     * @since JDK 1.7
-     */
-    @RequiresPermissions("system:menu")
-    @RequestMapping("maxLevel")
-    @ResponseBody
-    public ResponseContent<Integer> maxLevel() {
-        return new ResponseContent<Integer>(MenuEnum.SUCCESS, menuService.maxLevel());
     }
 
     /**

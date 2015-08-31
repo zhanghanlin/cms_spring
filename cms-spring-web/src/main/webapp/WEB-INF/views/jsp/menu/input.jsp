@@ -5,13 +5,6 @@
 <html>
 <head>
 <link href="/css/bootstrap/bootstrap-select.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-ol.breadcrumb {
-	margin-bottom: 0px;
-	padding-left: 0px;
-	background-color: #fff;
-}
-</style>
 </head>
 <body>
 	<form action="${action }" method="post" class="form-horizontal">
@@ -20,7 +13,7 @@ ol.breadcrumb {
 				aria-label="Close">
 				<span aria-hidden="true">×</span>
 			</button>
-			<h4 class="modal-title">菜单Info</h4>
+			<h4 class="modal-title">菜单信息</h4>
 		</div>
 		<div class="modal-body">
 			<div class="row">
@@ -39,7 +32,21 @@ ol.breadcrumb {
 								<div class="form-group" id="menuDirectory">
 									<label class="col-sm-2 control-label">父级分类</label>
 									<div class="col-sm-5">
-										<select class="form-control selectpicker" name="parentId" ${disabled }></select>
+										<select class="form-control selectpicker" id="select_menu" name="parentId" ${disabled }></select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group" id="menuDirectory">
+									<label class="col-sm-2 control-label">菜单类型</label>
+									<div class="col-sm-5">
+										<label class="radio-inline"> <input type="radio"
+											name="type" id="type_menu" value="0" checked>菜单
+										</label> <label class="radio-inline"> <input
+											type="radio" name="type" id="type_button" value="1">按钮
+										</label>
 									</div>
 								</div>
 							</div>

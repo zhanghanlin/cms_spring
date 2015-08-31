@@ -128,7 +128,7 @@ public class RoleController extends AbstractController {
     @ResponseBody
     public JSONArray menus(@RequestParam Long roleId) {
         JSONArray array = new JSONArray();
-        List<Menu> list = menuService.list(Status.NORMAL);
+        List<Menu> list = menuService.findByParam(Status.NORMAL);
         List<RoleMenu> rmList = roleMenuService.findByRoleId(roleId);
         for (Menu m : list) {
             JSONObject obj = new JSONObject();

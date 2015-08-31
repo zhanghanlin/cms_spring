@@ -4,8 +4,8 @@ $(function() {
 			$.getJSON('/menu/tree', function(data) {
 				var html = '<option value="0">顶级分类</option>'
 						+ menuInput.selectHtml(data[0], data);
-				$('.selectpicker').html(html).selectpicker();
-				$('.selectpicker').selectpicker('val', $('#parentId').val());
+				$('#select_menu').html(html).selectpicker();
+				$('#select_menu').selectpicker('val', $('#parentId').val());
 			});
 		},
 		selectHtml : function(arr, data) {

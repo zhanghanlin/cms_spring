@@ -23,6 +23,8 @@ public class Menu extends AbstractEntity {
 
     private String icon;
 
+    private int type;
+
     private int weight;
 
     private int status;
@@ -91,6 +93,14 @@ public class Menu extends AbstractEntity {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public int getWeight() {

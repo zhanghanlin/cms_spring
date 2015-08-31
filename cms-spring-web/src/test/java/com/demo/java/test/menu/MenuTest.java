@@ -25,11 +25,6 @@ public class MenuTest extends AbstractTest {
     }
 
     @Test
-    public void testMaxLevel() {
-        LOG.info("max level : {}", menuDao.maxLevel());
-    }
-
-    @Test
     public void testGet() {
         Menu m = menuDao.get(4L);
         LOG.info(m.toJSON());

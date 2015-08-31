@@ -22,8 +22,10 @@ $(function() {
 				str.push('"></i><span>')
 				str.push(o.name);
 				str.push('</span>');
-				str.push('<i class="fa fa-angle-left pull-right">');
-				str.push('</i></a>');
+				if (data[o.id]) {
+					str.push('<i class="fa fa-angle-left pull-right"></i>');
+				}
+				str.push('</a>');
 				if (data[o.id]) {
 					str.push(common.subTreeHtml(data[o.id], data,
 							'treeview-menu'));

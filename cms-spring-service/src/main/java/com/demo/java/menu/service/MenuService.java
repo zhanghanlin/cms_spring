@@ -7,25 +7,6 @@ import com.demo.java.menu.entity.Menu;
 public interface MenuService {
 
     /**
-     * 根据父类code查询菜单列表.<br/>
-     * 
-     * @author zhanghanlin
-     * @param code
-     * @return
-     * @since JDK 1.7
-     */
-    public List<Menu> findByParentId(Long parentId);
-
-    /**
-     * 获取菜单最大深度.<br/>
-     * 
-     * @author zhanghanlin
-     * @return
-     * @since JDK 1.7
-     */
-    public int maxLevel();
-
-    /**
      * 新增菜单.<br/>
      * 
      * @author zhanghanlin
@@ -34,17 +15,6 @@ public interface MenuService {
      * @since JDK 1.7
      */
     public int add(Menu menu);
-
-    /**
-     * 
-     * 根据Code查询面包屑.<br/>
-     * 
-     * @author zhanghanlin
-     * @param code
-     * @return
-     * @since JDK 1.7
-     */
-    public List<String> findMenuNameByCode(String code);
 
     /**
      * 根据Id更新菜单状态.<br/>
@@ -85,7 +55,7 @@ public interface MenuService {
      * @return
      * @since JDK 1.7
      */
-    public List<Menu> list(int status);
+    public List<Menu> findByParam(int status);
 
     /**
      * 根据Id数组查询.<br/>
@@ -116,4 +86,23 @@ public interface MenuService {
      * @since JDK 1.7
      */
     public List<Menu> findByUserId(Long userId);
+
+    /**
+     * 根据用户查询对应导航树.<br/>
+     * 
+     * @author zhanghanlin
+     * @param userId
+     * @return
+     * @since JDK 1.7
+     */
+    public List<Menu> findByUserMenu(Long userId);
+
+    /**
+     * 得到所有菜单信息 不包括删除.<br/>
+     * 
+     * @author zhanghanlin
+     * @return
+     * @since JDK 1.7
+     */
+    public List<Menu> findAll();
 }
