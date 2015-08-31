@@ -46,7 +46,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping("toAdd/{id}")
     public ModelAndView toAdd(@PathVariable Long id, HttpServletRequest request) {
         randomUUID(request);
@@ -70,7 +70,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping("toList")
     public ModelAndView toList() {
         return new ModelAndView("menu/list");
@@ -85,7 +85,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping("detail/{id}")
     public ModelAndView get(@PathVariable Long id) {
         ModelAndView model = new ModelAndView("menu/input");
@@ -105,7 +105,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping("edit/{id}")
     public ModelAndView edit(@PathVariable Long id, HttpServletRequest request) {
         randomUUID(request);
@@ -129,7 +129,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping("all")
     @ResponseBody
     public Map<Object, List<Menu>> all() {
@@ -177,7 +177,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping("p/{parentId}")
     @ResponseBody
     public List<Menu> getMenuByParent(@PathVariable Long parentId) {
@@ -191,7 +191,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping("maxLevel")
     @ResponseBody
     public ResponseContent<Integer> maxLevel() {
@@ -208,7 +208,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Menu> add(Menu menu, String UUID, HttpServletRequest request) {
@@ -232,7 +232,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Menu> update(Menu menu, String UUID, HttpServletRequest request) {
@@ -256,7 +256,7 @@ public class MenuController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:menu")
+    @RequiresPermissions("system:base:menu")
     @RequestMapping(value = "update/status", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Menu> updateStatus(@RequestParam Long id, @RequestParam int status) {

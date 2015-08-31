@@ -53,7 +53,7 @@ public class UserController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("user:list")
+    @RequiresPermissions("system:base:user")
     @RequestMapping("toList")
     public ModelAndView toList() {
         return new ModelAndView("user/list");
@@ -68,7 +68,7 @@ public class UserController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("user:list")
+    @RequiresPermissions("system:base:user")
     @RequestMapping("list")
     @ResponseBody
     public PageVo<User> list(int curPage, int pageSize) {
@@ -86,7 +86,7 @@ public class UserController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("user:list")
+    @RequiresPermissions("system:base:user")
     @RequestMapping("detail/{id}")
     public ModelAndView get(@PathVariable Long id, HttpServletRequest request) {
         randomUUID(request);
@@ -103,7 +103,7 @@ public class UserController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("user:list")
+    @RequiresPermissions("system:base:user")
     @RequestMapping("roles")
     @ResponseBody
     public JSONArray roles(@RequestParam Long userId) {
@@ -130,7 +130,7 @@ public class UserController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("user:list")
+    @RequiresPermissions("system:base:user")
     @RequestMapping(value = "role2user", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<User> updateMenu2Role(Long id, Long[] roleIds) {

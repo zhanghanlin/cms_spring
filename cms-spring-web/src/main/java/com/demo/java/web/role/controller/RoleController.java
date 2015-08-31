@@ -52,7 +52,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:role")
+    @RequiresPermissions("system:base:role")
     @RequestMapping("toList")
     public ModelAndView toList() {
         return new ModelAndView("role/list");
@@ -66,7 +66,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:role")
+    @RequiresPermissions("system:base:role")
     @RequestMapping("toAdd")
     public ModelAndView toAdd(HttpServletRequest request) {
         randomUUID(request);
@@ -85,7 +85,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:role")
+    @RequiresPermissions("system:base:role")
     @RequestMapping("edit/{id}")
     public ModelAndView edit(@PathVariable Long id, HttpServletRequest request) {
         randomUUID(request);
@@ -106,7 +106,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:role")
+    @RequiresPermissions("system:base:role")
     @RequestMapping("detail/{id}")
     public ModelAndView get(@PathVariable Long id, HttpServletRequest request) {
         randomUUID(request);
@@ -123,7 +123,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:role")
+    @RequiresPermissions("system:base:role")
     @RequestMapping("menus")
     @ResponseBody
     public JSONArray menus(@RequestParam Long roleId) {
@@ -158,7 +158,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:role")
+    @RequiresPermissions("system:base:role")
     @RequestMapping("list")
     @ResponseBody
     public PageVo<Role> list(int curPage, int pageSize) {
@@ -177,7 +177,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:role")
+    @RequiresPermissions("system:base:role")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Role> add(Role role, String UUID, HttpServletRequest request) {
@@ -201,7 +201,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:role")
+    @RequiresPermissions("system:base:role")
     @RequestMapping(value = "update", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Role> update(Role role, String UUID, HttpServletRequest request) {
@@ -222,7 +222,7 @@ public class RoleController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequiresPermissions("system:role")
+    @RequiresPermissions("system:base:role")
     @RequestMapping(value = "menu2role", method = RequestMethod.POST)
     @ResponseBody
     public ResponseContent<Role> updateMenu2Role(Long id, Long[] menuIds) {
