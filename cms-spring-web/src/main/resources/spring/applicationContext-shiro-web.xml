@@ -94,6 +94,15 @@
 		<property name="loginUrl" value="/login" />
 	</bean>
 
+	<bean id="kickoutSessionControlFilter"
+		class="com.demo.java.web.shiro.filter.KickoutSessionControlFilter">
+		<property name="cacheManager" ref="cacheManager" />
+		<property name="sessionManager" ref="sessionManager" />
+		<property name="kickoutAfter" value="false" />
+		<property name="maxSession" value="1" />
+		<property name="kickoutUrl" value="/login?kickout=1" />
+	</bean>
+
 	<!-- Shiro的Web过滤器 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
@@ -104,6 +113,7 @@
 				<entry key="authc" value-ref="formAuthenticationFilter" />
 				<entry key="sysUser" value-ref="sysUserFilter" />
 				<entry key="forceLogout" value-ref="forceLogoutFilter"/>
+				<entry key="kickout" value-ref="kickoutSessionControlFilter"/>
 			</util:map>
 		</property>
 		<property name="filterChainDefinitions">
@@ -116,7 +126,7 @@
 				/fonts/** = anon
 				/images/** = anon
 				/common/** = anon
-                /** = forceLogout,user,sysUser
+                /** = forceLogout,user,sysUser,kickout
 			</value>
 		</property>
 	</bean>
