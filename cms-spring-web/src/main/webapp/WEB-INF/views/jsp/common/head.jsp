@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <header class="main-header">
-	<a href="###" class="logo">
+	<a href="/" class="logo">
 		<span class="logo-mini"><b></b>CMS</span>
 		<span class="logo-lg"><b>ADMIN&nbsp;</b>CMS</span>
 	</a>

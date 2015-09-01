@@ -43,9 +43,15 @@
 									<label class="col-sm-2 control-label">菜单类型</label>
 									<div class="col-sm-5">
 										<label class="radio-inline"> <input type="radio"
-											name="type" id="type_menu" value="0" checked>菜单
+											name="type" id="type_menu" value="0"
+											<c:if test="${menu.type == 0 || empty menu}">
+											checked				
+											</c:if>>菜单
 										</label> <label class="radio-inline"> <input
-											type="radio" name="type" id="type_button" value="1">按钮
+											type="radio" name="type" id="type_button" value="1"
+											<c:if test="${menu.type == 1}">
+											checked				
+											</c:if>>按钮
 										</label>
 									</div>
 								</div>

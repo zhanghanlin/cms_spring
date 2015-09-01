@@ -22,6 +22,6 @@ public class UserUtils {
 
     public static User getUser() {
         Subject subject = SecurityUtils.getSubject();
-        return (User) subject.getSession().getAttribute(Constants.current_user_key);
+        return (User) subject.getSession().getAttribute(Constants.CURRENT_USER_KEY);
     }
 }

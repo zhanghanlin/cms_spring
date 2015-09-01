@@ -18,6 +18,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
 import com.demo.java.common.dict.Status;
+import com.demo.java.common.utils.UserUtils;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.role.entity.Role;
@@ -56,12 +57,10 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String userName = (String) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        User user = userService.findByLogin(userName);
-        List<Role> roles = getUserAttr(user.getId(), Constants.current_user_role_key, Role.class);
-        List<Menu> menus = getUserAttr(user.getId(), Constants.current_user_menu_key, Menu.class);
-        if ((user != null) && (roles != null) && (menus != null)) {
+        List<Role> roles = getUserAttr(UserUtils.getUserId(), Constants.current_user_role_key, Role.class);
+        List<Menu> menus = getUserAttr(UserUtils.getUserId(), Constants.current_user_menu_key, Menu.class);
+        if ((roles != null) && (menus != null)) {
             for (Role r : roles) {
                 authorizationInfo.addRole(r.getUniqueKey());
             }

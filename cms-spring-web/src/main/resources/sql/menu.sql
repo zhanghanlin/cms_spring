@@ -28,6 +28,6 @@ CREATE TABLE `cms_menu` (
 -- ----------------------------
 -- Records of cms_menu
 -- ----------------------------
-INSERT INTO `cms_menu` (name,note,code,link,icon,weight,status,created_at,created_by,unique_key) VALUES ('系统监控管理', '系统监控管理', '002', '###', 'fa-list', '0', '0', now(), 'System', 'sys_monitor');
 INSERT INTO `cms_menu` (name,note,code,link,icon,weight,status,created_at,created_by,unique_key) VALUES ('系统基础信息', '系统基础信息', '001', '###', 'fa-list', '0', '0', now(), 'System', 'system');
 INSERT INTO `cms_menu` (name,note,code,link,icon,weight,status,created_at,created_by,unique_key) VALUES ('菜单管理', '菜单管理', '001001', '/menu/toList', 'fa-circle-o', '0', '0', now(), 'System', 'system:menu');
+UPDATE cms_menu m1 SET m1.parent_id = ( SELECT t.id FROM (( SELECT m2.id AS id FROM cms_menu m2 WHERE m2. CODE = '001' ) t )) WHERE m1.`code` = '001001'

@@ -23,11 +23,11 @@ public class Menu extends AbstractEntity {
 
     private String icon;
 
-    private int type;
+    private Integer type;
 
-    private int weight;
+    private Integer weight;
 
-    private int status;
+    private Integer status;
 
     public String getName() {
         return name;
@@ -95,27 +95,27 @@ public class Menu extends AbstractEntity {
         this.icon = icon;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

@@ -29,18 +29,20 @@ public class MenuServiceImpl implements MenuService {
         menu.setCreatedAt(new Date());
         menu.setCreatedBy(UserUtils.getUserName());
         String maxCode = menuDao.findMaxCodeByParentId(menu.getParentId());
-        menu.setCode(nextCode(maxCode));
+        Menu parentMenu = menuDao.get(menu.getParentId());
+        String pCode = parentMenu != null ? parentMenu.getCode() : "";
+        menu.setCode(nextCode(pCode, maxCode));
         menu.setStatus(Status.NORMAL);
         return menuDao.insert(menu);
     }
 
-    static String nextCode(String maxCode) {
+    static String nextCode(String parentCode, String maxCode) {
         if (StringUtils.isBlank(maxCode)) {
-            return null;
+            return parentCode + "001";
         }
         String code = maxCode.substring(maxCode.length() - 3);
         Integer intCode = Integer.valueOf(code) + 1;
-        code = maxCode.substring(0, maxCode.length() - 3) + StringUtils.leftPad(intCode.toString(), 3, "0");
+        code = parentCode + StringUtils.leftPad(intCode.toString(), 3, "0");
         return code;
     }
 

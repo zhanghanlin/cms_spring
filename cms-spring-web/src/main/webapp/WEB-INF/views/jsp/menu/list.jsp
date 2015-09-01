@@ -46,6 +46,7 @@
 								<thead>
 									<tr>
 										<th>菜单名称</th>
+										<th>菜单类型</th>
 										<th>菜单说明</th>
 										<th>菜单唯一Key</th>
 										<th>菜单图标</th>

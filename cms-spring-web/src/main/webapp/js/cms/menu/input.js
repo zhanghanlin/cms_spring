@@ -1,7 +1,7 @@
 $(function() {
 	var menuInput = {
 		initSelect : function() {
-			$.getJSON('/menu/tree', function(data) {
+			$.getJSON('/menu/all', function(data) {
 				var html = '<option value="0">顶级分类</option>'
 						+ menuInput.selectHtml(data[0], data);
 				$('#select_menu').html(html).selectpicker();

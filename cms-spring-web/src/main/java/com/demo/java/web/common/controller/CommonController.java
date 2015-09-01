@@ -16,16 +16,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.demo.java.common.utils.UserUtils;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
-import com.demo.java.utils.Constants;
 import com.demo.java.utils.string.StringUtils;
 import com.demo.java.web.common.system.ServerInfo;
 import com.demo.java.web.common.system.ServerStatus;
 
 @Controller
+@RequestMapping
 public class CommonController extends AbstractController {
 
     static final Logger LOG = LoggerFactory.getLogger(CommonController.class);
@@ -44,14 +43,9 @@ public class CommonController extends AbstractController {
      * @return
      * @since JDK 1.7
      */
-    @RequestMapping(value = "/")
+    @RequestMapping
     public ModelAndView toMain(HttpServletRequest request) {
         randomUUID(request);
-        User user = (User) request.getSession().getAttribute(Constants.current_user_key);
-        if (user == null) {
-            user = userService.findByLogin(UserUtils.getLoginName());
-            request.getSession().setAttribute(Constants.current_user_key, user);
-        }
         return new ModelAndView("common/main");
     }
 

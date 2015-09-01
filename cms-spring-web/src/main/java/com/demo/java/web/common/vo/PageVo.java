@@ -46,6 +46,9 @@ public class PageVo<T> implements Serializable {
     public int getTotalPage() {
         if (totalResults > 0) {
             totalPage = totalResults / pageSize;
+            if ((totalResults % pageSize) > 0) {
+                totalPage += 1;
+            }
         }
         return totalPage;
     }

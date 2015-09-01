@@ -36,6 +36,19 @@ public class MenuController extends AbstractController {
     MenuService menuService;
 
     /**
+     * 进入到列表页面.<br/>
+     * 
+     * @author zhanghanlin
+     * @return
+     * @since JDK 1.7
+     */
+    @RequiresPermissions("system:menu")
+    @RequestMapping
+    public ModelAndView main() {
+        return new ModelAndView("menu/list");
+    }
+
+    /**
      * 进入到新增菜单/子菜单.<br/>
      * id == 0 新增一级菜单 .<br/>
      * id > 0 新增子菜单 .<br/>
@@ -57,19 +70,6 @@ public class MenuController extends AbstractController {
         model.addObject("action", "/menu/add");
         model.addObject("submit", "新增");
         return model;
-    }
-
-    /**
-     * 进入到列表页面.<br/>
-     * 
-     * @author zhanghanlin
-     * @return
-     * @since JDK 1.7
-     */
-    @RequiresPermissions("system:menu")
-    @RequestMapping("toList")
-    public ModelAndView toList() {
-        return new ModelAndView("menu/list");
     }
 
     /**

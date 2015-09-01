@@ -55,8 +55,8 @@ public class UserController extends AbstractController {
      * @since JDK 1.7
      */
     @RequiresPermissions("system:user")
-    @RequestMapping("toList")
-    public ModelAndView toList() {
+    @RequestMapping
+    public ModelAndView main() {
         return new ModelAndView("user/list");
     }
 

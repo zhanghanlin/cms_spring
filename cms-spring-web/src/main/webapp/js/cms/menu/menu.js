@@ -15,13 +15,16 @@ $(function() {
 				str.push(o.id);
 				str.push('" data-tt-parent-id="');
 				str.push(o.parentId);
-				str.push('"><td title="')
-				str.push(o.note);
-				str.push('">')
-				for ( var i = 1; i < o.level; i++) {
-					str.push('|——');
+				str.push('"><td>')
+				if (!data[o.id]) {
+					for ( var i = 1; i < o.level; i++) {
+						str.push('&nbsp;&nbsp;&nbsp;&nbsp;');
+					}
 				}
 				str.push(o.name);
+				str.push('</td>');
+				str.push('<td>');
+				str.push(o.type == 0 ? '菜单' : '按钮');
 				str.push('</td>');
 				str.push('<td>');
 				str.push(o.note);
@@ -63,31 +66,45 @@ $(function() {
 		},
 		opera : function(o) {
 			var str = [];
-			str.push('<a role="button" href="/menu/detail/');
-			str.push(o.id);
-			str
-					.push('" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>&nbsp;');
+			str.push($.button({
+				url : '/menu/detail/' + o.id,
+				name : '查看'
+			}));
+			str.push('&nbsp;');
 			var status = o.status;
 			if (status != menu.Status.DELETE) {
-				str.push('<a role="button" href="/menu/edit/')
-				str.push(o.id);
-				str
-						.push('" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">编辑</a>&nbsp;<a role="button" href="/menu/toAdd/');
-				str.push(o.id);
-				str
-						.push('" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">新增子菜单</a>&nbsp;<a role="button" class="btn btn-default btn-xs delete" status="');
-				str.push(menu.Status.DELETE);
-				str.push('">删除</a>&nbsp;');
+				str.push($.button({
+					url : '/menu/edit/' + o.id,
+					name : '编辑'
+				}));
+				str.push('&nbsp;');
+				if (o.type == 0) {
+					str.push($.button({
+						url : '/menu/toAdd/' + o.id,
+						name : '新增子菜单'
+					}));
+					str.push('&nbsp;');
+				}
+				str.push($.button({
+					clazz : 'btn btn-default btn-xs delete',
+					name : '删除',
+					param : [ 'status="2"' ]
+				}));
+				str.push('&nbsp;');
 				if (status == menu.Status.NORMAL) {
-					str
-							.push('<a role="button" class="btn btn-default btn-xs disable" status="');
-					str.push(menu.Status.DISABLE);
-					str.push('">禁用</a>');
+					str.push($.button({
+						clazz : 'btn btn-default btn-xs disable',
+						name : '禁用',
+						param : [ 'status="1"' ]
+					}));
+					str.push('&nbsp;');
 				} else {
-					str
-							.push('<a role="button" class="btn btn-default btn-xs normal" status="');
-					str.push(menu.Status.NORMAL);
-					str.push('">启用</a>');
+					str.push($.button({
+						clazz : 'normal',
+						name : '启用',
+						param : [ 'status="0"' ]
+					}));
+					str.push('&nbsp;');
 				}
 			}
 			return str.join('');
