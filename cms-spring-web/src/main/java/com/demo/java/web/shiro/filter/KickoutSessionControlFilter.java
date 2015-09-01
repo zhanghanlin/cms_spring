@@ -8,12 +8,15 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.DefaultSessionKey;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
+
+import com.demo.java.utils.Constants;
 
 public class KickoutSessionControlFilter extends AccessControlFilter {
 
@@ -51,8 +54,8 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
         this.sessionManager = sessionManager;
     }
 
-    public void setCache(Cache<String, Deque<Serializable>> cache) {
-        this.cache = cache;
+    public void setCacheManager(CacheManager cacheManager) {
+        this.cache = cacheManager.getCache(Constants.SHIRO_KICKOUT_SESSION);
     }
 
     @Override
