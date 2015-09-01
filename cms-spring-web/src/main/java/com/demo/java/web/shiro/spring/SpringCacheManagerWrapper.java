@@ -31,7 +31,7 @@ public class SpringCacheManagerWrapper implements CacheManager {
     }
 
     @Override
-    public <K, V> org.apache.shiro.cache.Cache<K, V> getCache(String name) throws CacheException {
+    public <K, V> Cache<K, V> getCache(String name) throws CacheException {
         org.springframework.cache.Cache springCache = cacheManager.getCache(name);
         return new SpringCacheWrapper<K, V>(springCache);
     }
