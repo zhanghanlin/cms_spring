@@ -27,7 +27,7 @@
 		<property name="hashIterations" value="2" />
 		<property name="storedCredentialsHexEncoded" value="true" />
 	</bean>
-	
+
 	<!-- Realm自定义实现 -->
 	<bean id="userRealm" class="com.demo.java.web.shiro.realm.UserRealm">
 		<property name="credentialsMatcher" ref="credentialsMatcher" />
@@ -43,6 +43,17 @@
 		<constructor-arg value="sid" />
 		<property name="httpOnly" value="true" />
 		<property name="maxAge" value="180000" />
+	</bean>
+
+	<!-- rememberMe Cookie -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="httpOnly" value="true" />
+		<property name="maxAge" value="2592000" /><!-- 30天 -->
+	</bean>
+	<!-- rememberMe管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cookie" ref="rememberMeCookie" />
 	</bean>
 
 	<!-- 会话DAO -->
@@ -78,6 +89,7 @@
 		</property>
 		<property name="sessionManager" ref="sessionManager" />
 		<property name="cacheManager" ref="cacheManager" />
+		<property name="rememberMeManager" ref="rememberMeManager" />
 	</bean>
 
 	<!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
@@ -93,6 +105,7 @@
 		class="com.demo.java.web.shiro.filter.UserFormAuthenticationFilter">
 		<property name="usernameParam" value="username" />
 		<property name="passwordParam" value="password" />
+		<property name="rememberMeParam" value="rememberMe" />
 		<property name="failureKeyAttribute" value="shiroLoginFailure" />
 		<property name="loginUrl" value="/login" />
 	</bean>
@@ -140,6 +153,7 @@
 				/images/** = anon
 				/common/** = anon
 				/jcaptcha* = anon
+				/sessions = authc
 				/** = forceLogout,user,sysUser,kickout
 			</value>
 		</property>

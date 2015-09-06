@@ -12,11 +12,16 @@
 		<function-class>com.demo.java.web.common.taglib.Functions</function-class>
 		<function-signature>java.lang.String principal(org.apache.shiro.session.Session)</function-signature>
 	</function>
-
 	<function>
 		<description>是否强制退出</description>
 		<name>isForceLogout</name>
 		<function-class>com.demo.java.web.common.taglib.Functions</function-class>
 		<function-signature>boolean isForceLogout(org.apache.shiro.session.Session)</function-signature>
+	</function>
+	<function>
+		<description>Session是否是当前用户</description>
+		<name>isCurrentUser</name>
+		<function-class>com.demo.java.web.common.taglib.Functions</function-class>
+		<function-signature>boolean isCurrentUser(org.apache.shiro.session.Session)</function-signature>
 	</function>
 </taglib>

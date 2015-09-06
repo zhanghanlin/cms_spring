@@ -55,10 +55,6 @@ public class CommonController extends AbstractController {
         return new ModelAndView("common/main");
     }
 
-    // public ModelAndView toLogin(HttpServletRequest request) {
-    // randomUUID(request);
-    // return new ModelAndView("common/login");
-    // }
     /**
      * 进入登陆页面.<br/>
      * 
@@ -85,11 +81,12 @@ public class CommonController extends AbstractController {
                     error = "验证码错误";
                 } else if (exceptionClassName != null) {
                     error = "未知错误";
-                } else {
-                    if (request.getParameter("forceLogout") != null) {
-                        error = "您已经被管理员强制退出，请重新登录";
-                    }
                 }
+            }
+        }
+        if (StringUtils.isBlank(error)) {
+            if (request.getParameter("forceLogout") != null) {
+                error = "您已经被管理员强制退出，请重新登录";
             }
         }
         model.addAttribute("error", error);

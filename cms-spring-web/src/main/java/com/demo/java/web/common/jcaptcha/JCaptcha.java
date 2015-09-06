@@ -2,9 +2,15 @@ package com.demo.java.web.common.jcaptcha;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.octo.captcha.service.captchastore.FastHashMapCaptchaStore;
 
 public class JCaptcha {
+
+    static final Logger LOG = LoggerFactory.getLogger(JCaptcha.class);
+
     public static final CmsManageableImageCaptchaService captchaService = new CmsManageableImageCaptchaService(new FastHashMapCaptchaStore(), new GMailEngine(), 180, 100000, 75000);
 
     /**
@@ -26,7 +32,7 @@ public class JCaptcha {
             String id = request.getSession().getId();
             validated = captchaService.validateResponseForID(id, captchaResponse).booleanValue();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("validateResponse error : {}", e.getMessage());
         }
         return validated;
     }
@@ -51,7 +57,7 @@ public class JCaptcha {
             String id = request.getSession().getId();
             validated = captchaService.hashCpcha(id, captchaResponse);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("hasCaptcha error : {}", e.getMessage());
         }
         return validated;
     }

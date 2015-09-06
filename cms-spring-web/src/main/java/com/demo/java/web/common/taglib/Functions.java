@@ -1,5 +1,6 @@
 package com.demo.java.web.common.taglib;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
@@ -18,5 +19,9 @@ public class Functions {
 
     public static boolean isForceLogout(Session session) {
         return session.getAttribute(Constants.SESSION_FORCE_LOGOUT_KEY) != null;
+    }
+
+    public static boolean isCurrentUser(Session session) {
+        return SecurityUtils.getSubject().getSession().getId().equals(session.getId());
     }
 }

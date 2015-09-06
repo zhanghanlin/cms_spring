@@ -1,3 +1,5 @@
+<%@page import="org.apache.shiro.SecurityUtils"%>
+<%@page import="org.apache.shiro.subject.Subject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,11 +30,18 @@
 									</div>
 									<!-- /.box-header -->
 									<div class="box-body">
+										<%
+										Subject subject = SecurityUtils.getSubject();										
+										%>
+										isRemembered : <%=subject.isRemembered() %>
+										<br/>
+										isAuthenticated : <%=subject.isAuthenticated() %>
 										<dl>
 											<dt>系统监控信息</dt>
 											<dd>
 												<ul>
 													<li>系统监控</li>
+													<li>Session管理</li>
 												</ul>
 											</dd>
 										</dl>

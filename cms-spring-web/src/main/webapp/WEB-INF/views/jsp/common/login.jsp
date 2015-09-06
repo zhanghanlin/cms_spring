@@ -17,6 +17,10 @@
 			cursor: pointer;
 			padding-left:10px;
 		}
+		.error {
+			color: red;
+			padding-top: 5px;
+		}
 	</style>
 </head>
 <body class="login-page">
@@ -25,12 +29,16 @@
 			<a href="javascript:;"><b>Admin&nbsp;&nbsp;</b>CMS</a>
 		</div>
 		<div class="login-box-body">
-			<p class="login-box-msg">登陆你的帐号<br/><c:out value="${error }" default=""></c:out></p>
+			<p class="login-box-msg">登陆你的帐号<br/>
+			<c:if test="${not empty error }">
+				<label class="error"><c:out value="${error }" default=""></c:out></label>
+			</c:if>
+			</p>
 			<form action="/login" method="POST">
 				<input type="hidden" value="${UUID }" name="uuid"/>
 				<div class="form-group has-feedback">
-					<input type="email" class="form-control" name="username" placeholder="Email" required/>
-					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+					<input type="text" class="form-control" name="username" placeholder="Account" required/>
+					<span class="glyphicon glyphicon-user form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
 					<input type="password" class="form-control" name="password" placeholder="Password" required/>
@@ -53,11 +61,12 @@
 				<div class="row">
 					<div class="col-xs-8">
 						<div class="checkbox icheck">
-							<input type="hidden" name="rememberMe" value="true" />
-							<label><input type="checkbox"/>&nbsp;&nbsp;记住我</label>
+							<input type="hidden" name="rememberMe" id="rememberMe" value="false" />
+							<input type="checkbox" id="rememberMeCbx"/>
+							<label>&nbsp;&nbsp;记住我</label>
 						</div>
 					</div>
-					<div class="col-xs-4"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div>
+					<div class="col-xs-4"><button type="submit" class="btn btn-primary btn-block btn-flat">登陆</button></div>
 				</div>
 			</form>
 			<div class="social-auth-links text-center"></div>
@@ -69,12 +78,14 @@
 	<script src="/js/tools/icheck.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$('input').iCheck({
+			$('#rememberMeCbx').iCheck({
 				checkboxClass:'icheckbox_square-blue',
 				radioClass: 'iradio_square-blue',
-				increaseArea: '20%' // optional
+				increaseArea: '20%'// optional
 			});
-			
+			$('#rememberMeCbx').on('ifChecked ifUnchecked', function(event){
+				$('#rememberMe').val($(this).is(':checked'));
+			});			
 			$('.jcaptcha-refresh').click(function(){
 				$('.jcaptcha-img').attr('src','/jcaptcha.jpg?'+(new Date()).getTime());
 			});

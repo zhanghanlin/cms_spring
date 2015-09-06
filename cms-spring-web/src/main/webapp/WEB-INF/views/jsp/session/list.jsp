@@ -36,7 +36,7 @@
 							<table class="table table-hover" id="userTable">
 								<thead>
 									<tr>
-										<th>会话ID</th>
+										<th style="width: 300px;">会话ID</th>
 										<th>用户名</th>
 										<th>主机地址</th>
 										<th>最后访问时间</th>
@@ -53,9 +53,13 @@
 											<td><fmt:formatDate value="${session.lastAccessTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td>
 											<td>${cmsFn:isForceLogout(session) ? '是' : '否'}</td>
 											<td>
-												<c:if test="${not cmsFn:isForceLogout(session)}">
+												<c:choose>
+													<c:when test="${cmsFn:isCurrentUser(session)}">当前用户</c:when>
+													<c:when test="${not cmsFn:isForceLogout(session)}">
 													<a class="forceLogout" sessionId="${session.id }" href="javascript:;">强制退出</a>
-												</c:if>
+													</c:when>
+													<c:otherwise>-</c:otherwise>
+												</c:choose>
 											</td>
 										</tr>
 									</c:forEach>
