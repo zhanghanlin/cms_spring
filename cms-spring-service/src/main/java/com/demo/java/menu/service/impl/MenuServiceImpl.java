@@ -23,9 +23,6 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public int add(Menu menu) {
-        if (StringUtils.isBlank(menu.getLink())) {
-            menu.setLink("###");
-        }
         menu.setCreatedAt(new Date());
         menu.setCreatedBy(UserUtils.getUserName());
         String maxCode = menuDao.findMaxCodeByParentId(menu.getParentId());

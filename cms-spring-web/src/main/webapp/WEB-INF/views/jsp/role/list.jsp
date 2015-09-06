@@ -7,8 +7,8 @@
 		<section class="content-header">
 			<h1>角色列表</h1>
 			<ol class="breadcrumb">
-				<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
-				<li><a href="###">系统设置</a></li>
+				<li><a href="javascript:;"><i class="fa fa-dashboard"></i>CMS</a></li>
+				<li><a href="javascript:;">系统设置</a></li>
 				<li class="active">角色管理</li>
 			</ol>
 		</section>

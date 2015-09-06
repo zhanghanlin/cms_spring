@@ -15,11 +15,14 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.demo.java.utils.Constants;
 
 public class KickoutSessionControlFilter extends AccessControlFilter {
 
+    static final Logger LOG = LoggerFactory.getLogger(KickoutSessionControlFilter.class);
     /**
      * 踢出后到的地址
      */
@@ -70,23 +73,19 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
             // 如果没有登录，直接进行之后的流程
             return true;
         }
-
         Session session = subject.getSession();
         String username = (String) subject.getPrincipal();
         Serializable sessionId = session.getId();
-
-        // TODO 同步控制
+        // 同步控制
         Deque<Serializable> deque = cache.get(username);
         if (deque == null) {
             deque = new LinkedList<Serializable>();
             cache.put(username, deque);
         }
-
-        // 如果队列里没有此sessionId，且用户没有被踢出；放入队列
+        // 如果队列里没有此sessionId,且用户没有被踢出,放入队列
         if (!deque.contains(sessionId) && (session.getAttribute("kickout") == null)) {
             deque.push(sessionId);
         }
-
         // 如果队列里的sessionId数超出最大会话数，开始踢人
         while (deque.size() > maxSession) {
             Serializable kickoutSessionId = null;
@@ -101,16 +100,17 @@ public class KickoutSessionControlFilter extends AccessControlFilter {
                     // 设置会话的kickout属性表示踢出了
                     kickoutSession.setAttribute("kickout", true);
                 }
-            } catch (Exception e) {// ignore exception
+            } catch (Exception e) {
+                LOG.error("onAccessDenied error : {}", e.getMessage(), e);
             }
         }
-
-        // 如果被踢出了，直接退出，重定向到踢出后的地址
+        // 如果被踢出了,直接退出,重定向到踢出后的地址
         if (session.getAttribute("kickout") != null) {
-            // 会话被踢出了
             try {
+                // 会话被踢出了
                 subject.logout();
-            } catch (Exception e) { // ignore
+            } catch (Exception e) {
+                LOG.error("subject logout error : {}", e.getMessage(), e);
             }
             saveRequest(request);
             WebUtils.issueRedirect(request, response, kickoutUrl);

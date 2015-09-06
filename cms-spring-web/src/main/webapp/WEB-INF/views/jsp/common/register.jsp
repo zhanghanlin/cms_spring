@@ -8,7 +8,7 @@
 <body class="register-page">
 	<div class="register-box">
 		<div class="register-logo">
-			<a href="###"><b>Admin&nbsp;&nbsp;</b>CMS</a>
+			<a href="javascript:;"><b>Admin&nbsp;&nbsp;</b>CMS</a>
 		</div>
 		<div class="register-box-body">
 			<p class="login-box-msg">新会员注册${msg }</p>

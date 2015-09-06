@@ -28,38 +28,39 @@
 									</div>
 									<!-- /.box-header -->
 									<div class="box-body">
-									<dl>
-										<dt>系统监控信息</dt>
-										<dd>
-											<ul>
-												<li>系统监控</li>
-											</ul>
-										</dd>
-									</dl>
-									<dl>
-										<dt>系统基础信息</dt>
-										<dd>
-											<ul>
-												<li>菜单管理</li>
-												<li>用户管理</li>
-												<li>角色管理</li>
-											</ul>
-										</dd>
-									</dl>
-									<dl>
-										<dt>日志管理</dt>
-										<dd>
-											<ul>
-												<li>登陆日志</li>
-												<li>操作日志</li>
-											</ul>
-										</dd>
-									</dl>
-									<!-- /.box-body -->
+										<dl>
+											<dt>系统监控信息</dt>
+											<dd>
+												<ul>
+													<li>系统监控</li>
+												</ul>
+											</dd>
+										</dl>
+										<dl>
+											<dt>系统基础信息</dt>
+											<dd>
+												<ul>
+													<li>菜单管理</li>
+													<li>用户管理</li>
+													<li>角色管理</li>
+												</ul>
+											</dd>
+										</dl>
+										<dl>
+											<dt>日志管理</dt>
+											<dd>
+												<ul>
+													<li>登陆日志</li>
+													<li>操作日志</li>
+												</ul>
+											</dd>
+										</dl>
+										<!-- /.box-body -->
+									</div>
+									<!-- /.box -->
 								</div>
-								<!-- /.box -->
+								<!-- ./col -->
 							</div>
-							<!-- ./col -->
 						</div>
 					</section>
 				</div>

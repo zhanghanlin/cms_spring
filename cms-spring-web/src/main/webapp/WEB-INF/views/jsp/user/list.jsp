@@ -7,8 +7,8 @@
 		<section class="content-header">
 			<h1>用户列表</h1>
 			<ol class="breadcrumb">
-				<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
-				<li><a href="###">用户管理</a></li>
+				<li><a href="javascript:;"><i class="fa fa-dashboard"></i>CMS</a></li>
+				<li><a href="javascript:;">用户管理</a></li>
 				<li class="active">用户列表</li>
 			</ol>
 		</section>

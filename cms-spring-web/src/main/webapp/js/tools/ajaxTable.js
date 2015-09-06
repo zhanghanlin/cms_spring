@@ -97,7 +97,7 @@
 			var str = [];
 			var curPage = obj.curPage;
 			var totalPage = obj.totalPage;
-			str.push('<li><a href="###" n="1"');
+			str.push('<li><a href="javascript:;" n="1"');
 			if (curPage == 1) {
 				str.push(' class="not-allowed" ');
 			}
@@ -107,13 +107,13 @@
 				if (i == curPage) {
 					str.push(' class="active" ');
 				}
-				str.push('><a href="###" n="');
+				str.push('><a href="javascript:;" n="');
 				str.push(i);
 				str.push('">');
 				str.push(i);
 				str.push('</a></li>');
 			}
-			str.push('<li><a href="###"  n="' + obj.totalPage + '"');
+			str.push('<li><a href="javascript:;"  n="' + obj.totalPage + '"');
 			if (curPage == totalPage) {
 				str.push(' class="not-allowed" ');
 			}

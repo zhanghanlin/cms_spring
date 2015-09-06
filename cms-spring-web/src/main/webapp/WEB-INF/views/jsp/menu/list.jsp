@@ -20,8 +20,8 @@
 		<section class="content-header">
 			<h1>菜单管理</h1>
 			<ol class="breadcrumb">
-				<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
-				<li><a href="###">系统管理</a></li>
+				<li><a href="javascript:;"><i class="fa fa-dashboard"></i>CMS</a></li>
+				<li><a href="javascript:;">系统管理</a></li>
 				<li class="active">菜单管理</li>
 			</ol>
 		</section>
@@ -36,8 +36,8 @@
 									class="btn btn-default btn-sm" data-toggle="modal"
 									data-target="#modal" style="margin-right: 10px;">新增</a>
 								<ul class="pagination pagination-sm no-margin pull-right">
-									<li><a href="###" class="expandAll">展开全部</a></li>
-									<li><a href="###" class="collapseAll">闭合全部</a></li>
+									<li><a href="javascript:;" class="expandAll">展开全部</a></li>
+									<li><a href="javascript:;" class="collapseAll">闭合全部</a></li>
 								</ul>
 							</div>
 						</div>

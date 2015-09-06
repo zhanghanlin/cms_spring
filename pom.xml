@@ -34,6 +34,7 @@
 		<commons-codec.version>1.9</commons-codec.version>
 		<sigar.version>1.6.5.132</sigar.version>
 		<shiro.version>1.2.2</shiro.version>
+		<jcaptcha.version>2.0-alpha-1</jcaptcha.version>
 
 		<jetty.version>8.1.8.v20121106</jetty.version>
 		<webserver.port>80</webserver.port>
@@ -221,6 +222,27 @@
 				<groupId>org.hyperic</groupId>
 				<artifactId>sigar</artifactId>
 				<version>${sigar.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.octo.captcha</groupId>
+				<artifactId>jcaptcha</artifactId>
+				<version>${jcaptcha.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.octo.captcha</groupId>
+				<artifactId>jcaptcha-api</artifactId>
+				<version>${jcaptcha.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.octo.captcha</groupId>
+				<artifactId>jcaptcha-integration-simple-servlet</artifactId>
+				<version>${jcaptcha.version}</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>servlet-api</artifactId>
+						<groupId>javax.servlet</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

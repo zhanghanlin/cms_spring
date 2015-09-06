@@ -11,6 +11,13 @@ import org.slf4j.LoggerFactory;
 
 import com.demo.java.utils.Constants;
 
+/**
+ * 强制退出拦截器 <br/>
+ * 
+ * @author zhanghanlin
+ * @version
+ * @since JDK 1.7
+ */
 public class ForceLogoutFilter extends AccessControlFilter {
 
     static final Logger LOG = LoggerFactory.getLogger(ForceLogoutFilter.class);

@@ -6,8 +6,8 @@
 		<section class="content-header">
 			<h1>登陆日志管理</h1>
 			<ol class="breadcrumb">
-				<li><a href="###"><i class="fa fa-dashboard"></i>CMS</a></li>
-				<li><a href="###">日志管理</a></li>
+				<li><a href="javascript:;"><i class="fa fa-dashboard"></i>CMS</a></li>
+				<li><a href="javascript:;">日志管理</a></li>
 				<li class="active">登陆日志</li>
 			</ol>
 		</section>

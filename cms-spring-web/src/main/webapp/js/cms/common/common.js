@@ -40,7 +40,7 @@ $(function() {
 			var str = [];
 			str.push('<ul class="treeview-menu">');
 			$.each(arr, function(i, o) {
-				str.push('<li><a href="###" link="');
+				str.push('<li><a href="javascript:;" link="');
 				str.push(o.link);
 				str.push('"><i class="fa ');
 				str.push(o.icon);

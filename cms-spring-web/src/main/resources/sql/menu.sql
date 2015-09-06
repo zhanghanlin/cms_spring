@@ -9,7 +9,7 @@ CREATE TABLE `cms_menu` (
   `code` varchar(200) COMMENT '菜单结构码',
   `unique_key` varchar(200) COMMENT '菜单唯一key',
   `parent_id` int(11) DEFAULT 0 COMMENT '上一级菜单Id',
-  `link` varchar(200) NOT NULL COMMENT '菜单连接地址',
+  `link` varchar(200) COMMENT '菜单连接地址',
   `type` int(3) NOT NULL DEFAULT 0 COMMENT '菜单类型,0-菜单,1-按钮',
   `icon` varchar(200) COMMENT '菜单图标样式',
   `weight` int(3) COMMENT '权重,排序使用',
@@ -28,6 +28,6 @@ CREATE TABLE `cms_menu` (
 -- ----------------------------
 -- Records of cms_menu
 -- ----------------------------
-INSERT INTO `cms_menu` (name,note,code,link,icon,weight,status,created_at,created_by,unique_key) VALUES ('系统基础信息', '系统基础信息', '001', '###', 'fa-list', '0', '0', now(), 'System', 'system');
+INSERT INTO `cms_menu` (name,note,code,icon,weight,status,created_at,created_by,unique_key) VALUES ('系统基础信息', '系统基础信息', '001', 'fa-list', '0', '0', now(), 'System', 'system');
 INSERT INTO `cms_menu` (name,note,code,link,icon,weight,status,created_at,created_by,unique_key) VALUES ('菜单管理', '菜单管理', '001001', '/menu/toList', 'fa-circle-o', '0', '0', now(), 'System', 'system:menu');
 UPDATE cms_menu m1 SET m1.parent_id = ( SELECT t.id FROM (( SELECT m2.id AS id FROM cms_menu m2 WHERE m2. CODE = '001' ) t )) WHERE m1.`code` = '001001'

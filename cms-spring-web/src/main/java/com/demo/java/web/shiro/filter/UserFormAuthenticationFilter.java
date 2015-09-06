@@ -24,6 +24,14 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
     LoginLogService loginLogService;
 
     @Override
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+        if (request.getAttribute(getFailureKeyAttribute()) != null) {
+            return true;
+        }
+        return super.onAccessDenied(request, response, mappedValue);
+    }
+
+    @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
         User user = userService.findByLogin(subject.getPrincipal().toString());
         if (user != null) {

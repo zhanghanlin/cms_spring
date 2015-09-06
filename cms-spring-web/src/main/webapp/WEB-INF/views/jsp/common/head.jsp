@@ -13,7 +13,7 @@
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
 				<li class="dropdown notifications-menu">
-					<a href="###" class="dropdown-toggle" data-toggle="dropdown">
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-bell-o"></i>
 						<span class="label label-warning">1</span>
 					</a>
@@ -22,7 +22,7 @@
 						<li>
 							<ul class="menu">
 								<li>
-									<a href="###"><i class="fa fa-users text-aqua"></i>5 new members joined today</a>
+									<a href="javascript:;"><i class="fa fa-users text-aqua"></i>5 new members joined today</a>
 								</li>
 								<li class="footer"><a href="#">View all</a></li>
 							</ul>
@@ -30,7 +30,7 @@
 					</ul>
 				</li>
 				<li class="dropdown user user-menu">
-					<a href="###" class="dropdown-toggle" data-toggle="dropdown">
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 						<img src="/images/andy.jpg" class="user-image" alt="User Image" />
 						<span class="hidden-xs"><shiro:principal/></span>
 					</a>
@@ -40,17 +40,17 @@
 							<p><shiro:principal/> - Web Developer<small>Member since Nov. 2015</small></p>
 						</li>
 						<li class="user-body">
-							<div class="col-xs-4 text-center"><a href="###">A</a></div>
-							<div class="col-xs-4 text-center"><a href="###">B</a></div>
-							<div class="col-xs-4 text-center"><a href="###">C</a></div>
+							<div class="col-xs-4 text-center"><a href="javascript:;">A</a></div>
+							<div class="col-xs-4 text-center"><a href="javascript:;">B</a></div>
+							<div class="col-xs-4 text-center"><a href="javascript:;">C</a></div>
 						</li>
 						<li class="user-footer">
-							<div class="pull-left"><a href="###" class="btn btn-default btn-flat">设置</a></div>
+							<div class="pull-left"><a href="javascript:;" class="btn btn-default btn-flat">设置</a></div>
                     		<div class="pull-right"><a href="/logout" class="btn btn-default btn-flat">退出</a></div>
 						</li>
 					</ul>
 				</li>
-				<li><a href="###" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
+				<li><a href="javascript:;" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a></li>
 			</ul>
 		</div>
 	</nav>

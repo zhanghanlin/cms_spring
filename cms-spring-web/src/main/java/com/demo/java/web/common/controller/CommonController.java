@@ -5,12 +5,17 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.demo.java.menu.service.MenuService;
 import com.demo.java.user.entity.User;
 import com.demo.java.user.service.UserService;
+import com.demo.java.utils.Constants;
 import com.demo.java.utils.string.StringUtils;
 import com.demo.java.web.common.system.ServerInfo;
 import com.demo.java.web.common.system.ServerStatus;
@@ -49,6 +55,10 @@ public class CommonController extends AbstractController {
         return new ModelAndView("common/main");
     }
 
+    // public ModelAndView toLogin(HttpServletRequest request) {
+    // randomUUID(request);
+    // return new ModelAndView("common/login");
+    // }
     /**
      * 进入登陆页面.<br/>
      * 
@@ -58,9 +68,32 @@ public class CommonController extends AbstractController {
      * @since JDK 1.7
      */
     @RequestMapping(value = "/login")
-    public ModelAndView toLogin(HttpServletRequest request) {
-        randomUUID(request);
-        return new ModelAndView("common/login");
+    public String login(HttpServletRequest request, HttpServletResponse response, String uuid, Model model) {
+        String error = null;
+        if (request.getMethod().equals(RequestMethod.GET.toString())) {
+            randomUUID(request);
+        } else {
+            if (checkUUID(uuid, request)) {
+                String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
+                if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
+                    error = "用户名/密码错误";
+                } else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
+                    error = "用户名/密码错误";
+                } else if (AuthenticationException.class.getName().equals(exceptionClassName)) {
+                    error = "用户名/密码输入错误次数过多,请稍候再试";
+                } else if (Constants.JCAPTCHA_ERROR_NAME.equals(exceptionClassName)) {
+                    error = "验证码错误";
+                } else if (exceptionClassName != null) {
+                    error = "未知错误";
+                } else {
+                    if (request.getParameter("forceLogout") != null) {
+                        error = "您已经被管理员强制退出，请重新登录";
+                    }
+                }
+            }
+        }
+        model.addAttribute("error", error);
+        return "common/login";
     }
 
     /**

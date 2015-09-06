@@ -75,7 +75,7 @@
 									<label class="col-sm-2 control-label">链接</label>
 									<div class="col-sm-7">
 										<input type="text" class="form-control" id="link"
-											value="${menu.link }" name="link" placeholder="分类链接,默认###"
+											value="${menu.link }" name="link" placeholder="分类链接,默认空"
 											${disabled } required />
 									</div>
 								</div>
