@@ -36,11 +36,11 @@
 							<table class="table table-hover" id="userTable">
 								<thead>
 									<tr>
-										<th style="width: 300px;">会话ID</th>
-										<th>用户名</th>
-										<th>主机地址</th>
-										<th>最后访问时间</th>
-										<th>已强制退出</th>
+										<th style="width:30%;">会话ID</th>
+										<th style="width:10%;">用户名</th>
+										<th style="width:10%;">主机地址</th>
+										<th style="width:20%;">最后访问时间</th>
+										<th style="width:10%;">已强制退出</th>
 										<th>操作</th>
 									</tr>
 								</thead>

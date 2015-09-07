@@ -38,11 +38,11 @@
 							<table class="table table-hover" id="roleTable">
 								<thead>
 									<tr>
-										<th>角色名</th>
-										<th>角色说明</th>
-										<th>角色Key</th>
-										<th>状态</th>
-										<th>创建时间</th>
+										<th style="width:10%;">角色名</th>
+										<th style="width:15%;">角色说明</th>
+										<th style="width:10%;">角色Key</th>
+										<th style="width:10%;">状态</th>
+										<th style="width:20%;">创建时间</th>
 										<th>操作</th>
 									</tr>
 								</thead>

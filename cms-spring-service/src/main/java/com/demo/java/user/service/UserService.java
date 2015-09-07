@@ -57,4 +57,15 @@ public interface UserService {
      * @since JDK 1.7
      */
     public User findByLogin(String login);
+
+    /**
+     * 更新用户状态.<br/>
+     * 
+     * @author zhanghanlin
+     * @param id
+     * @param status
+     * @return
+     * @since JDK 1.7
+     */
+    public int updateStatus(Long id, int status);
 }

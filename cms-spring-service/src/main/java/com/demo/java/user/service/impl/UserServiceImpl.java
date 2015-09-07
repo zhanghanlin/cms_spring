@@ -57,4 +57,14 @@ public class UserServiceImpl implements UserService {
         }
         return t;
     }
+
+    @Override
+    public int updateStatus(Long id, int status) {
+        User user = new User();
+        user.setId(id);
+        user.setStatus(status);
+        user.setChangedAt(new Date());
+        user.setChangedBy(UserUtils.getUserName());
+        return userDao.update(user);
+    }
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.util.WebUtils;
 
 import com.demo.java.log.service.LoginLogService;
 import com.demo.java.user.entity.User;
@@ -24,6 +25,13 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
     LoginLogService loginLogService;
 
     @Override
+    protected void issueSuccessRedirect(ServletRequest request, ServletResponse response) throws Exception {
+
+        // TODO Auto-generated method stub
+        super.issueSuccessRedirect(request, response);
+    }
+
+    @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
         if (request.getAttribute(getFailureKeyAttribute()) != null) {
             return true;
@@ -38,6 +46,7 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
             subject.getSession().setAttribute(Constants.CURRENT_USER_KEY, user);
             loginLogService.save(IpUtils.getRequestHeaderIpAddr((HttpServletRequest) request));
         }
-        return super.onLoginSuccess(token, subject, request, response);
+        WebUtils.issueRedirect(request, response, getSuccessUrl(), null, true);
+        return false;
     }
 }

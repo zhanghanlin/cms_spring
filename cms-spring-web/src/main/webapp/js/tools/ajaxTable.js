@@ -44,7 +44,7 @@
 												' '))
 							} else {
 								if (o[c] instanceof Array) {
-									$.each(o[c],function(_i,_o){
+									$.each(o[c], function(_i, _o) {
 										str.push(_o);
 										str.push('&nbsp;&nbsp;');
 									});
@@ -90,6 +90,21 @@
 			}
 		}
 
+		function pageSection(curPage, totalPage) {
+			var endPage = 10;
+			var page = [ 1, endPage ];
+			if (totalPage > endPage) {
+				if (curPage > 5) {
+					if ((totalPage - curPage) >= 5) {
+						page = [ curPage - 4, curPage + 5 ];
+					} else {
+						page = [ totalPage - endPage + 1, totalPage ];
+					}
+				}
+			}
+			return page;
+		}
+
 		function pages(obj) {
 			if (obj.totalPage <= 1) {
 				return false;
@@ -101,8 +116,14 @@
 			if (curPage == 1) {
 				str.push(' class="not-allowed" ');
 			}
-			str.push('>&laquo;</a></li>');
-			for ( var i = 1; i <= totalPage; i++) {
+			str.push('>First</a></li>');
+			str.push('<li><a href="javascript:;" n="' + (curPage - 1) + '"');
+			if (curPage <= 1) {
+				str.push(' class="not-allowed" ');
+			}
+			str.push('>Prev</a></li>');
+			var section = pageSection(curPage, totalPage);
+			for ( var i = section[0]; i <= section[1]; i++) {
 				str.push('<li');
 				if (i == curPage) {
 					str.push(' class="active" ');
@@ -113,23 +134,27 @@
 				str.push(i);
 				str.push('</a></li>');
 			}
+			str.push('<li><a href="javascript:;"  n="' + (curPage + 1) + '"');
+			if (curPage >= totalPage) {
+				str.push(' class="not-allowed" ');
+			}
+			str.push('>Next</a></li>');
 			str.push('<li><a href="javascript:;"  n="' + obj.totalPage + '"');
 			if (curPage == totalPage) {
 				str.push(' class="not-allowed" ');
 			}
-			str.push('>&raquo;</a></li>');
+			str.push('>Last</a></li>');
 			$(opts.pageDom).html(str.join(''));
-
-			$(opts.pageDom).delegate(
-					'li a',
-					'click',
-					function() {
-						if ($(this).hasClass('not-allowed')
-								|| $(this).parent().hasClass('active')) {
-							return false;
-						}
-						ajax($(this).attr('n'));
-					});
 		}
+		$(opts.pageDom).delegate(
+				'li a',
+				'click',
+				function() {
+					if ($(this).hasClass('not-allowed')
+							|| $(this).parent().hasClass('active')) {
+						return false;
+					}
+					ajax($(this).attr('n'));
+				});
 	}
 })(jQuery);

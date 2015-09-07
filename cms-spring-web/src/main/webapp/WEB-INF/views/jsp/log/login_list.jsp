@@ -2,6 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+	<head>
+		<style type="text/css">
+			#loginLogTable thead tr th {
+				width: 25%;
+			}
+		</style>
+	</head>
 	<body>
 		<section class="content-header">
 			<h1>登陆日志管理</h1>

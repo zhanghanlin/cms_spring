@@ -66,48 +66,29 @@ $(function() {
 		},
 		opera : function(o) {
 			var str = [];
-			str.push($.button({
-				url : '/menu/detail/' + o.id,
-				name : '查看'
-			}));
-			str.push('&nbsp;');
+			str.push('<a role="button" href="/menu/detail/{id}" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal">查看</a>');
 			var status = o.status;
 			if (status != menu.Status.DELETE) {
-				str.push($.button({
-					url : '/menu/edit/' + o.id,
-					name : '编辑'
-				}));
-				str.push('&nbsp;');
+				str.push('<a role="button" class="btn btn-default btn-xs" href="/menu/edit/{id}" data-toggle="modal" data-target="#modal">编辑</a>');
 				if (o.type == 0) {
-					str.push($.button({
-						url : '/menu/toAdd/' + o.id,
-						name : '新增子菜单'
-					}));
-					str.push('&nbsp;');
+					str.push('<a role="button" class="btn btn-default btn-xs" href="/menu/toAdd/{id}" data-toggle="modal" data-target="#modal">新增子菜单</a>');
 				}
-				str.push($.button({
-					clazz : 'btn btn-default btn-xs delete',
-					name : '删除',
-					param : [ 'status="2"' ]
-				}));
-				str.push('&nbsp;');
+				str.push('<a role="button" class="btn btn-default btn-xs delete" status="2">删除</a>');
 				if (status == menu.Status.NORMAL) {
-					str.push($.button({
-						clazz : 'btn btn-default btn-xs disable',
-						name : '禁用',
-						param : [ 'status="1"' ]
-					}));
-					str.push('&nbsp;');
+					str.push('<a role="button" class="btn btn-default btn-xs disable" status="1">禁用</a>');
 				} else {
-					str.push($.button({
-						clazz : 'normal',
-						name : '启用',
-						param : [ 'status="0"' ]
-					}));
-					str.push('&nbsp;');
+					str.push('<a role="button" class="btn btn-default btn-xs normal" status="0">启用</a>');
 				}
 			}
-			return str.join('');
+			var html = str.join('&nbsp;');;
+			if (/{[A-Za-z0-9]+}/.test(html)) {
+				var label = html.match(/{[A-Za-z0-9]+}/g);
+				$.each(label, function(i, lab) {
+					var t = lab.replace(/[{}]+/g, '');
+					html = html.replace(lab, o[t]);
+				});
+			}
+			return html;
 		},
 		menuStatus : function(status) {
 			status = parseInt(status);
@@ -133,7 +114,7 @@ $(function() {
 						};
 						$.post('/menu/update/status', param, function(obj) {
 							if (obj.code == 200) {
-								_this.parents('tr').find('td:eq(4)').html(
+								_this.parents('tr').find('td:eq(5)').html(
 										menu.menuStatus(obj.data.status));
 								_this.parent().html(menu.opera(obj.data));
 							}

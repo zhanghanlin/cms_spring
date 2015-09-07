@@ -8,8 +8,10 @@ a.not-allowed {
 
 table tr td {
 	cursor: default;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-
 div#loading {
 	width: 160px;
 	height: 56px;

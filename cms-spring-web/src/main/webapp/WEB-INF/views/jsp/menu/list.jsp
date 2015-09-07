@@ -45,12 +45,12 @@
 							<table class="table table-hover" id="menuTable">
 								<thead>
 									<tr>
-										<th>菜单名称</th>
-										<th>菜单类型</th>
-										<th>菜单说明</th>
-										<th>菜单唯一Key</th>
-										<th>菜单图标</th>
-										<th>菜单状态</th>
+										<th style="width:15%;">菜单名称</th>
+										<th style="width:10%;">菜单类型</th>
+										<th style="width:15%;">菜单说明</th>
+										<th style="width:15%;">菜单唯一Key</th>
+										<th style="width:10%;">菜单图标</th>
+										<th style="width:10%;">菜单状态</th>
 										<th>操作</th>
 									</tr>
 								</thead>

@@ -29,6 +29,7 @@ import com.demo.java.user.service.UserService;
 import com.demo.java.web.common.controller.AbstractController;
 import com.demo.java.web.common.response.ResponseContent;
 import com.demo.java.web.common.vo.PageVo;
+import com.demo.java.web.menu.response.MenuEnum;
 import com.demo.java.web.role.response.RoleEnum;
 import com.demo.java.web.user.response.UserEnum;
 
@@ -95,6 +96,27 @@ public class UserController extends AbstractController {
         User user = userService.get(id);
         model.addObject("user", user);
         return model;
+    }
+
+    /**
+     * 更新用户状态.<br/>
+     * 
+     * @author zhanghanlin
+     * @param id
+     * @param status
+     * @param request
+     * @return
+     * @since JDK 1.7
+     */
+    @RequiresPermissions("system:useru")
+    @RequestMapping(value = "update/status", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseContent<User> updateStatus(@RequestParam Long id, @RequestParam int status) {
+        int res = userService.updateStatus(id, status);
+        if (res > 0) {
+            return new ResponseContent<User>(MenuEnum.SUCCESS, userService.get(id));
+        }
+        return new ResponseContent<User>(MenuEnum.ERROR);
     }
 
     /**
