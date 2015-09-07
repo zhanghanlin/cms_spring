@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.demo.java.common.utils.UserUtils;
 import com.demo.java.menu.entity.Menu;
 import com.demo.java.menu.service.MenuService;
@@ -159,6 +161,36 @@ public class MenuController extends AbstractController {
             map.put(m.getParentId().toString(), subList);
         }
         return map;
+    }
+
+    /**
+     * 左导航树.<br/>
+     * 
+     * @author zhanghanlin
+     * @return
+     * @since JDK 1.7
+     */
+    @RequestMapping("simple/tree")
+    @ResponseBody
+    public JSONArray simpleTree() {
+        JSONArray array = new JSONArray();
+        List<Menu> list = menuService.findAll();
+        for (Menu m : list) {
+            JSONObject obj = new JSONObject();
+            obj.put("id", m.getId());
+            obj.put("pId", m.getParentId());
+            obj.put("name", m.getName());
+            if (m.getParentId().longValue() == 0L) {
+                obj.put("open", true);
+            }
+            array.add(obj);
+        }
+        JSONObject obj = new JSONObject();
+        obj.put("id", 0);
+        obj.put("name", "顶级分类");
+        obj.put("open", true);
+        array.add(obj);
+        return array;
     }
 
     /**

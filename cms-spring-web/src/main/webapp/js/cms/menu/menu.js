@@ -70,9 +70,6 @@ $(function() {
 			var status = o.status;
 			if (status != menu.Status.DELETE) {
 				str.push('<a role="button" class="btn btn-default btn-xs" href="/menu/edit/{id}" data-toggle="modal" data-target="#modal">编辑</a>');
-				if (o.type == 0) {
-					str.push('<a role="button" class="btn btn-default btn-xs" href="/menu/toAdd/{id}" data-toggle="modal" data-target="#modal">新增子菜单</a>');
-				}
 				str.push('<a role="button" class="btn btn-default btn-xs delete" status="2">删除</a>');
 				if (status == menu.Status.NORMAL) {
 					str.push('<a role="button" class="btn btn-default btn-xs disable" status="1">禁用</a>');

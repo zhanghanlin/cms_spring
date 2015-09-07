@@ -4,7 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="/css/bootstrap/bootstrap-select.css" rel="stylesheet" type="text/css">
+	<link href="/css/ztree/ztree.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+	.selectMenuCont {
+		display: none;
+		position: absolute;
+		background-color: #CFB;
+		z-index: 999;
+		width: 88%;
+		border: 1px solid #ccc;
+	}
+	</style>
 </head>
 <body>
 	<form action="${action }" method="post" class="form-horizontal">
@@ -32,7 +42,10 @@
 								<div class="form-group" id="menuDirectory">
 									<label class="col-sm-2 control-label">父级分类</label>
 									<div class="col-sm-5">
-										<select class="form-control selectpicker" id="select_menu" name="parentId" ${disabled }></select>
+										<input id="selectMenu" type="text" class="form-control" readonly="readonly" ${disabled }/>
+										<div id="selectMenuCont" class="selectMenuCont">
+											<ul id="menuTree" class="ztree "></ul>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -134,7 +147,7 @@
 				data-dismiss="modal">关闭</button>
 		</div>
 	</form>
-	<script type="text/javascript" src="/js/bootstrap/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="/js/jquery/jquery.ztree.all.min.js"></script>
 	<script type="text/javascript" src="/js/cms/menu/input.js"></script>
 </body>
 </html>

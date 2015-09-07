@@ -1,27 +1,37 @@
 $(function() {
 	var menuInput = {
 		initSelect : function() {
-			$.getJSON('/menu/all', function(data) {
-				var html = '<option value="0">顶级分类</option>'
-						+ menuInput.selectHtml(data[0], data);
-				$('#select_menu').html(html).selectpicker();
-				$('#select_menu').selectpicker('val', $('#parentId').val());
-			});
-		},
-		selectHtml : function(arr, data) {
-			var html = '';
-			$.each(arr, function(i, o) {
-				var sp = '';
-				for ( var i = 1; i < o.level; i++) {
-					sp += '&nbsp;&nbsp;&nbsp;&nbsp;';
+			$.getJSON('/menu/simple/tree', function(data) {
+				var setting = {
+					data : {
+						simpleData : {
+							enable : true
+						}
+					},
+					callback : {
+						onClick : function(e, treeId, treeNode) {
+							var zTree = $.fn.zTree.getZTreeObj("menuTree");
+							var nodes = zTree.getSelectedNodes();
+							$('#selectMenu').val(nodes[0].name);
+							$('#parentId').val(nodes[0].id);
+							menuInput.hideMenu();
+							return false;
+						}
+					}
+				};
+				$.fn.zTree.init($("#menuTree"), setting, data);
+				var zTree = $.fn.zTree.getZTreeObj("menuTree");
+				var defaultNode = zTree.getNodeByParam('id', $('#parentId')
+						.val());
+				if (defaultNode) {
+					$('#selectMenu').val(defaultNode.name);
+					zTree.selectNode(defaultNode);
 				}
-				html += '<option value="' + o.id + '">' + sp + o.name
-						+ '</option>';
-				if (data[o.id]) {
-					html += menuInput.selectHtml(data[o.id], data);
-				}
 			});
-			return html;
+			$('#selectMenu').click(function() {
+				$("#selectMenuCont").slideDown("fast");
+				$("body").bind("mousedown", menuInput.onBodyDown);
+			});
 		},
 		iconBlur : function() {
 			if ($('#icon').val()) {
@@ -46,6 +56,17 @@ $(function() {
 				}
 			};
 			$(".form-horizontal").ajaxForm(options);
+		},
+		hideMenu : function() {
+			$("#selectMenuCont").fadeOut("fast");
+			$("body").unbind("mousedown", menuInput.onBodyDown);
+		},
+		onBodyDown : function(event) {
+			if (!(event.target.id == "selectMenu"
+					|| event.target.id == "selectMenuCont" || $(event.target)
+					.parents("#selectMenuCont").length > 0)) {
+				menuInput.hideMenu();
+			}
 		}
 	};
 	menuInput.ajaxForm();
