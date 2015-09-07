@@ -23,12 +23,12 @@
 							<table class="table table-hover" id="userTable">
 								<thead>
 									<tr>
-										<th style="width:19%;">用户名</th>
+										<th style="width:15%;">用户名</th>
 										<th style="width:19%;">邮箱</th>
 										<th style="width:19%;">角色</th>
-										<th style="width:19%;">状态</th>
+										<th style="width:10%;">状态</th>
 										<th style="width:20%;">创建时间</th>
-										<th><input type="checkbox" /></th>
+										<th>操作</th>
 									</tr>
 								</thead>
 								<tbody></tbody>
